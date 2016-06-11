@@ -1,6 +1,6 @@
 #  trippi-ubc-cs304-project/README.md
 
-Notes for The Others, our 304 group:
+Notes for The Others, our CS304 group:
 
 - Make sure you pull or place the project to XAMPP/htdocs
 
