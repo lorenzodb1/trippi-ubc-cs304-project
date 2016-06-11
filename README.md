@@ -1,4 +1,5 @@
-# ubc-cpsc304-project
+#  trippi-ubc-cs304-project/README.md
+
 Notes for The Others, our 304 group:
 
 - Make sure you pull or place the project to XAMPP/htdocs
@@ -9,4 +10,4 @@ Notes for The Others, our 304 group:
 
 - Once you have composer working, run php composer.phar install on the terminal
 
-- Once you have XAMPP running with Apache, and MySQL running, you should be able to run the app with http://localhost/trippi304/public/
+- Once you have XAMPP running with Apache, and MySQL running, you can run the app with http://localhost/<name of project folder>/public/
