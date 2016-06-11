@@ -1,0 +1,36 @@
+{% extends 'templates/app.twig' %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-8">
+            <p>Hello, {{ profile.name }}</p>
+            <p>Here is your profile information:</p>
+            {% include 'profile/partials/profile_table_item.twig' with {trip: trip} %}
+        </div>
+
+        <div class="col-md-4">
+            <div class="container">
+                <h2>Basic Table</h2>
+                <p>The .table class adds basic styling (light padding and only horizontal dividers) to a table:</p>
+                <table class="table table-condensed table-hover">
+                    <thead>
+                    <tr>
+                        <th>City</th>
+                        <th>Country</th>
+                        <th>Rating</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+
+                    {% for index, trip in trips %}
+                        {% include 'profile/partials/trip_table_item.twig' with {trip: trip} %}
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
