@@ -37,7 +37,8 @@ class Db{
     public function query($query) {
         $connection = $this -> connect();
 
-        $result = $connection-> query ($query);
+        // TODO: query may actually be mysqli_query()
+        $result = $connection-> query($query);
 
         return $result;
     }
