@@ -8,3 +8,7 @@
 
 
 $app->get('/', ['Trippi\Controllers\HomeController', 'index'])->setName('home');
+
+$app->post('/', ['Trippi\Controllers\HomeController', 'signIn'])->setName('signIn');
+
+$app->get('/Trips', ['Trippi\Controllers\HomeController', 'signIn'])->setName('Trips.signIn');
