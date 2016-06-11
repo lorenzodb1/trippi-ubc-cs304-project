@@ -55,7 +55,7 @@ class Authentication{
       if( $result != false ) {
         // Successful Match
         $rows = array();
-        while($row = mysql_fetch_array($result)) {
+        while($row = mysqli_fetch_array($result)) {
           $rows[] = $row;
         }
         return $rows;
