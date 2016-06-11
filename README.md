@@ -10,4 +10,4 @@ Notes for The Others, our CS304 group:
 
 - Once you have composer working, run php composer.phar install on the terminal
 
-- Once you have XAMPP running with Apache, and MySQL running, you can run the app with http://localhost/<name of project folder>/public/
+- Once you have XAMPP running with Apache, and MySQL running, you can run the app with http://localhost/*name of project folder*/public/
