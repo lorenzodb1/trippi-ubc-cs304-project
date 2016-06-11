@@ -1,12 +1,12 @@
 # ubc-cpsc304-project
-notes for our 304 group:
+Notes for The Others, our 304 group:
 
-make sure you pull or place the project to XAMPP/htdocs.
+- Make sure you pull or place the project to XAMPP/htdocs
 
-make sure you have intalled composer https://getcomposer.org into the project folder.
+- Make sure you have intalled composer https://getcomposer.org into the project folder
 
-you might need to update you php to 5.6 for composer to work properly when building certain libraries.
+- You might need to update PHP to 5.6 for composer to work properly when building certain libraries
 
-once you have composer working run php composer.phar install
+- Once you have composer working, run php composer.phar install on the terminal
 
-once you have xampp running with appache and mysql running you should be able to run the app with http://localhost/trippi304/public/
+- Once you have XAMPP running with Apache, and MySQL running, you should be able to run the app with http://localhost/trippi304/public/
