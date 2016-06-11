@@ -31,7 +31,9 @@ class HomeController{
     
     public function signIn(Response $response, Request $request, Twig $view, Router $router){
 
-        $email = $request->getAttribute('email');
+        $data = $request->getParsedBody();
+        $email = filter_var($data['email'],FILTER_SANITIZE_STRING);
+        
         var_dump($email);
         //$email = $array[0];
         //$password = $request->getAttribute('password');
@@ -44,7 +46,7 @@ class HomeController{
             $query2 = "SELECT a.locationID, l.city, l.country, a.rating FROM accomodation a, location l WHERE a.locationID = l.locationID and a.rating > 2";
 
             $tripsHotelResult = $db->query($query2);
-            return $view->render($response, 'Trips/Trips.twig', [
+            return $view->render($response, 'profile/profile.twig', [
                 'trips'=> $tripsHotelResult
             ]);
             

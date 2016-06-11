@@ -1,0 +1,27 @@
+{% extends 'templates/app.twig' %}
+
+{% block content %}
+
+    <div class="row">
+
+
+
+    {% for index, trip in trips %}
+        <div class="col-md-4 col-sm-6">
+            {% include 'Trips/partials/item.twig' with {trip: trip} %}
+        </div>
+        {% if (index + 1) % 3 ==0 %}
+            </div>
+
+            <div class="row">
+        {% endif %}
+
+
+
+    {% endfor %}
+
+
+
+    </div>
+
+{% endblock %}
