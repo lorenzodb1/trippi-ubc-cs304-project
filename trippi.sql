@@ -34,6 +34,8 @@ create table user
 		hometown varchar(40) null,
 		country varchar(40) null,
 		dateOfBirth date null,
+		aboutMe varchar(140) null,
+		rating int(1) null,
 		primary key (email));
 
 create table admin
@@ -139,34 +141,34 @@ CREATE TABLE tripRating
 
 
 insert into user
-	values('bob@gmail.com', 'bobsmith', 'apples', 'Bob Smith', 'Vancouver', 'Canada', '1995-09-12');
+	values('bob@gmail.com', 'bobsmith', 'apples', 'Bob Smith', 'Vancouver', 'Canada', '1995-09-12', 'I am cool', 4);
 
 insert into user
-	values('mary123@gmail.com', 'mary123', 'pears', 'Mary Jackson', 'Kelowna', 'Canada', '1990-04-09');
+	values('mary123@gmail.com', 'mary123', 'pears', 'Mary Jackson', 'Kelowna', 'Canada', '1990-04-09', 'I am cool', 3);
 
 insert into user
-	values('lalla@hotmail.com', 'lallala', 'watermelon', 'Lalla Peterson', 'Rome', 'Italy', '1987-04-11');
+	values('lalla@hotmail.com', 'lallala', 'watermelon', 'Lalla Peterson', 'Rome', 'Italy', '1987-04-11', 'I am cool', 2);
 
 insert into user
-	values('johndavies@gmail.com', 'johnnyd', 'grapes', 'John Davies', 'Paris', 'France', '1956-02-20');
+	values('johndavies@gmail.com', 'johnnyd', 'grapes', 'John Davies', 'Paris', 'France', '1956-02-20', 'I am cool', 1);
 
 insert into user
-	values('garylee@gmail.com', 'glee', 'peaches', 'Gary Lee', 'Victoria', 'Canada', '1971-07-13');
+	values('garylee@gmail.com', 'glee', 'peaches', 'Gary Lee', 'Victoria', 'Canada', '1971-07-13', 'I am cool', 5);
 
 insert into user
-	values('hsimpson@gmail.com', 'howardsimpson', 'plums', 'Howard Simpson', 'Burnaby', 'Canada', '1978-06-21');
+	values('hsimpson@gmail.com', 'howardsimpson', 'plums', 'Howard Simpson', 'Burnaby', 'Canada', '1978-06-21', 'I am cool', null);
 
 insert into user
-	values('cool.dude@gmail.com', 'cool786pson', 'pl777ums', 'Cool dude', 'Winnipeg', 'Canada', '1980-06-22');
+	values('cool.dude@gmail.com', 'cool786pson', 'pl777ums', 'Cool dude', 'Winnipeg', 'Canada', '1980-06-22', 'I am cool', 4);
 
 insert into user
-	values('jeco@gmail.com', 'jecoIo', 'love', 'Jeco Simpson', 'Whistler', 'Canada', '1972-08-21');
+	values('jeco@gmail.com', 'jecoIo', 'love', 'Jeco Simpson', 'Whistler', 'Canada', '1972-08-21', 'I am cool', null);
 
 insert into user
-	values('pilo@gmail.com', 'piloCY', 'heyoo', 'Pilo Zes', 'Calgary', 'Canada', '1985-06-21');
+	values('pilo@gmail.com', 'piloCY', 'heyoo', 'Pilo Zes', 'Calgary', 'Canada', '1985-06-21', 'I am cool', null);
 
 insert into user
-	values('tuso@gmail.com', 'tuso82', 'mepickyou', 'Tuso Jelo', 'Edmonton', 'Canada', '1982-06-21');
+	values('tuso@gmail.com', 'tuso82', 'mepickyou', 'Tuso Jelo', 'Edmonton', 'Canada', '1982-06-21', 'I am not cool', 1);
 
 insert into admin
 	values('bob@gmail.com');
