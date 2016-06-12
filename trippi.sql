@@ -1,4 +1,5 @@
 use DB_trippi;
+-- use testing_DB;
 -- SET FOREIGN_KEY_CHECKS=0;
 DROP TABLE IF EXISTS user CASCADE;
 DROP TABLE IF EXISTS admin CASCADE;

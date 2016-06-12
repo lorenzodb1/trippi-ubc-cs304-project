@@ -16,17 +16,20 @@
                     <table class ="table">
                         <thead>
                         <tr>
-                            <th>City</th>
-                            <th>Country</th>
-                            <th>Rating</th>
+                            <th>Trip Id</th>
+                            <th>Trip Name</th>
+                            <th>From</th>
+                            <th>To</th>
+
                         </tr>
                         </thead>
                         <tbody>
                         {% for index, trip in trips %}
                             <tr>
-                                <td>{{ trip.city }}</td>
-                                <td>{{ trip.country }}</td>
-                                <td>{{ trip.rating }}</td>
+                                <td><a href="#">{{ trip.id }}</a></td>
+                                <td>{{ trip.tripName }}</td>
+                                <td>{{ trip.from }}</td>
+                                <td>{{ trip.to }}</td>
                             </tr>
                         {% endfor %}
                         </tbody>
@@ -34,7 +37,7 @@
 
                     </table>
                 </div>
-                {
+
              {% else %}
                 <p> You currently have no trips </p>
              {% endif %}

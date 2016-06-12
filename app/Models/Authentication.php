@@ -34,7 +34,7 @@ class Authentication{
   // Return info associated with user (as an array) if email and password match, otherwise return false
   public function login($email, $password) {
     $db = new Db();
-    $query = "SELECT `email`,`username`,`name`,`hometown`,`country`,`dateOfBirth` 
+    $query = "SELECT `email`,`username`,`name`,`hometown`,`country`,`dateOfBirth`, `aboutMe` 
               FROM `user` 
               WHERE email=" .$this->mysqlString($email) . " AND password= " .$this->mysqlString($password);
     $result = $db->query($query);
@@ -54,12 +54,22 @@ class Authentication{
     return '\'' . $string . '\'';
   }
 
-  //TODO change this to trips realated to user this one is all hotel ocations for testing purspose
 
+  /**
+   * @param $email user email
+   * @return mixed query of all trip info associated with the user.
+   */
   public function userTrips($email){
     $db = new Db();
-    $query2 = "SELECT a.locationID, l.city, l.country, a.rating FROM accomodation a, location l WHERE a.locationID = l.locationID and a.rating > 2";
-    $tripsHotelResult = $db->query($query2);
+    $query = "SELECT t.tripId as id, t.tripName as tripName, t.startDate as `from`, t.endDate as `to` 
+              FROM  joins j, trip t 
+              WHERE" . $this->mysqlString($email) . "=j.email AND j.tripId = t.tripId
+              UNION
+              SELECT t.tripId as id, t.tripName as tripName, t.startDate as `from`, t.endDate as `to` 
+              FROM  plan p, trip t 
+              WHERE" . $this->mysqlString($email) . "=p.email AND p.tripId = t.tripId";
+    //$query2 = "SELECT a.locationID, l.city, l.country, a.rating FROM accomodation a, location l WHERE a.locationID = l.locationID and a.rating > 2";
+    $tripsHotelResult = $db->query($query);
     return $tripsHotelResult;
   }
 }

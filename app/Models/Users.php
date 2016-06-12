@@ -25,7 +25,7 @@ class Users {
   public function searchByUserEmail($email) {
       $query = "SELECT `email`,`username`,`name`,`hometown`,`country`,`dateOfBirth`,`aboutMe`,`rating` FROM `user` WHERE email='$email'";
 
-      return returnResult( $this->submitQuery($query));  
+      return returnResult( $this->submitQuery($query));
   }
 
   public function searchByUserRating($rating) {
@@ -73,28 +73,29 @@ class Users {
   public function returnUsersTravelledTO($city) {
     // trip status == complete
     // trip location == location
-    $query = "SELECT * FROM `joins` j, `user` u WHERE j.email = u.email AND j.tripID IN (SELECT T1.tripID FROM `location` L1, `travelling_transportation` T1 WHERE L1.locationID = T1.to_locationID and L1.city = '$city')"
+    $query = "SELECT * FROM `joins` j, `user` u WHERE j.email = u.email AND j.tripID IN (SELECT T1.tripID FROM `location` L1, `travelling_transportation` T1 WHERE L1.locationID = T1.to_locationID and L1.city = '$city')";
 
     return returnResult( $this->submitQuery($query));
   }
     
   // Return all trips a user is involved in
-  public function returnAllUsersTrips($email) {
-    $query = "SELECT `email`, `tripId` FROM `plan` p WHERE p.email = '$email' UNION SELECT `email`, `tripId` FROM `joins` j WHERE j.email = '$email'"
+    public function returnAllUsersTrips($email) {
+        $query = "SELECT `email`, `tripId` FROM `plan` p WHERE p.email = '$email' UNION SELECT `email`, `tripId` FROM `joins` j WHERE j.email = '$email'";
   
     return returnResult( $this->submitQuery($query));
   }
 
 
+    private function submitQuery($query){
+        $db = new Db();
+
+        return $db->query($query);
+
+    }
 
 
-  // Helper function to setup DB connection, submit
-  // query and return a result
-  private function submitQuery(%query) {
-    $db = new Db();
 
-    return $db->query($query);
-  }
+
 
   // Helper function for returning results into an
   // array
