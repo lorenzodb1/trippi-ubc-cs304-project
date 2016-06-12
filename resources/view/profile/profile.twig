@@ -4,6 +4,22 @@
 
     <div class="row">
 
+    {% for index, user in users %}
+        <div class="col-md-4 col-sm-6">
+            {{ user.name }}
+            {{ user.email }}
+        </div>
+        {% if (index + 1) % 3 ==0 %}
+            </div>
+
+            <div class="row">
+        {% endif %}
+
+
+
+    {% endfor %}
+
+
 
 
     {% for index, trip in trips %}

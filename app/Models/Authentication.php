@@ -8,13 +8,9 @@
 namespace Trippi\Models;
 
 use mysqli;
-use Models\Db;
+use Trippi\Models\Db;
 
 class Authentication{
-    // the database connection
-    protected static $connection;
-
-
     /*
      * Verify the email is valid for login
      * This is undertaken after the user tries to log in.
@@ -23,7 +19,7 @@ class Authentication{
       // Verify that email contains @
       $db = new Db();
 
-      $query = "SELECT `email` FROM `user` WHERE email='$email'";
+      $query = "SELECT `email` FROM `user` WHERE email= " . $this->mysqlString($email);
 
       $result = $db->query($query);
 
@@ -43,19 +39,16 @@ class Authentication{
     // matches, then they are authenticated and may 
     // log in.
     // Return info associated with user (as an array) if email and password match, otherwise return false
-    public function login($email, $password) {
-      $db = new Db();
-      $result = $db->query();
-
-
-      $query = "SELECT `email`,`username`,`name`,`hometown`,`country`,`dateOfBirth` FROM `user` WHERE email='$email' AND password='$password'";
-
+  public function login($email, $password) {
+    $db = new Db();
+    $query = "SELECT `email`,`username`,`name`,`hometown`,`country`,`dateOfBirth` 
+              FROM `user` 
+              WHERE email=" .$this->mysqlString($email) . " AND password= " .$this->mysqlString($password);
       $result = $db->query($query);
-
       if( $result != false ) {
         // Successful Match
         $rows = array();
-        while($row = mysql_fetch_array($result)) {
+        while($row = mysqli_fetch_array($result)) {
           $rows[] = $row;
         }
         return $rows;
@@ -63,8 +56,28 @@ class Authentication{
         // No match found
         return false;
       }
-
     }
+
+   public function mysqlString($string){
+    return '\'' . $string . '\'';
+  }
+  
+  //TODO change this to trips realated to user this one is all hotel ocations for testing purspose
+  
+  public function userTrips($email){
+    $db = new Db();
+    $query2 = "SELECT a.locationID, l.city, l.country, a.rating FROM accomodation a, location l WHERE a.locationID = l.locationID and a.rating > 2";
+    $tripsHotelResult = $db->query($query2);
+    return $tripsHotelResult;
+
+
+
+  }
+
+
+
+
+
 
 
 }
