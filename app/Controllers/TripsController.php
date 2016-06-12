@@ -16,10 +16,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 class TripsController{
 
     public function index(Response $response, Request $request, Twig $view, Trip $trip){
-        $query = "SELECT a.locationID, l.city, l.country, a.rating 
-                  FROM accomodation a, location l 
-                  WHERE a.locationID = l.locationID AND 
-                        a.rating > 2";
+        $query = "SELECT a.locationID, l.city, l.country, a.rating FROM accomodation a, location l WHERE a.locationID = l.locationID and a.rating > 2";
 
         $db = new Db();
         $result = $db->query($query);
