@@ -43,9 +43,11 @@ class HomeController{
             else{
                 return $response->withRedirect($router->pathFor('home'));
             }
+
         }
         else{
             return $response->withRedirect($router->pathFor('home'));
+
         }
 
     }
