@@ -78,7 +78,7 @@ class Users {
       $query = "SELECT * 
                 FROM `joins` j, `user` u 
                 WHERE u.email = j.email AND 
-                      tripId =" . $this->mysqlString($tripId);
+                      tripId = " . $this->mysqlString($tripId);
 
       return returnResult( $this->submitQuery($query));
   }
@@ -94,7 +94,7 @@ class Users {
                     j.tripID IN (SELECT T1.tripID 
                                  FROM `location` L1, `travelling_transportation` T1 
                                  WHERE L1.locationID = T1.to_locationID AND 
-                                       L1.city =" . $this->mysqlString($city) . ")";
+                                       L1.city = " . $this->mysqlString($city) . ")";
 
     return returnResult( $this->submitQuery($query));
   }
@@ -103,11 +103,11 @@ class Users {
     public function returnAllUsersTrips($email) {
         $query = "SELECT `email`, `tripId` 
                   FROM `plan` p 
-                  WHERE p.email =" . $this->mysqlString($email) . " 
+                  WHERE p.email = " . $this->mysqlString($email) . " 
                   UNION 
                   SELECT `email`, `tripId` 
                   FROM `joins` j 
-                  WHERE j.email =" . $this->mysqlString($email);
+                  WHERE j.email = " . $this->mysqlString($email);
   
     return returnResult( $this->submitQuery($query));
   }
