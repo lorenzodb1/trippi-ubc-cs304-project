@@ -22,7 +22,7 @@ class HomeController{
     public function signIn(Response $response, Request $request, Twig $view, Router $router){
         $data = $request->getParsedBody();
         $email =  filter_var($data['email'],FILTER_SANITIZE_EMAIL);
-        $password =  filter_var($data['password'],FILTER_SANITIZE_STRING);
+        $password =  $data['password'];
         $authenticate = new Authentication();
         if($authenticate->verifyEmail($email)){
             //check if the password is correct

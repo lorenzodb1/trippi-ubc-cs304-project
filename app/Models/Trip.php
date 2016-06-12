@@ -17,7 +17,10 @@ class Trip{
     // return array of tripID and rating
     public function searchMaxTripRating() {
         $db = new Db();
-        $query = "SELECT tripId, rating FROM tripRating WHERE rating = (SELECT max(rating) from tripRating)";
+        $query = "SELECT tripId, rating 
+                  FROM tripRating 
+                  WHERE rating = (SELECT MAX(rating) 
+                                  FROM tripRating)";
         $result = $db->query($query);
         $rows = array();
         while($row = mysqli_fetch_array($result)) {
@@ -29,7 +32,10 @@ class Trip{
     // return array of tripID and rating
     public function searchMinTripRating() {
         $db = new Db();
-        $query = "SELECT tripId, rating FROM tripRating WHERE rating = (SELECT min(rating) from tripRating)";
+        $query = "SELECT tripId, rating 
+                  FROM tripRating 
+                  WHERE rating = (SELECT MIN(rating) 
+                                  FROM tripRating)";
         $result = $db->query($query);
         $rows = array();
         while($row = mysqli_fetch_array($result)) {
@@ -41,7 +47,10 @@ class Trip{
     // return array of tripID and rating (ordered by rating in descending order)
     public function searchAvgTripRatingByTrip() {
         $db = new Db();
-        $query = "SELECT tripID, avg(rating) FROM `tripRating` GROUP by tripID order by avg(rating) DESC";
+        $query = "SELECT tripID, AVG(rating) 
+                  FROM `tripRating` 
+                  GROUP BY tripID 
+                  ORDER BY AVG(rating) DESC";
         $result = $db->query($query);
         $rows = array();
         while($row = mysqli_fetch_array($result)) {
@@ -53,7 +62,9 @@ class Trip{
     // return array of tripID
     public function searchIncompleteTrips() {
         $db = new Db();
-        $query = "SELECT tripID FROM `trip` WHERE status = 'incomplete'";
+        $query = "SELECT tripID 
+                  FROM `trip` 
+                  WHERE status = 'incomplete'";
         $result = $db->query($query);
         $rows = array();
         while($row = mysqli_fetch_array($result)) {
@@ -65,7 +76,9 @@ class Trip{
     // return array of tripID
     public function searchCompleteTrips() {
         $db = new Db();
-        $query = "SELECT tripID FROM `trip` WHERE status = 'complete'";
+        $query = "SELECT tripID 
+                  FROM `trip` 
+                  WHERE status = 'complete'";
         $result = $db->query($query);
         $rows = array();
         while($row = mysqli_fetch_array($result)) {
@@ -77,7 +90,11 @@ class Trip{
     // return names of all people who have joined a trip with a specified tripID
     public function searchUsersOnTrip($tripID) {
         $db = new Db();
-        $query = "SELECT name FROM joins j, user u WHERE j.email = u.email AND tripId = '$tripID' ORDER BY name";
+        $query = "SELECT u.name 
+                  FROM joins j, user u 
+                  WHERE j.email = u.email AND 
+                        tripId = " . $tripID . " 
+                  ORDER BY u.name";
         $result = $db->query($query);
         $rows = array();
         while($row = mysqli_fetch_array($result)) {
@@ -89,12 +106,18 @@ class Trip{
     // return tripIDs of trip with specified startLocation
     public function searchTripsByStartLocation($location) {
         $db = new Db();
-        $query = "SELECT tripID FROM trip WHERE startLocation = '$location'";
+        $query = "SELECT tripID 
+                  FROM trip 
+                  WHERE startLocation = " . $this->mysqlString($location);
         $result = $db->query($query);
         $rows = array();
         while($row = mysqli_fetch_array($result)) {
             $rows[] = $row;
         }
         return $rows;
+    }
+
+    private function mysqlString($string){
+        return '\'' . $string . '\'';
     }
 }
