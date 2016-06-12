@@ -8,9 +8,9 @@
 namespace Trippi\Models;
 
 use mysqli;
-use Models\Db;
+use Trippi\Models\Db;
 
-class Users{
+class Users {
 
   /*
    * VANILLA USER SEARCH QUERIES
@@ -59,59 +59,68 @@ class Users{
       return returnResult( $this->submitQuery($query));
   }
 
-  // member of trip
+  
 
+  // Return all members participating in a particular trip
   public function returnMembersOfTrip($tripId) {
       $query = "SELECT * FROM `joins` j, `user` u WHERE u.email = j.email AND tripId='$tripId'";
 
       return returnResult( $this->submitQuery($query));
   }
-    // visited location
+    
 
-  public function returnUsersTravelledTO() {
+  // Return all members who have travelled to a location
+  public function returnUsersTravelledTO($city) {
+    // trip status == complete
+    // trip location == location
+    $query = "SELECT * FROM `joins` j, `user` u WHERE j.email = u.email AND j.tripID IN (SELECT T1.tripID FROM `location` L1, `travelling_transportation` T1 WHERE L1.locationID = T1.to_locationID and L1.city = '$city')"
 
+    return returnResult( $this->submitQuery($query));
+  }
+    
+  // Return all trips a user is involved in
+  public function returnAllUsersTrips($email) {
+    $query = "SELECT `email`, `tripId` FROM `plan` p WHERE p.email = '$email' UNION SELECT `email`, `tripId` FROM `joins` j WHERE j.email = '$email'"
+  
+    return returnResult( $this->submitQuery($query));
   }
 
 
 
 
+  // Helper function to setup DB connection, submit
+  // query and return a result
+  private function submitQuery(%query) {
+    $db = new Db();
 
- 
-    // travelling to
-    // travelling to by date
+    return $db->query($query);
+  }
+
+  // Helper function for returning results into an
+  // array
+  private function returnResult( $result ) {
+    if( $result ) {
+      // Successful Match
+      $rows = array();
+      while($row = mysqli_fetch_array($result)) {
+        $rows[] = $row;
+      }
+      return $rows;
+    } else {
+      // No match found
+      return false;
+    }  
+  }
+
+    // TODO:
+    // all users travelling to specific location
+        // travelling to by date
 
     // participating in activity
       // by date
 
 
-    // alll users who have been to location
     // all users who have done acivity
     // all users who have been to hotel
-    // 
-
-
-    // Helper function to setup DB connection, submit
-    // query and return a result
-    private function submitQuery(%query) {
-      $db = new Db();
-
-      return $db->query($query);
-    }
-
-    // Helper function for returning results into an
-    // array
-    private function returnResult( $result ) {
-      if( $result ) {
-        // Successful Match
-        $rows = array();
-        while($row = mysqli_fetch_array($result)) {
-          $rows[] = $row;
-        }
-        return $rows;
-      } else {
-        // No match found
-        return false;
-      }  
-  }
 
 }
