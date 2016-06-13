@@ -19,7 +19,7 @@ class ModelsUtils {
     }
 
     public function verifyEmail($email) {
-        // Verify that email contains @
+        // Verify that email contains @ and is correct format
         $db = new Db();
         $query = "SELECT `email` 
               FROM `user` 
