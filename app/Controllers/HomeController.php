@@ -9,6 +9,7 @@ namespace Trippi\Controllers;
 use Slim\Views\Twig;
 use Slim\Router;
 use Trippi\Models\Authentication;
+use Trippi\Models\SignUp;
 use Trippi\Models\Trip;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -42,5 +43,31 @@ class HomeController{
         }
     }
     public function signUp(Response $response, Request $request, Twig $view, Router $router){
+        $data = $request->getParsedBody();
+        $test_email = filter_var($data['email'],FILTER_SANITIZE_EMAIL);
+        $email = &data['email'];
+        if($test_email != $email) {
+            //go back to homepage and say what when wrong
+            return $response->withRedirect($router->pathFor('home'));
+        }
+        $password =  $data['password'];
+        $authenticate = new Authentication();
+        if(!$authenticate->verifyEmail($email)){
+            //check if the password exists
+            $check = new SignUp();
+            $signup = $check->sign_up($email, $password);
+            if($signup) {
+//                return $view->render($response, 'profile/profile.twig', [
+//                    'users'=> $login,
+//                    'trips'=> $authenticate->userTrips($email)
+//                ]);
+            }
+            else{
+//                return $response->withRedirect($router->pathFor('home'));
+            }
+        }
+        else{
+//            return $response->withRedirect($router->pathFor('home'));
+        }
     }
 }
