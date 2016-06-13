@@ -41,6 +41,7 @@ class HomeController{
             return $response->withRedirect($router->pathFor('home'));
         }
     }
-    public function signUp(Response $response, Request $request, Twig $view, Router $router){
+    public function getTrip(Response $response, Request $request, Twig $view, Router $router){
+        return $view->render($response, 'trip/trip.twig');
     }
 }

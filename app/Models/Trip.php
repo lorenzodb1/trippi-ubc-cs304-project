@@ -91,7 +91,7 @@ class Trip{
     public function searchUsersOnTrip($tripID) {
         $db = new Db();
         $query = "SELECT u.name 
-                  FROM joins j, user u 
+                  FROM joins j, `user` u 
                   WHERE j.email = u.email AND 
                         tripId = " . $tripID . " 
                   ORDER BY u.name";
@@ -119,5 +119,94 @@ class Trip{
 
     private function mysqlString($string){
         return '\'' . $string . '\'';
+    }
+
+    public function getLocationsByTripId($tripId){
+        $db = new Db();
+
+        $query = "SELECT l.city AS city,
+                         l.country AS country
+                  FROM location l, travelling_transportation t
+                  WHERE (l.locationID = t.from_locationID or 
+                        l.locationID = t.to_locationID) AND" .
+                         $this->mysqlString($tripId) . " = 
+                        t.tripID";
+
+        $result = $db->query($query);
+        return $result;
+    }
+
+    public function getTravelingInformationByTripId($tripId){
+        $db = new Db();
+
+        $query = "SELECT l1.city AS fromCity,
+                         l1.country AS fromCountry,
+                         l2.city AS toCity,
+                         l2.country AS toCountry,
+                         t.type AS typeTravel,
+                         t.startDate AS fromDate,
+                         t.endDate AS toDate
+                  FROM location l1, location l2, travelling_transportation t
+                  WHERE l1.locationID = t.from_locationID AND 
+                        l2.locationID = t.to_locationID AND" .
+                        $this->mysqlString($tripId) . "= t.tripID";
+
+        $result = $db->query($query);
+
+        return $result;
+    }
+
+    public function getActivitiesByTripId($tripId){
+        $db = new Db();
+
+        $query = "SELECT l.city AS city,
+                         l.country AS country,
+                         a.name AS activityName,
+                         a.place AS activityPlace,
+                         a.adate AS `date`
+                  FROM location l, travelling_transportation t, activity a
+                  WHERE (l.locationID = t.from_locationID or 
+                        l.locationID = t.to_locationID) AND" .
+                        $this->mysqlString($tripId) . " = 
+                        t.tripID AND
+                        (a.locationID = t.from_locationID or
+                        a.locationID = t.to_locationID)";
+
+        $result = $db->query($query);
+        return $result;
+
+    }
+
+    public function getAccomodationsByTripId($tripId){
+        $db = new Db();
+
+        $query = "SELECT l.city AS city,
+                         l.country AS country,
+                         a.name AS `name`,
+                         a.type AS `type`,
+                         a.rating AS rating,
+                         a.startDate AS `from`,
+                         a.endDate AS `to`
+                  FROM location l, travelling_transportation t, accomodation a
+                  WHERE (l.locationID = t.from_locationID or 
+                        l.locationID = t.to_locationID) AND" .
+                        $this->mysqlString($tripId) . " = 
+                        t.tripID AND
+                        (a.locationID = t.from_locationID or
+                        a.locationID = t.to_locationID)";
+
+        $result = $db->query($query);
+        return $result;
+    }
+    public function getTripNameById($tripId){
+        $db = new Db();
+
+        $query = "SELECT t.tripName AS tripName
+                  FROM trip t
+                  WHERE t.tripId =" . $this->mysqlString($tripId);
+
+        $result = $db->query($query);
+        return $result;
+        
     }
 }
