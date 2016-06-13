@@ -3,33 +3,45 @@
 {% block content %}
 
     <div class="row">
-        <div class="col-md-8">
-            <p>Hello, {{ profile.name }}</p>
-            <p>Here is your profile information:</p>
-            {% include 'profile/partials/profile_table_item.twig' with {trip: trip} %}
+        <div class="col-md-4">
+            {% for index, user in users %}
+                {% include 'profile/partials/profile_item.twig' with {user: user} %}
+            {% endfor %}
         </div>
 
-        <div class="col-md-4">
-            <div class="container">
-                <h2>Basic Table</h2>
-                <p>The .table class adds basic styling (light padding and only horizontal dividers) to a table:</p>
-                <table class="table table-condensed table-hover">
-                    <thead>
-                    <tr>
-                        <th>City</th>
-                        <th>Country</th>
-                        <th>Rating</th>
-                    </tr>
-                    </thead>
+        <div class="col-md-8">
+            <h3>Your Trips</h3>
+            {% if trips %}
+                <div class="well">
+                    <table class ="table">
+                        <thead>
+                        <tr>
+                            <th>Trip Id</th>
+                            <th>Trip Name</th>
+                            <th>From</th>
+                            <th>To</th>
 
-                    <tbody>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for index, trip in trips %}
+                            <tr>
+                                <td><a href="{{ path_for('trip.getTrip', {tripId: trip.id})}}" method="post">{{ trip.id }}</a></td>
+                                <td>{{ trip.tripName }}</td>
+                                <td>{{ trip.from }}</td>
+                                <td>{{ trip.to }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
 
-                    {% for index, trip in trips %}
-                        {% include 'profile/partials/trip_table_item.twig' with {trip: trip} %}
-                    {% endfor %}
-                    </tbody>
-                </table>
-            </div>
+
+                    </table>
+                </div>
+
+             {% else %}
+                <p> You currently have no trips </p>
+             {% endif %}
+
         </div>
     </div>
 

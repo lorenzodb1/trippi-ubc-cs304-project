@@ -1,38 +1,41 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: Lorenzo De Bernardini
- * Date: 11/06/2016
- * Time: 4:28 PM
+ * User: samirmarin
+ * Date: 2016-06-12
+ * Time: 8:32 PM
  */
 
 namespace Trippi\Controllers;
 
-use Slim\Views\Twig;
 use Slim\Router;
 use Trippi\Models\Trip;
-use Trippi\Models\Db;
+
+
+use Slim\Views\Twig;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
-use Illuminate\Database\Capsule\Manager as Capsule;
-
-
 class ProfileController{
-    public function get(Response $response, Request $request, Twig $view, Trip $trip){
-        $query = "SELECT a.locationID, l.city, l.country, a.rating 
-                  FROM accomodation a, location l 
-                  WHERE a.locationID = l.locationID AND 
-                        a.rating > 2";
 
-        $db = new Db();
-        $result = $db->query($query);
-        return $view->render($response, 'login.twig', [
-            //'trips'=> $result
+    public function getTrip($tripId, Request $request, Response $response, Twig $view){
+
+        $tripModel = new Trip();
+        $locations = $tripModel->getLocationsByTripId($tripId);
+        $travelInfo = $tripModel->getTravelingInformationByTripId($tripId);
+        $accommodations = $tripModel->getAccomodationsByTripId($tripId);
+        $activities = $tripModel->getActivitiesByTripId($tripId);
+        $tripNames = $tripModel->getTripNameById($tripId);
+        
+        return $view->render($response, 'trip/trip.twig', [
+            'locations'=> $locations,
+            'travelInfo'=> $travelInfo,
+            'accommodations'=> $accommodations,
+            'activities'=>$activities,
+            'tripNames'=>$tripNames
         ]);
-    }
-}
+        
 
-/*
- *
- */
+    }
+
+}

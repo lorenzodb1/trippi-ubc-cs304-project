@@ -1,4 +1,5 @@
 use DB_trippi;
+-- use testing_DB;
 -- SET FOREIGN_KEY_CHECKS=0;
 DROP TABLE IF EXISTS user CASCADE;
 DROP TABLE IF EXISTS admin CASCADE;
@@ -55,6 +56,8 @@ create table trip
 		startDate date not null,
 		endDate date not null,
 		status varchar(20) not null,
+		tripName varchar(30) not null,
+		startLocation varchar(30) not null,
 		primary key(tripId),
 		foreign key(startDate, endDate) references trip_duration(startDate, endDate));
 
@@ -210,28 +213,28 @@ insert into trip_duration
 	values('2016-10-11', '2016-10-19', '8 days');
 
 insert into trip
-	values('10000000', '2016-07-01', '2016-07-25', 'incomplete');
+	values('10000000', '2016-07-01', '2016-07-25', 'incomplete', 'Sweet Trip 1!', 'Washington D.C.');
 
 insert into trip
-	values('10000001', '2013-03-02', '2016-03-09', 'complete');
+	values('10000001', '2013-03-02', '2016-03-09', 'complete', 'Sweet Trip 2!', 'Toronto');
 
 insert into trip
-	values('10000002', '2011-04-10', '2016-04-20', 'complete');
+	values('10000002', '2011-04-10', '2016-04-20', 'complete', 'Sweet Trip 3!', 'Seattle');
 
 insert into trip
-	values('10000003', '2016-12-08', '2016-12-28', 'incomplete');
+	values('10000003', '2016-12-08', '2016-12-28', 'incomplete', 'Sweet Trip 4!', 'London');
 
 insert into trip
-	values('10000004', '2016-09-13', '2016-09-26', 'incomplete');
+	values('10000004', '2016-09-13', '2016-09-26', 'incomplete', 'Sweet Trip 5!', 'Venice');
 
 insert into trip
-	values('10000005', '2015-01-09', '2016-01-29', 'complete');
+	values('10000005', '2015-01-09', '2016-01-29', 'complete', 'Sweet Trip 6!', 'Aruba');
 
 insert into trip
-	values('10000006', '2014-06-12', '2016-06-22', 'complete');
+	values('10000006', '2014-06-12', '2016-06-22', 'complete', 'Sweet Trip 7!', 'Sydney');
 
 insert into trip
-	values('10000007', '2016-10-11', '2016-10-19', 'incomplete');
+	values('10000007', '2016-10-11', '2016-10-19', 'incomplete', 'Sweet Trip 8!', 'Vancouver');
 
 insert into plan
 	values('10000000','bob@gmail.com');

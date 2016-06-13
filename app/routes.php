@@ -9,6 +9,11 @@
 
 $app->get('/', ['Trippi\Controllers\HomeController', 'index'])->setName('home');
 
-$app->post('/', ['Trippi\Controllers\HomeController', 'signIn'])->setName('signIn');
+$app->post('/profile', ['Trippi\Controllers\HomeController', 'signIn'])->setName('signIn');
 
-$app->get('/profile', ['Trippi\Controllers\HomeController', 'signIn'])->setName('profile.signIn');
+
+//TODO: SM: this rout naming a a bit confusing it goes to the home buts its route with trips time permiting we can refactor the name.
+$app->get('/profile', ['Trippi\Controllers\HomeController', 'signIn'])->setName('Trips.signIn');
+
+$app->get('/profile/{tripId}', ['Trippi\Controllers\ProfileController', 'getTrip'])->setName('trip.getTrip');
+
