@@ -32,7 +32,7 @@ class Profile {
     public function update_profile($username, $password, $data_type, $new_data) {
         $db = new Db();
         $query = "UPDATE `user`
-                  SET " . ModelsUtils::mysqlstring($data_type) . " = " . ModelsUtils::mysqlstring($new_data) . "
+                  SET " . ModelsUtils::mysqlstring($data_type) . " = " . ModelsUtils::mysqlstring($new_data) . " 
                   WHERE `username` = " . ModelsUtils::mysqlstring($username) . " AND `password` = " . ModelsUtils::mysqlstring($password);
         $result = $db->query($query);
         return true;
@@ -40,7 +40,7 @@ class Profile {
 
     public function delete_profile($username, $password) {
         $db = new Db();
-        $query = "DELETE FROM `user`
+        $query = "DELETE FROM `user` 
                   WHERE `username` = " . ModelsUtils::mysqlstring($username) . " AND `password` = " . ModelsUtils::mysqlstring(password);
         $result = $db->query($query);
         if($result) {
