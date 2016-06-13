@@ -7,10 +7,10 @@
  */
 namespace Trippi\Models;
 use mysqli;
-use Trippi\Models\Db;
+//use Trippi\Models\Db;
 
 
-class Trip extends Model{
+class Trip{
 
     /**
      * The table associated with the model.
@@ -147,6 +147,56 @@ class Trip extends Model{
         }
         return $rows;
     }
+
+
+    // return tripIDs of trip with duration equal to specified duration
+    public function searchTripsByEqualDuration($duration) {
+
+        $db = new Db();
+
+        $query = "SELECT tripID FROM trip t, trip_duration d WHERE t.startDate = d.startDate AND t.endDate = d.endDate AND duration = '$duration''";
+
+        $result = $db->query($query);
+
+        $rows = array();
+        while($row = mysqli_fetch_array($result)) {
+            $rows[] = $row;
+        }
+        return $rows;
+    }
+
+    // return tripIDs of trip with duration greater than specified duration
+    public function searchTripsByGreaterDuration($duration) {
+
+        $db = new Db();
+
+        $query = "SELECT tripID FROM trip t, trip_duration d WHERE t.startDate = d.startDate AND t.endDate = d.endDate AND duration > '$duration''";
+
+        $result = $db->query($query);
+
+        $rows = array();
+        while($row = mysqli_fetch_array($result)) {
+            $rows[] = $row;
+        }
+        return $rows;
+    }
+
+    // return tripIDs of trip with duration less than specified duration
+    public function searchTripsByLesserDuration($duration) {
+
+        $db = new Db();
+
+        $query = "SELECT tripID FROM trip t, trip_duration d WHERE t.startDate = d.startDate AND t.endDate = d.endDate AND duration < '$duration''";
+
+        $result = $db->query($query);
+
+        $rows = array();
+        while($row = mysqli_fetch_array($result)) {
+            $rows[] = $row;
+        }
+        return $rows;
+    }
+
 
 
 }
