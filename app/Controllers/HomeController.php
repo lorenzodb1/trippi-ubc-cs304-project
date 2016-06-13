@@ -16,6 +16,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 class HomeController{
     public function index(Response $response, Request $request, Twig $view, Trip $trip){
         return $view->render($response, 'login.twig', [
+        
         ]);
     }
 
@@ -23,6 +24,9 @@ class HomeController{
         $data = $request->getParsedBody();
         $email =  filter_var($data['email'],FILTER_SANITIZE_EMAIL);
         $password =  filter_var($data['password'],FILTER_SANITIZE_STRING);
+
+        error_log("Email: $email, Password: $password FIN", 0);
+
         $authenticate = new Authentication();
         if($authenticate->verifyEmail($email)){
             //check if the password is correct
@@ -41,6 +45,8 @@ class HomeController{
             return $response->withRedirect($router->pathFor('home'));
         }
     }
+
+
     public function signUp(Response $response, Request $request, Twig $view, Router $router){
     }
 }
