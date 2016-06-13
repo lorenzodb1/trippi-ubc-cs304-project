@@ -10,6 +10,7 @@ namespace Trippi\Models;
 
 use mysqli;
 use Trippi\Models\Db;
+use Trippi\Models\ModelsUtils;
 
 class Profile {
 
@@ -17,10 +18,13 @@ class Profile {
      * TODO: what should these functions return?
      */
     
-    public function create_profile($username, $name, $hometown, $country, $dateOfBirth, $aboutMe) {
+    public function create_profile($email, $username, $name, $hometown, $country, $dateOfBirth, $aboutMe) {
         $db = new Db();
-        $query = "INSERT INTO `user`(`username`,`name`,`hometown`,`country`,`dateOfBirth`, `aboutMe`)
-                  VALUES (" . $username . "," . $name . "," . $hometown . "," . $country . "," . $dateOfBirth . "," . $aboutMe  . ")";
+        $query = "UPDATE `user`
+                  SET `username` = " . ModelsUtils::mysqlstring($username) . ", `name` = " . ModelsUtils::mysqlstring($name) . ", 
+                      `hometown` = " . ModelsUtils::mysqlstring($hometown) . ", `country` = " . ModelsUtils::mysqlstring($country) . ", 
+                      `dateOfBirth` = " . ModelsUtils::mysqlstring($dateOfBirth) . ", `AboutMe` = " . ModelsUtils::mysqlstring($aboutMe) . " 
+                  WHERE `email` = " . ModelsUtils::mysqlstring($email);
         $result = $db->query($query);
         return true;
     }
@@ -28,8 +32,8 @@ class Profile {
     public function update_profile($username, $password, $data_type, $new_data) {
         $db = new Db();
         $query = "UPDATE `user`
-                  SET " . $data_type . " = " . $new_data . "
-                  WHERE `username` = " . $username . " AND `password` = " . $password;
+                  SET " . ModelsUtils::mysqlstring($data_type) . " = " . ModelsUtils::mysqlstring($new_data) . "
+                  WHERE `username` = " . ModelsUtils::mysqlstring($username) . " AND `password` = " . ModelsUtils::mysqlstring($password);
         $result = $db->query($query);
         return true;
     }
@@ -37,7 +41,7 @@ class Profile {
     public function delete_profile($username, $password) {
         $db = new Db();
         $query = "DELETE FROM `user`
-                  WHERE `username` = " . $username . " AND `password` = " . $password;
+                  WHERE `username` = " . ModelsUtils::mysqlstring($username) . " AND `password` = " . ModelsUtils::mysqlstring(password);
         $result = $db->query($query);
         if($result) {
             return true;

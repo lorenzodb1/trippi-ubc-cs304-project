@@ -42,6 +42,10 @@ class HomeController{
             return $response->withRedirect($router->pathFor('home'));
         }
     }
+    
+    /*
+     * TODO: To be completed...
+     */
     public function signUp(Response $response, Request $request, Twig $view, Router $router){
         $data = $request->getParsedBody();
         $test_email = filter_var($data['email'],FILTER_SANITIZE_EMAIL);

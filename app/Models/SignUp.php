@@ -21,7 +21,7 @@ class SignUp {
     public function sign_up($email, $password) {
         $db = new Db();
         $query = "INSERT INTO `user`(`email`,`password`)
-                  VALUES (" . $email . "," . $password . ")";
+                  VALUES (" . ModelsUtils::mysqlstring($email) . "," . ModelsUtils::mysqlstring($password) . ")";
         $result = $db->query($query);
         return $result;
     }
