@@ -17,7 +17,10 @@ class Trip{
     // return array of tripID and rating
     public function searchMaxTripRating() {
         $db = new Db();
-        $query = "SELECT tripId, rating FROM tripRating WHERE rating = (SELECT max(rating) from tripRating)";
+        $query = "SELECT tripId, rating 
+                  FROM tripRating 
+                  WHERE rating = (SELECT MAX(rating) 
+                                  FROM tripRating)";
         $result = $db->query($query);
         $rows = array();
         while($row = mysqli_fetch_array($result)) {
@@ -29,7 +32,10 @@ class Trip{
     // return array of tripID and rating
     public function searchMinTripRating() {
         $db = new Db();
-        $query = "SELECT tripId, rating FROM tripRating WHERE rating = (SELECT min(rating) from tripRating)";
+        $query = "SELECT tripId, rating 
+                  FROM tripRating 
+                  WHERE rating = (SELECT MIN(rating) 
+                                  FROM tripRating)";
         $result = $db->query($query);
         $rows = array();
         while($row = mysqli_fetch_array($result)) {
@@ -41,7 +47,10 @@ class Trip{
     // return array of tripID and rating (ordered by rating in descending order)
     public function searchAvgTripRatingByTrip() {
         $db = new Db();
-        $query = "SELECT tripID, avg(rating) FROM `tripRating` GROUP by tripID order by avg(rating) DESC";
+        $query = "SELECT tripID, AVG(rating) 
+                  FROM `tripRating` 
+                  GROUP BY tripID 
+                  ORDER BY AVG(rating) DESC";
         $result = $db->query($query);
         $rows = array();
         while($row = mysqli_fetch_array($result)) {
@@ -53,7 +62,9 @@ class Trip{
     // return array of tripID
     public function searchIncompleteTrips() {
         $db = new Db();
-        $query = "SELECT tripID FROM `trip` WHERE status = 'incomplete'";
+        $query = "SELECT tripID 
+                  FROM `trip` 
+                  WHERE status = 'incomplete'";
         $result = $db->query($query);
         $rows = array();
         while($row = mysqli_fetch_array($result)) {
@@ -65,7 +76,9 @@ class Trip{
     // return array of tripID
     public function searchCompleteTrips() {
         $db = new Db();
-        $query = "SELECT tripID FROM `trip` WHERE status = 'complete'";
+        $query = "SELECT tripID 
+                  FROM `trip` 
+                  WHERE status = 'complete'";
         $result = $db->query($query);
         $rows = array();
         while($row = mysqli_fetch_array($result)) {
@@ -77,7 +90,11 @@ class Trip{
     // return names of all people who have joined a trip with a specified tripID
     public function searchUsersOnTrip($tripID) {
         $db = new Db();
-        $query = "SELECT name FROM joins j, user u WHERE j.email = u.email AND tripId = '$tripID' ORDER BY name";
+        $query = "SELECT u.name 
+                  FROM joins j, `user` u 
+                  WHERE j.email = u.email AND 
+                        tripId = " . $tripID . " 
+                  ORDER BY u.name";
         $result = $db->query($query);
         $rows = array();
         while($row = mysqli_fetch_array($result)) {
@@ -89,7 +106,9 @@ class Trip{
     // return tripIDs of trip with specified startLocation
     public function searchTripsByStartLocation($location) {
         $db = new Db();
-        $query = "SELECT tripID FROM trip WHERE startLocation = '$location'";
+        $query = "SELECT tripID 
+                  FROM trip 
+                  WHERE startLocation = " . $this->mysqlString($location);
         $result = $db->query($query);
         $rows = array();
         while($row = mysqli_fetch_array($result)) {
@@ -97,4 +116,148 @@ class Trip{
         }
         return $rows;
     }
+
+    private function mysqlString($string){
+        return '\'' . $string . '\'';
+    }
+
+    public function getLocationsByTripId($tripId){
+        $db = new Db();
+
+        $query = "SELECT l.city AS city,
+                         l.country AS country
+                  FROM location l, travelling_transportation t
+                  WHERE (l.locationID = t.from_locationID or 
+                        l.locationID = t.to_locationID) AND" .
+                         $this->mysqlString($tripId) . " = 
+                        t.tripID";
+
+        $result = $db->query($query);
+        return $result;
+    }
+
+    public function getTravelingInformationByTripId($tripId){
+        $db = new Db();
+
+        $query = "SELECT l1.city AS fromCity,
+                         l1.country AS fromCountry,
+                         l2.city AS toCity,
+                         l2.country AS toCountry,
+                         t.type AS typeTravel,
+                         t.startDate AS fromDate,
+                         t.endDate AS toDate
+                  FROM location l1, location l2, travelling_transportation t
+                  WHERE l1.locationID = t.from_locationID AND 
+                        l2.locationID = t.to_locationID AND" .
+                        $this->mysqlString($tripId) . "= t.tripID";
+
+        $result = $db->query($query);
+
+        return $result;
+    }
+
+    public function getActivitiesByTripId($tripId){
+        $db = new Db();
+
+        $query = "SELECT l.city AS city,
+                         l.country AS country,
+                         a.name AS activityName,
+                         a.place AS activityPlace,
+                         a.adate AS `date`
+                  FROM location l, travelling_transportation t, activity a
+                  WHERE (l.locationID = t.from_locationID or 
+                        l.locationID = t.to_locationID) AND" .
+                        $this->mysqlString($tripId) . " = 
+                        t.tripID AND
+                        (a.locationID = t.from_locationID or
+                        a.locationID = t.to_locationID)";
+
+        $result = $db->query($query);
+        return $result;
+
+    }
+
+    public function getAccomodationsByTripId($tripId){
+        $db = new Db();
+
+        $query = "SELECT l.city AS city,
+                         l.country AS country,
+                         a.name AS `name`,
+                         a.type AS `type`,
+                         a.rating AS rating,
+                         a.startDate AS `from`,
+                         a.endDate AS `to`
+                  FROM location l, travelling_transportation t, accomodation a
+                  WHERE (l.locationID = t.from_locationID or 
+                        l.locationID = t.to_locationID) AND" .
+                        $this->mysqlString($tripId) . " = 
+                        t.tripID AND
+                        (a.locationID = t.from_locationID or
+                        a.locationID = t.to_locationID)";
+
+        $result = $db->query($query);
+        return $result;
+    }
+    public function getTripNameById($tripId)
+    {
+        $db = new Db();
+
+        $query = "SELECT t.tripName AS tripName
+                  FROM trip t
+                  WHERE t.tripId =" . $this->mysqlString($tripId);
+
+        $result = $db->query($query);
+        return $result;
+    }
+
+    // return tripIDs of trip with duration equal to specified duration
+    public function searchTripsByEqualDuration($duration) {
+
+        $db = new Db();
+
+        $query = "SELECT tripID FROM trip t, trip_duration d WHERE t.startDate = d.startDate AND t.endDate = d.endDate AND duration = '$duration''";
+
+        $result = $db->query($query);
+
+        $rows = array();
+        while($row = mysqli_fetch_array($result)) {
+            $rows[] = $row;
+        }
+        return $rows;
+    }
+
+    // return tripIDs of trip with duration greater than specified duration
+    public function searchTripsByGreaterDuration($duration) {
+
+        $db = new Db();
+
+        $query = "SELECT tripID FROM trip t, trip_duration d WHERE t.startDate = d.startDate AND t.endDate = d.endDate AND duration > '$duration''";
+
+        $result = $db->query($query);
+
+        $rows = array();
+        while($row = mysqli_fetch_array($result)) {
+            $rows[] = $row;
+        }
+        return $rows;
+    }
+
+    // return tripIDs of trip with duration less than specified duration
+    public function searchTripsByLesserDuration($duration) {
+
+        $db = new Db();
+
+        $query = "SELECT tripID FROM trip t, trip_duration d WHERE t.startDate = d.startDate AND t.endDate = d.endDate AND duration < '$duration''";
+
+        $result = $db->query($query);
+
+        $rows = array();
+        while($row = mysqli_fetch_array($result)) {
+            $rows[] = $row;
+        }
+        return $rows;
+    }
+
+
+
 }

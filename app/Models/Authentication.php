@@ -16,7 +16,9 @@ class Authentication{
   public function verifyEmail($email) {
     // Verify that email contains @
     $db = new Db();
-    $query = "SELECT `email` FROM `user` WHERE email= " . $this->mysqlString($email);
+    $query = "SELECT `email` 
+              FROM `user` 
+              WHERE `email` = " . $this->mysqlString($email);
     $result = $db->query($query);
     if( $result != false ) {
       // Successful Match
@@ -36,7 +38,7 @@ class Authentication{
     $db = new Db();
     $query = "SELECT `email`,`username`,`name`,`hometown`,`country`,`dateOfBirth`, `aboutMe` 
               FROM `user` 
-              WHERE email=" .$this->mysqlString($email) . " AND password= " .$this->mysqlString($password);
+              WHERE `email` = " .$this->mysqlString($email) . " AND `password`  = " . $this->mysqlString($password);
     $result = $db->query($query);
     if( $result != false ) {
       // Successful Match
@@ -50,10 +52,10 @@ class Authentication{
       return false;
     }
   }
-  public function mysqlString($string){
+  
+  private function mysqlString($string){
     return '\'' . $string . '\'';
   }
-
 
   /**
    * @param $email user email
@@ -61,13 +63,13 @@ class Authentication{
    */
   public function userTrips($email){
     $db = new Db();
-    $query = "SELECT t.tripId as id, t.tripName as tripName, t.startDate as `from`, t.endDate as `to` 
-              FROM  joins j, trip t 
-              WHERE" . $this->mysqlString($email) . "=j.email AND j.tripId = t.tripId
+    $query = "SELECT t.tripId AS id, t.tripName AS tripName, t.startDate AS `from`, t.endDate AS `to` 
+              FROM joins j, trip t 
+              WHERE " . $this->mysqlString($email) . " = j.email AND j.tripId = t.tripId
               UNION
-              SELECT t.tripId as id, t.tripName as tripName, t.startDate as `from`, t.endDate as `to` 
-              FROM  plan p, trip t 
-              WHERE" . $this->mysqlString($email) . "=p.email AND p.tripId = t.tripId";
+              SELECT t.tripId AS id, t.tripName AS tripName, t.startDate AS `from`, t.endDate AS `to` 
+              FROM plan p, trip t 
+              WHERE " . $this->mysqlString($email) . " = p.email AND p.tripId = t.tripId";
     //$query2 = "SELECT a.locationID, l.city, l.country, a.rating FROM accomodation a, location l WHERE a.locationID = l.locationID and a.rating > 2";
     $tripsHotelResult = $db->query($query);
     return $tripsHotelResult;
