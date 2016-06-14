@@ -23,6 +23,11 @@ $app->post('/createProfile', ['Trippi\Controllers\CreateTripController', 'create
 $app->get('/createProfile', ['Trippi\Controllers\CreateTripController', 'createTrip'])->setName('trip.getCreateTrip');
 
 
+$app->get('/deleteProfile/{tripId}', ['Trippi\Controllers\ProfileController', 'deleteTrip'])->setName('trip.deleteTrip');
+
+
+
+
 
 
 

@@ -31,6 +31,15 @@ class CreateTrip {
         return $result;
     }
 
+    public function linkTripPlanner($email, $tripID) {
+        $db = new DB();
+        $query = "INSERT INTO plan VALUES (" . $this->mysqlString($tripID) ." , " . $this->mysqlString($email) .")";
+        $result = $db->query($query);
+        return $result;
+    }
+
+
+
     private function mysqlString($string){
         return '\'' . $string . '\'';
     }
