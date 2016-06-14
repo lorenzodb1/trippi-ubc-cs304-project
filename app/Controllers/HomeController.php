@@ -18,10 +18,14 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 //testing
 class HomeController{
+
+
+
     public function index(Response $response, Request $request, Twig $view, Trip $trip){
         return $view->render($response, 'login.twig', [
         ]);
     }
+
 
     public function signIn(Response $response, Request $request, Twig $view, Router $router){
         $data = $request->getParsedBody();
@@ -30,10 +34,13 @@ class HomeController{
         if(ModelsUtils::verifyEmail($email)){
             //check if the password is correct
             $login = Authentication::login($email, $password);
+            
             if($login) {
+                
                 return $view->render($response, 'profile/profile.twig', [
                     'users'=> $login,
-                    'trips'=> Authentication::userTrips($email)
+                    'plannedTrips'=> Authentication::userPlanTrip($email),
+                    'joinedTrips' => Authentication::userJoinTrip($email)
                 ]);
             }
             else{

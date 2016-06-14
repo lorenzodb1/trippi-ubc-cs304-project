@@ -16,6 +16,14 @@
 
                 <div class="form-group">
 
+                    <label for="email">Your Email</label>
+
+                    <input type="email" name="email" id="email" class="form-control">
+
+                </div>
+
+                <div class="form-group">
+
                     <label for="tripName">Trip Name</label>
 
                     <input type="text" name="tripName" id="tripName" class="form-control">
@@ -47,8 +55,44 @@
         </div>
 
         <div class="col-md-8">
-            <h3>Your Trips</h3>
-            {% if trips %}
+            <h3>Your Planned Trips</h3>
+            {% if plannedTrips %}
+                <div class="well">
+                    <table class ="table">
+                        <thead>
+                        <tr>
+                            <th>Trip Id</th>
+                            <th>Trip Name</th>
+                            <th>From</th>
+                            <th>To</th>
+                            <th></th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for index, trip in plannedTrips %}
+                            <tr>
+                                <td><a href="{{ path_for('trip.getTrip', {tripId: trip.id})}}" method="get">{{ trip.id }}</a></td>
+                                <td>{{ trip.tripName }}</td>
+                                <td>{{ trip.from }}</td>
+                                <td>{{ trip.to }}</td>
+                                <td><a href="{{ path_for('trip.deleteTrip', {tripId: trip.id})}}" method="get">Delete</a></td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+
+
+                    </table>
+                </div>
+
+             {% else %}
+                <p> You currently have no planned trips </p>
+
+             {% endif %}
+
+
+            <h3>Your Joined Trips</h3>
+            {% if joinedTrips %}
                 <div class="well">
                     <table class ="table">
                         <thead>
@@ -61,7 +105,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        {% for index, trip in trips %}
+                        {% for index, trip in joinedTrips %}
                             <tr>
                                 <td><a href="{{ path_for('trip.getTrip', {tripId: trip.id})}}" method="get">{{ trip.id }}</a></td>
                                 <td>{{ trip.tripName }}</td>
@@ -75,9 +119,10 @@
                     </table>
                 </div>
 
-             {% else %}
-                <p> You currently have no trips </p>
-             {% endif %}
+            {% else %}
+                <p> You currently have no joined trips </p>
+
+            {% endif %}
 
         </div>
     </div>
