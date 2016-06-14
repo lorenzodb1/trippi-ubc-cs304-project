@@ -18,10 +18,11 @@ class SignUp {
      * function returns true or false whether the sign up was successful or not
      */
 
-    public function sign_up($email, $password) {
+    public function sign_up($username, $email, $password) {
         $db = new Db();
         $query = "INSERT INTO `user`(`email`,`password`)
-                  VALUES (" . ModelsUtils::mysqlstring($email) . "," . ModelsUtils::mysqlstring($password) . ")";
+                  VALUES (". ModelsUtils::mysqlstring($username) . ModelsUtils::mysqlstring($email) . "," .
+                          ModelsUtils::mysqlstring(crypt($password, '$6$rounds=5000$' . $email . '$')) . ")";
         $result = $db->query($query);
         return $result;
     }

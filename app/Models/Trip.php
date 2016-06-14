@@ -7,7 +7,8 @@
  */
 namespace Trippi\Models;
 use mysqli;
-class Trip{
+class Trip
+{
     /**
      * The table associated with the model.
      *
@@ -15,7 +16,8 @@ class Trip{
      */
     // this is an aggregation query
     // return array of tripID and rating
-    public function searchMaxTripRating() {
+    public function searchMaxTripRating()
+    {
         $db = new Db();
         $query = "SELECT tripId, rating 
                   FROM tripRating 
@@ -23,14 +25,15 @@ class Trip{
                                   FROM tripRating)";
         $result = $db->query($query);
         $rows = array();
-        while($row = mysqli_fetch_array($result)) {
+        while ($row = mysqli_fetch_array($result)) {
             $rows[] = $row;
         }
         return $rows;
     }
     // this is an aggregation query
     // return array of tripID and rating
-    public function searchMinTripRating() {
+    public function searchMinTripRating()
+    {
         $db = new Db();
         $query = "SELECT tripId, rating 
                   FROM tripRating 
@@ -38,14 +41,15 @@ class Trip{
                                   FROM tripRating)";
         $result = $db->query($query);
         $rows = array();
-        while($row = mysqli_fetch_array($result)) {
+        while ($row = mysqli_fetch_array($result)) {
             $rows[] = $row;
         }
         return $rows;
     }
     // this is an aggregation query
     // return array of tripID and rating (ordered by rating in descending order)
-    public function searchAvgTripRatingByTrip() {
+    public function searchAvgTripRatingByTrip()
+    {
         $db = new Db();
         $query = "SELECT tripID, AVG(rating) 
                   FROM `tripRating` 
@@ -53,42 +57,45 @@ class Trip{
                   ORDER BY AVG(rating) DESC";
         $result = $db->query($query);
         $rows = array();
-        while($row = mysqli_fetch_array($result)) {
+        while ($row = mysqli_fetch_array($result)) {
             $rows[] = $row;
         }
         return $rows;
     }
     // projection/selection query
     // return array of tripID
-    public function searchIncompleteTrips() {
+    public function searchIncompleteTrips()
+    {
         $db = new Db();
         $query = "SELECT tripID 
                   FROM `trip` 
-                  WHERE status = 'incomplete'";
+                  WHERE status = " . ModelsUtils::mysqlstring('incomplete');
         $result = $db->query($query);
         $rows = array();
-        while($row = mysqli_fetch_array($result)) {
+        while ($row = mysqli_fetch_array($result)) {
             $rows[] = $row;
         }
         return $rows;
     }
     // projection/selection query
     // return array of tripID
-    public function searchCompleteTrips() {
+    public function searchCompleteTrips()
+    {
         $db = new Db();
         $query = "SELECT tripID 
                   FROM `trip` 
-                  WHERE status = 'complete'";
+                  WHERE status = " . ModelsUtils::mysqlstring('complete');
         $result = $db->query($query);
         $rows = array();
-        while($row = mysqli_fetch_array($result)) {
+        while ($row = mysqli_fetch_array($result)) {
             $rows[] = $row;
         }
         return $rows;
     }
     // projection/selection query
     // return names of all people who have joined a trip with a specified tripID
-    public function searchUsersOnTrip($tripID) {
+    public function searchUsersOnTrip($tripID)
+    {
         $db = new Db();
         $query = "SELECT u.name 
                   FROM joins j, user u 
@@ -97,27 +104,24 @@ class Trip{
                   ORDER BY u.name";
         $result = $db->query($query);
         $rows = array();
-        while($row = mysqli_fetch_array($result)) {
+        while ($row = mysqli_fetch_array($result)) {
             $rows[] = $row;
         }
         return $rows;
     }
     // projection/selection query
     // return tripIDs of trip with specified startLocation
-    public function searchTripsByStartLocation($location) {
+    public function searchTripsByStartLocation($location)
+    {
         $db = new Db();
         $query = "SELECT tripID 
                   FROM trip 
-                  WHERE startLocation = " . $this->mysqlString($location);
+                  WHERE startLocation = " . ModelsUtils::mysqlstring($location);
         $result = $db->query($query);
         $rows = array();
-        while($row = mysqli_fetch_array($result)) {
+        while ($row = mysqli_fetch_array($result)) {
             $rows[] = $row;
         }
         return $rows;
-    }
-
-    private function mysqlString($string){
-        return '\'' . $string . '\'';
     }
 }

@@ -6,9 +6,12 @@
  * Time: 2:58 PM
  */
 namespace Trippi\Controllers;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use Slim\Views\Twig;
 use Slim\Router;
 use Trippi\Models\Authentication;
+use Trippi\Models\ModelsUtils;
 use Trippi\Models\SignUp;
 use Trippi\Models\Trip;
 use Psr\Http\Message\ResponseInterface as Response;
@@ -24,14 +27,13 @@ class HomeController{
         $data = $request->getParsedBody();
         $email =  filter_var($data['email'],FILTER_SANITIZE_EMAIL);
         $password =  $data['password'];
-        $authenticate = new Authentication();
-        if($authenticate->verifyEmail($email)){
+        if(ModelsUtils::verifyEmail($email)){
             //check if the password is correct
-            $login = $authenticate->login($email, $password);
+            $login = Authentication::login($email, $password);
             if($login) {
                 return $view->render($response, 'profile/profile.twig', [
                     'users'=> $login,
-                    'trips'=> $authenticate->userTrips($email)
+                    'trips'=> Authentication::userTrips($email)
                 ]);
             }
             else{
@@ -49,14 +51,13 @@ class HomeController{
     public function signUp(Response $response, Request $request, Twig $view, Router $router){
         $data = $request->getParsedBody();
         $test_email = filter_var($data['email'],FILTER_SANITIZE_EMAIL);
-        $email = &data['email'];
+        $email = $data['email'];
         if($test_email != $email) {
             //go back to homepage and say what when wrong
             return $response->withRedirect($router->pathFor('home'));
         }
         $password =  $data['password'];
-        $authenticate = new Authentication();
-        if(!$authenticate->verifyEmail($email)){
+        if(!ModelsUtils::verifyEmail($email)){
             //check if the password exists
             $check = new SignUp();
             $signup = $check->sign_up($email, $password);
