@@ -26,7 +26,7 @@
                         <tbody>
                         {% for index, trip in trips %}
                             <tr>
-                                <td><a href="#">{{ trip.id }}</a></td>
+                                <td><a href="{{ path_for('trip.getTrip', {tripId: trip.id})}}" method="post">{{ trip.id }}</a></td>
                                 <td>{{ trip.tripName }}</td>
                                 <td>{{ trip.from }}</td>
                                 <td>{{ trip.to }}</td>

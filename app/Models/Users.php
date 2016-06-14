@@ -21,7 +21,7 @@ class Users {
                 FROM `user` 
                 WHERE username = " . ModelsUtils::mysqlstring($userName);
 
-      return returnResult( $this->submitQuery($query));
+      return $this->returnResult( $this->submitQuery($query));
   }
 
   public function searchByUserEmail($email) {
@@ -29,7 +29,7 @@ class Users {
                 FROM `user` 
                 WHERE email = " . ModelsUtils::mysqlstring($email);
 
-      return returnResult( $this->submitQuery($query));
+      return $this->returnResult( $this->submitQuery($query));
   }
 
   public function searchByUserRating($rating) {
@@ -37,7 +37,7 @@ class Users {
                 FROM `user` 
                 WHERE rating = " . $rating;
 
-      return returnResult( $this->submitQuery($query));
+      return $this->returnResult( $this->submitQuery($query));
   }
 
   public function searchByUserDOB($dob) {
@@ -48,7 +48,7 @@ class Users {
                 FROM `user` 
                 WHERE dateOfBirth = " . $dob;
 
-      return returnResult( $this->submitQuery($query));
+      return $this->returnResult( $this->submitQuery($query));
   }
 
   public function searchByUserLocation($country, $homeTown) {
@@ -57,10 +57,10 @@ class Users {
                 WHERE country = " . ModelsUtils::mysqlstring($country);
 
       if( $homeTown ) {
-        $query += " AND hometown='$homeTown'";
+        $query .= " AND hometown='$homeTown'";
       }
 
-      return returnResult( $this->submitQuery($query));
+      return $this->returnResult( $this->submitQuery($query));
   }
 
   public function searchByUserName($name) {
@@ -68,7 +68,7 @@ class Users {
                 FROM `user` 
                 WHERE `name` LIKE " . ModelsUtils::mysqlstring($name);
 
-      return returnResult( $this->submitQuery($query));
+      return $this->returnResult( $this->submitQuery($query));
   }
 
   
@@ -80,7 +80,7 @@ class Users {
                 WHERE u.email = j.email AND 
                       tripId = " . ModelsUtils::mysqlstring($tripId);
 
-      return returnResult( $this->submitQuery($query));
+      return $this->returnResult( $this->submitQuery($query));
   }
     
 
@@ -96,7 +96,7 @@ class Users {
                                  WHERE L1.locationID = T1.to_locationID AND 
                                        L1.city = " . ModelsUtils::mysqlstring($city) . ")";
 
-    return returnResult( $this->submitQuery($query));
+    return $this->returnResult( $this->submitQuery($query));
   }
     
   // Return all trips a user is involved in
@@ -109,7 +109,7 @@ class Users {
                   FROM `joins` j 
                   WHERE j.email = " . ModelsUtils::mysqlstring($email);
   
-    return returnResult( $this->submitQuery($query));
+    return $this->returnResult( $this->submitQuery($query));
   }
 
     private function submitQuery($query){

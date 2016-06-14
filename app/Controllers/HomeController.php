@@ -44,6 +44,7 @@ class HomeController{
             return $response->withRedirect($router->pathFor('home'));
         }
     }
+<<<<<<< HEAD
     
     /*
      * TODO: To be completed...
@@ -74,5 +75,9 @@ class HomeController{
         else{
 //            return $response->withRedirect($router->pathFor('home'));
         }
+=======
+    public function getTrip(Response $response, Request $request, Twig $view, Router $router){
+        return $view->render($response, 'trip/trip.twig');
+>>>>>>> master
     }
 }

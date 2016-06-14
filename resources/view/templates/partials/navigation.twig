@@ -4,6 +4,13 @@
 
         <div class="navbar-header">
 
+            <div style=" display: inline-block; height: 50px; padding: 15px 15px; font-size: 18px; line-height: 20px;">
+                <a href="{{ path_for('goToSearch') }}">
+                    <img src="http://localhost/trippi-ubc-cs304-project/assets/search.png" >
+                </a>
+            </div>
+
+
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
                     data-target="#navbar" aria-expand="false">
 
@@ -17,8 +24,9 @@
 
 
             </button>
-            <a class="navbar-brand" href="#">Trippi</a>
+            <a class="navbar-brand" href="{{ path_for('signIn') }}">Trippi</a>
         </div>
+
 
         <div class="collapse navbar-collapse" id="navbar">
             <ul class="nav navbar-nav navbar-right">

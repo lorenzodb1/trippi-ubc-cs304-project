@@ -1,0 +1,18 @@
+<div class="thumbnail">
+    
+    <a href="#"><img src="" alt=""></a>
+    <div class="caption">
+        <h4><a href="#">{{ result.email }}</a> </h4>
+        <p>{{ result.name }}</p>
+        <p>{{ result.username }}</p>
+        <p>{{ result.hometown }}</p>
+        <p>{{ result.country }}</p>
+        <p>{{ result.dateOfBirth }}</p>
+        <p>{{ result.aboutMe }}</p>
+        {%if result.rating %}
+            <p>{{ result.rating }}</p>
+        {% else %}
+            <p>N/A</p>
+        {% endif %}
+    </div>
+</div>

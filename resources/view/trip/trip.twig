@@ -1,0 +1,145 @@
+{% extends 'templates/app.twig' %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-8">
+            <h1> Trip Information </h1>
+            {% for index, name in tripNames %}
+                <h2> {{ name.tripName }} </h2>
+            {% endfor %}
+            <h3>Locations</h3>
+            {% if locations %}
+                <div class="well">
+                    <table class ="table">
+                        <thead>
+                        <tr>
+                            <th>City</th>
+                            <th>Country</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for index, location in locations %}
+                            <tr>
+                                <td>{{ location.city }}</td>
+                                <td>{{ location.country }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+
+
+                    </table>
+                </div>
+
+            {% else %}
+                <p> This trip has no locations information </p>
+            {% endif %}
+            <h3>Traveling Information</h3>
+            {% if travelInfo %}
+                <div class="well">
+                    <table class ="table">
+                        <thead>
+                        <tr>
+                            <th>From</th>
+                            <th>To</th>
+                            <th>Type</th>
+                            <th>From Date</th>
+                            <th>To Date</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for index, travel in travelInfo %}
+                            <tr>
+                                <td>{{ travel.fromCity }}, {{travel.fromCountry}}</td>
+                                <td>{{ travel.toCity }}, {{ travel.toCountry }} </td>
+                                <td>{{ travel.typeTravel }}</td>
+                                <td>{{ travel.fromDate }}</td>
+                                <td>{{ travel.toDate }}</td>
+
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+
+
+                    </table>
+                </div>
+
+            {% else %}
+                <p> This trip has no Traveling Information </p>
+            {% endif %}
+            <h3>Accommodations</h3>
+            {% if accommodations %}
+                <div class="well">
+                    <table class ="table">
+                        <thead>
+                        <tr>
+                            <th>City</th>
+                            <th>Country</th>
+                            <th>Name</th>
+                            <th>Type</th>
+                            <th>Rating</th>
+                            <th>From Date</th>
+                            <th>To Date</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for index, accom in accommodations %}
+                            <tr>
+                                <td>{{ accom.city }} </td>
+                                <td>{{ accom.country }} </td>
+                                <td>{{ accom.name }}</td>
+                                <td>{{ accom.type }}</td>
+                                <td>{{ accom.rating }}</td>
+                                <td>{{ accom.from }}</td>
+                                <td>{{ accom.to }}</td>
+
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+
+
+                    </table>
+                </div>
+
+            {% else %}
+                <p> This trip has no accommodations </p>
+            {% endif %}
+            <h3>Accommodations</h3>
+            {% if activities %}
+                <div class="well">
+                    <table class ="table">
+                        <thead>
+                        <tr>
+                            <th>City</th>
+                            <th>Country</th>
+                            <th>Activity Name</th>
+                            <th>Activity Place</th>
+                            <th>Date</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for index, activity in activities %}
+                            <tr>
+                                <td>{{ activity.city}} </td>
+                                <td>{{ activity.country }} </td>
+                                <td>{{ activity.activityName}}</td>
+                                <td>{{ activity.activityPlace}}</td>
+                                <td>{{ activity.date }}</td>
+
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+
+
+                    </table>
+                </div>
+
+            {% else %}
+                <p> This trip has no accommodations </p>
+            {% endif %}
+
+        </div>
+    </div>
+
+{% endblock %}

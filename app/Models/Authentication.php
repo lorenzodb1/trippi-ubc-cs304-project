@@ -43,7 +43,7 @@ class Authentication{
    */
   public static function userTrips($email){
     $db = new Db();
-    $query = "SELECT t.tripId as id, t.tripName AS tripName, t.startDate AS `from`, t.endDate AS `to` 
+    $query = "SELECT t.tripId AS id, t.tripName AS tripName, t.startDate AS `from`, t.endDate AS `to` 
               FROM joins j, trip t 
               WHERE " . ModelsUtils::mysqlstring($email) . " = j.email AND j.tripId = t.tripId
               UNION
