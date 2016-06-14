@@ -11,6 +11,7 @@ $app->get('/', ['Trippi\Controllers\HomeController', 'index'])->setName('home');
 
 $app->post('/profile', ['Trippi\Controllers\HomeController', 'signIn'])->setName('signIn');
 
+// Search Routes
 $app->get('/search', ['Trippi\Controllers\SearchController', 'index'])->setName('goToSearch');
 
 $app->get('/search/users', ['Trippi\Controllers\SearchController', 'searchByUser'])->setName('searchByUser');

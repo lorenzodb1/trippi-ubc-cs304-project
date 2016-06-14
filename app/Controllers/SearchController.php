@@ -29,7 +29,6 @@ class SearchController {
         $queryFunction = filter_var($data['queryFunction'], FILTER_SANITIZE_STRING);
 
         if( $queryFunction == 'searchUserByUserName') {
-
           $userName = filter_var($data['username'], FILTER_SANITIZE_STRING);
           
           if($userName) {
@@ -37,16 +36,12 @@ class SearchController {
             $userList = $users->searchUserByUserName($userName);
           
             if($userList) {
-              return $view->render($response, 'search/search.twig', [
-                    'response'=> $userList
-                ]);
-            } else {
-              return $view->render($response, 'search/search.twig', []);
+              return $this->returnResults($userList);
             }
-
           } else {
-              return $view->render($response, 'search/search.twig', []);
+              return null;
           }
+
         } else if ( $queryFunction == 'searchByUsersName') {
 
           $name = filter_var($data['name'], FILTER_SANITIZE_STRING);
@@ -54,13 +49,11 @@ class SearchController {
             $users = new Users();
             $userList = $users->searchByUserName($name);
             if($userList) {
-              return $view->render($response, 'search/search.twig', [
-                    'response'=> $userList
-                ]);
-            } else {
-              return $view->render($response, 'search/search.twig', []);
+              return $this->returnResults($userList);
             }
 
+          } else {
+              return null;
           }
           
 
@@ -71,13 +64,11 @@ class SearchController {
             $users = new Users();
             $userList = $users->searchByUserEmail($email);
             if($userList) {
-              return $view->render($response, 'search/search.twig', [
-                    'response'=> $userList
-                ]);
-            } else {
-              return $view->render($response, 'search/search.twig', []);
+              return $this->returnResults($userList);
             }
 
+          } else {
+              return null;
           }
           
 
@@ -88,13 +79,11 @@ class SearchController {
             $users = new Users();
             $userList = $users->searchByUserRating($rating);
             if($userList) {
-              return $view->render($response, 'search/search.twig', [
-                    'response'=> $userList
-                ]);
-            } else {
-              return $view->render($response, 'search/search.twig', []);
+              return $this->returnResults($userList);
             }
 
+          } else {
+              return null;
           }
           
 
@@ -106,13 +95,11 @@ class SearchController {
             $users = new Users();
             $userList = $users->searchByUserLocation($country, $city);
             if($userList) {
-              return $view->render($response, 'search/search.twig', [
-                    'response'=> $userList
-                ]);
-            } else {
-              return $view->render($response, 'search/search.twig', []);
+              return $this->returnResults($userList);
             }
 
+          } else {
+              return null;
           }
           
 
@@ -123,13 +110,11 @@ class SearchController {
             $users = new Users();
             $userList = $users->returnMembersOfTrip($tripId);
             if($userList) {
-              return $view->render($response, 'search/search.twig', [
-                    'response'=> $userList
-                ]);
-            } else {
-              return $view->render($response, 'search/search.twig', []);
+              return $this->returnResults($userList);
             }
 
+          } else {
+              return null;
           }
           
 
@@ -140,18 +125,13 @@ class SearchController {
             $users = new Users();
             $userList = $users->returnUsersTravelledTO($city);
             if($userList) {
-              return $view->render($response, 'search/search.twig', [
-                    'response'=> $userList
-                ]);
-            } else {
-              return $view->render($response, 'search/search.twig', []);
+              return $this->returnResults($userList);
             }
-
+          } else {
+              return null;
           }
           
-
         }
-
     }
 
     public function searchByTrip(Response $response, Request $request, Twig $view, Router $router) {
@@ -161,138 +141,79 @@ class SearchController {
         $queryFunction = filter_var($data['queryFunction'], FILTER_SANITIZE_STRING);
 
         if( $queryFunction == 'searchForMaxRatedTrip') {
+            
             $trips = new Trip();
             $tripList = $trips->searchMaxTripRating();
-
-            if($tripList) {
-              return $view->render($response, 'search/search.twig', [
-                    'response'=> $tripList
-                ]);
-            } else {
-              return $view->render($response, 'search/search.twig', []);
-            }
+            return $this->returnResults($tripList);
 
         } else if( $queryFunction == 'searchForMinRatedTrip') {
+            
             $trips = new Trip();
             $tripList = $trips->searchMinTripRating();
-
-            if($tripList) {
-              return $view->render($response, 'search/search.twig', [
-                    'response'=> $tripList
-                ]);
-            } else {
-              return $view->render($response, 'search/search.twig', []);
-            }
+            return $this->returnResults($tripList);
 
         } else if( $queryFunction == 'searchForAvgRatedTrip') {
+            
             $trips = new Trip();
             $tripList = $trips->searchAvgTripRatingByTrip();
-
-            if($tripList) {
-              return $view->render($response, 'search/search.twig', [
-                    'response'=> $tripList
-                ]);
-            } else {
-              return $view->render($response, 'search/search.twig', []);
-            }
+            return $this->returnResults($tripList);
 
         } else if( $queryFunction == 'searchIncompleteTrips') {
+            
             $trips = new Trip();
             $tripList = $trips->searchIncompleteTrips();
-
-            if($tripList) {
-              return $view->render($response, 'search/search.twig', [
-                    'response'=> $tripList
-                ]);
-            } else {
-              return $view->render($response, 'search/search.twig', []);
-            }
+            return $this->returnResults($tripList);
 
         } else if( $queryFunction == 'searchCompleteTrips') {
+            
             $trips = new Trip();
             $tripList = $trips->searchCompleteTrips();
-
-            if($tripList) {
-              return $view->render($response, 'search/search.twig', [
-                    'response'=> $tripList
-                ]);
-            } else {
-              return $view->render($response, 'search/search.twig', []);
-            }
+            return $this->returnResults($tripList);
 
         } else if( $queryFunction == 'searchForAllUsersOnTrip') {
+            
             $tripId = filter_var($data['tripId'], FILTER_SANITIZE_STRING);
-
             $trips = new Trip();
             $tripList = $trips->searchUsersOnTrip($tripId);
-
-            if($tripList) {
-              return $view->render($response, 'search/search.twig', [
-                    'response'=> $tripList
-                ]);
-            } else {
-              return $view->render($response, 'search/search.twig', []);
-            }
+            return $this->returnResults($tripList);
 
         }  else if( $queryFunction == 'searchForAllTripsStartingFrom') {
+            
             $startLocation = filter_var($data['startLocation'], FILTER_SANITIZE_STRING);
-
             $trips = new Trip();
             $tripList = $trips->searchTripsByStartLocation($startLocation);
-
-            if($tripList) {
-              return $view->render($response, 'search/search.twig', [
-                    'response'=> $tripList
-                ]);
-            } else {
-              return $view->render($response, 'search/search.twig', []);
-            }
+            return $this->returnResults($tripList);
 
         } else if( $queryFunction == 'searchTripsByEqualDuration') {
+            
             $duration = filter_var($data['duration'], FILTER_SANITIZE_STRING);
-
-            $trips = new Trip();
-            $tripList = $trips->searchTripsByEqualDuration($duration);
-
-            if($tripList) {
-              return $view->render($response, 'search/search.twig', [
-                    'response'=> $tripList
-                ]);
-            } else {
-              return $view->render($response, 'search/search.twig', []);
-            }
-
-        }   else if( $queryFunction == 'searchTripsByGreaterDuration') {
-            $duration = filter_var($data['duration'], FILTER_SANITIZE_STRING);
-
             $trips = new Trip();
             $tripList = $trips->searchTripsByGreaterDuration($duration);
+            return $this->returnResults($tripList);
 
-            if($tripList) {
-              return $view->render($response, 'search/search.twig', [
-                    'response'=> $tripList
-                ]);
-            } else {
-              return $view->render($response, 'search/search.twig', []);
-            }
+        }   else if( $queryFunction == 'searchTripsByGreaterDuration') {
+            
+            $duration = filter_var($data['duration'], FILTER_SANITIZE_STRING);
+            $trips = new Trip();
+            $tripList = $trips->searchTripsByGreaterDuration($duration);
+            return $this->returnResults($tripList);
 
         } else if( $queryFunction == 'searchTripsByLesserDuration') {
-            $duration = filter_var($data['duration'], FILTER_SANITIZE_STRING);
 
+            $duration = filter_var($data['duration'], FILTER_SANITIZE_STRING);
             $trips = new Trip();
             $tripList = $trips->searchTripsByLesserDuration($duration);
-
-            if($tripList) {
-              return $view->render($response, 'search/search.twig', [
-                    'response'=> $tripList
-                ]);
-            } else {
-              return $view->render($response, 'search/search.twig', []);
-            }
+            return $this->returnResults($tripList);
 
         }
     }
 
-
+    public function returnResults($response) {
+      if($response) {
+        return json_encode($response);
+      } else {
+        return null;
+      }
+    }
 
 }
