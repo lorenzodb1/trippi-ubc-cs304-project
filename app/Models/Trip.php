@@ -49,7 +49,7 @@ class Trip{
         $db = new Db();
         $query = "SELECT *
                   FROM `trip` 
-                  WHERE status = 'incomplete'";
+                  WHERE status = " . ModelsUtils::mysqlstring('incomplete');
     
         return $this->returnResult( $this->submitQuery($query));
     }
@@ -59,15 +59,16 @@ class Trip{
         $db = new Db();
         $query = "SELECT *
                   FROM `trip` 
-                  WHERE status = 'complete'";
+                  WHERE status = " . ModelsUtils::mysqlstring('complete');
     
         return $this->returnResult( $this->submitQuery($query));
     }
     // projection/selection query
     // return names of all people who have joined a trip with a specified tripID
-    public function searchUsersOnTrip($tripID) {
+    public function searchUsersOnTrip($tripID)
+    {
         $db = new Db();
-        $query = "SELECT u.username
+        $query = "SELECT u.name
                   FROM `joins` j, `user` u 
                   WHERE j.email = u.email AND 
                         tripId = " . $tripID . " 
@@ -81,7 +82,7 @@ class Trip{
         $db = new Db();
         $query = "SELECT tripID 
                   FROM `trip` 
-                  WHERE startLocation = " . $this->mysqlString($location) . "";
+                  WHERE startLocation = " . ModelsUtils::mysqlstring($location);
         
         return $this->returnResult( $this->submitQuery($query));
     }
