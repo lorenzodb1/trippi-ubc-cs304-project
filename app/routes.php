@@ -16,4 +16,10 @@ $app->post('/profile', ['Trippi\Controllers\HomeController', 'signIn'])->setName
 $app->get('/profile', ['Trippi\Controllers\HomeController', 'signIn'])->setName('Trips.signIn');
 
 $app->get('/profile/{tripId}', ['Trippi\Controllers\ProfileController', 'getTrip'])->setName('trip.getTrip');
+$app->post('/createProfile', ['Trippi\Controllers\CreateTripController', 'createTrip'])->setName('trip.createTrip');
+$app->get('/createProfile', ['Trippi\Controllers\CreateTripController', 'createTrip'])->setName('trip.getCreateTrip');
+
+
+
+
 
