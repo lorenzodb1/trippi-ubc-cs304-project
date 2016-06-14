@@ -9,23 +9,7 @@
         <div class="col-md-8">
 
                 <div class="col-md-6">
-                    <h5>Hello, {{ user | raw}}, log in again and create your profile!</h5>
-
-                    <div class="form-group">
-
-                        <label for="name">Email</label>
-
-                        <input type="email" name="email" id="email" class="form-control">
-
-                    </div>
-
-                    <div class="form-group">
-
-                        <label for="name">Password</label>
-
-                        <input type="password" name="password" id="password" class="form-control">
-
-                    </div>
+                    <h5>Welcome {{ user | raw }}, create your profile and log in again!</h5>
 
                     <div class="form-group">
 
@@ -64,6 +48,21 @@
                         <label for="About yourself">About me</label>
 
                         <input type="text" name="bio" id="bio" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+
+                        <label for="name">Email</label>
+
+                        <input type="email" name="email" id="email" class="form-control">
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label for="name">Password</label>
+
+                        <input type="password" name="password" id="password" class="form-control">
 
                     </div>
 

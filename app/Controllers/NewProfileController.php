@@ -22,26 +22,27 @@ class NewProfileController {
     public function create_profile(Response $response, Request $request, Twig $view, Router $router)
     {
         $data = $request->getParsedBody();
-        $email = filter_var($data['email'], FILTER_SANITIZE_STRING);
+        $email = filter_var($data['email'], FILTER_SANITIZE_EMAIL);
         $password = $data['password'];
         $name = filter_var($data['name'], FILTER_SANITIZE_STRING);
         $dob = filter_var($data['dob'], FILTER_SANITIZE_STRING);
         $hometown = filter_var($data['hometown'], FILTER_SANITIZE_STRING);
         $country = filter_var($data['country'], FILTER_SANITIZE_STRING);
         $bio = filter_var($data['bio'], FILTER_SANITIZE_STRING);
-        if(ModelsUtils::verifyEmail($email) || 1){
+        if(ModelsUtils::verifyEmail($email)) {
             //check if the password is correct
-            $login = Authentication::login($email, $password);
-            if($login || 1) {
-                $create = Profile::create_profile($email, $password, $name, $hometown, $country, $dob , $bio);
-                if($create || 1) {
+            $create = Profile::create_profile($email, $password, $name, $hometown, $country, $dob, $bio);
+            if ($create) {
+                $login = Authentication::login($email, $password);
+                if ($login) {
+                    var_dump($login);
+                    var_dump(Authentication::userTrips($email));
                     return $view->render($response, 'profile/profile.twig', [
-                        'users'=> $login,
-                        'trips'=> Authentication::userTrips($email)
+                        'users' => $login,
+                        'trips' => Authentication::userTrips($email)
                     ]);
                 }
-            }
-            else{
+            } else {
                 return $response->withRedirect($router->pathFor('profile/new_profile'));
             }
         }
