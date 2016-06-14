@@ -26,21 +26,26 @@ class CreateTripController  {
         $tripName =  filter_var($data['tripName'],FILTER_SANITIZE_STRING);
         $startDate = filter_var($data['startDate'],FILTER_SANITIZE_STRING);
         $endDate = filter_var($data['endDate'],FILTER_SANITIZE_STRING);
+        $email = filter_var($data['email'], FILTER_SANITIZE_EMAIL);
+        
 
         $generator = new TripIDGenerator();
         $tripID = $generator->newTripID();
         
         $create = new CreateTrip();
         $createdTrip = $create->createNewTrip($tripID, $startDate, $endDate, $tripName);
+        $linkTripToUser = $create->linkTripPlanner($email, $tripID);
+
         
         
 
         $tripModel = new Trip();
         $tripNames = $tripModel->getTripNameById($tripID);
         
-        if($createdTrip) {
-            return $view->render($response, 'trip/trip.twig', [
-                'tripNames' => $tripNames
+        if($createdTrip and $linkTripToUser) {
+            return $view->render($response, 'trip/create_trip.twig', [
+                'tripNames' => $tripNames,
+                'tripId' => $tripID
             ]);
         }
         
