@@ -1,0 +1,156 @@
+{% extends 'templates/app.twig' %}
+
+{% block content %}
+
+<!-- Tabs -->
+<ul class="nav nav-tabs">
+
+  <li id="users-tab" role="presentation" class="active" onclick="makeActive('users-tab')"><a href="#">Users</a></li>
+  
+  <li id="trips-tab" role="presentation" class onclick="makeActive('trips-tab')"><a href="#">Trips</a></li>
+  
+  <li id="accommodations-tab" role="presentation" class onclick="makeActive('accommodations-tab')"><a href="#">Accommodations</a></li>
+
+  <li id="activities-tab" role="presentation" class onclick="makeActive('activities-tab')"><a href="#">Activities</a></li>
+
+</ul>
+
+<!-- User Content -->
+<div id="users-content" class style="display: block;">
+
+  <!-- Search By Exact User Name -->
+  <div class="radio">
+    <label><input id="search-by-username" type="radio" name="optradio" checked>Search by Exact Username: </label>
+    <div class="input-group input-group-sm" style="display: inline-block;">
+      <input id="search-by-username-input-1" type="text" class="form-control" placeholder="Username" aria-describedby="basic-addon1">
+    </div>
+  </div>
+
+  <!-- Search By User's Name -->
+  <div class="radio">
+    <label><input id="search-by-users-name" type="radio" name="optradio">Search by User's Name: </label>
+    <div class="input-group input-group-sm" style="display: inline-block;">
+      <input id="search-by-users-name-input-1" type="text" class="form-control" placeholder="Name" aria-describedby="basic-addon1">
+    </div>
+  </div>
+
+  <!-- Search by User Email -->
+  <div class="radio">
+    <label><input id="search-by-user-email" type="radio" name="optradio">Search by User Email: </label>
+    <div class="input-group input-group-sm" style="display: inline-block;">
+      <input id="search-by-users-email-input-1" type="text" class="form-control" placeholder="example@domain.com" aria-describedby="basic-addon1">
+    </div>
+  </div>
+
+  <!-- Search by User Rating -->
+  <div class="radio">
+    <label><input id="search-by-user-rating" type="radio" name="optradio" >Search by User Rating: </label>
+    <div class="form-group" style="display: inline-block;">
+      <label for="sel1">Ratings:</label>
+      <select id="search-by-users-rating-input-1" class="form-control" id="sel1" style="display: inline-block;">
+        <option>1</option>
+        <option>2</option>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Search by User DOB -->
+  <div class="radio">
+    <label><input id="search-by-user-dob" type="radio" name="optradio">Search by User DOB: </label>
+    <div class="input-group input-group-sm" style="display: inline-block;">
+      <input type="text" class="form-control" placeholder="Day" aria-describedby="basic-addon1" style="width: 100px;">
+      <input type="text" class="form-control" placeholder="Month" aria-describedby="basic-addon1" style="width: 100px;">
+      <input type="text" class="form-control" placeholder="Year" aria-describedby="basic-addon1" style="width: 100px;">
+    </div>
+  </div>
+
+  <!-- Search by User Location -->
+  <div class="radio">
+    <label><input id="search-by-user-location" type="radio" name="optradio">Search by User Location: </label>
+    <div class="input-group input-group-sm" style="display: inline-block;">
+      <input id="search-by-users-location-input-1" type="text" class="form-control" placeholder="City" aria-describedby="basic-addon1" style="width: 140px;">
+      <input id="search-by-users-location-input-2" type="text" class="form-control" placeholder="Country" aria-describedby="basic-addon1" style="width: 140px;">
+    </div>
+  </div>
+
+  <!-- Search for all Users in Trip-->
+  <div class="radio">
+    <label><input id="search-by-users-in-trip" type="radio" name="optradio">Search for all Users in Trip: </label>
+    <div class="input-group input-group-sm" style="display: inline-block;">
+      <input id="search-by-users-in-trip-input-1" type="text" class="form-control" placeholder="e.g., 10000000" aria-describedby="basic-addon1">
+    </div>
+  </div>
+
+  <!-- Search for all Users who have travelled to location-->
+  <div class="radio">
+    <label><input id="search-by-users-travelled-to-location" type="radio" name="optradio">Search for all Users who have travelled to: </label>
+    <div class="input-group input-group-sm" style="display: inline-block;">
+      <input id="search-by-users-travelled-to-location-input-1" type="text" class="form-control" placeholder="City" aria-describedby="basic-addon1">
+    </div>
+  </div>
+
+  <!-- Search for all of a User's Trips-->
+  <div class="radio">
+    <label><input id="search-for-users-trips" type="radio" name="optradio">Search for all of a User's Trips by Email: </label>
+    <div class="input-group input-group-sm" style="display: inline-block;">
+      <input type="text" class="form-control" placeholder="example@domain.com" aria-describedby="basic-addon1">
+    </div>
+  </div>
+
+  <!-- Submit Query Button-->
+  <button type="button" class="btn btn-primary btn-lg" onclick="checkWhichQuery()">
+    <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> Submit Query
+  </button>
+
+</div>
+
+
+<!-- Trip Content -->
+<div id="trips-content" class style="display: none;">
+</div>
+
+
+<!-- Accomodations Content -->
+<div id="accomodations-content" class style="display: none;">
+</div>
+
+
+<!-- Activities Content -->
+<div id="activities-content" class style="display: none;">
+</div>
+
+<div class="panel panel-primary" style="margin: 10px 10px 10px 10px;">
+  <div class="panel-heading">
+    <h3 class="panel-title">Results</h3>
+  </div>
+  <div id="results-panel" class="panel-body">
+    {% if response %}
+      <div class="'row">
+
+        {% for index, result in response %}
+            <div class="col-md-4 col-sm-6">
+                {% include 'search/partials/UserSearchResultItem.twig' with {result: result} %}
+            </div>
+            {% if (index + 1) % 3 ==0 %}
+      </div>
+
+      <div class="row">
+            {% endif %}
+
+
+
+        {% endfor %}
+
+      </div>
+
+    {% else %}
+      No results.
+    {% endif %}
+  </div>
+</div>
+
+
+{% endblock %}

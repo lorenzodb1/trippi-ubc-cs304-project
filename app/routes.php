@@ -11,6 +11,9 @@ $app->get('/', ['Trippi\Controllers\HomeController', 'index'])->setName('home');
 
 $app->post('/profile', ['Trippi\Controllers\HomeController', 'signIn'])->setName('signIn');
 
+$app->get('/search', ['Trippi\Controllers\SearchController', 'index'])->setName('goToSearch');
+
+$app->get('/search/users', ['Trippi\Controllers\SearchController', 'searchByUser'])->setName('searchByUser');
 
 //TODO: SM: this rout naming a a bit confusing it goes to the home buts its route with trips time permiting we can refactor the name.
 $app->get('/profile', ['Trippi\Controllers\HomeController', 'signIn'])->setName('Trips.signIn');

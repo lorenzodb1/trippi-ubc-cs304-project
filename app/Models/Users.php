@@ -19,17 +19,17 @@ class Users {
   public function searchUserByUserName($userName) {
       $query = "SELECT `email`,`username`,`name`,`hometown`,`country`,`dateOfBirth`,`aboutMe`,`rating` 
                 FROM `user` 
-                WHERE username = " . $this->mysqlString($userName);
+                WHERE username = " . ModelsUtils::mysqlstring($userName);
 
-      return returnResult( $this->submitQuery($query));
+      return $this->returnResult( $this->submitQuery($query));
   }
 
   public function searchByUserEmail($email) {
       $query = "SELECT `email`,`username`,`name`,`hometown`,`country`,`dateOfBirth`,`aboutMe`,`rating` 
                 FROM `user` 
-                WHERE email = " . $this->mysqlString($email);
+                WHERE email = " . ModelsUtils::mysqlstring($email);
 
-      return returnResult( $this->submitQuery($query));
+      return $this->returnResult( $this->submitQuery($query));
   }
 
   public function searchByUserRating($rating) {
@@ -37,7 +37,7 @@ class Users {
                 FROM `user` 
                 WHERE rating = " . $rating;
 
-      return returnResult( $this->submitQuery($query));
+      return $this->returnResult( $this->submitQuery($query));
   }
 
   public function searchByUserDOB($dob) {
@@ -48,27 +48,27 @@ class Users {
                 FROM `user` 
                 WHERE dateOfBirth = " . $dob;
 
-      return returnResult( $this->submitQuery($query));
+      return $this->returnResult( $this->submitQuery($query));
   }
 
   public function searchByUserLocation($country, $homeTown) {
       $query = "SELECT `email`,`username`,`name`,`hometown`,`country`,`dateOfBirth`,`aboutMe`,`rating` 
                 FROM `user` 
-                WHERE country = " . $this->mysqlString($country);
+                WHERE country = " . ModelsUtils::mysqlstring($country);
 
       if( $homeTown ) {
-        $query += " AND hometown='$homeTown'";
+        $query .= " AND hometown='$homeTown'";
       }
 
-      return returnResult( $this->submitQuery($query));
+      return $this->returnResult( $this->submitQuery($query));
   }
 
   public function searchByUserName($name) {
       $query = "SELECT `email`,`username`,`name`,`hometown`,`country`,`dateOfBirth`,`aboutMe`,`rating` 
                 FROM `user` 
-                WHERE `name` LIKE " . $this->mysqlString($name);
+                WHERE `name` LIKE " . ModelsUtils::mysqlstring($name);
 
-      return returnResult( $this->submitQuery($query));
+      return $this->returnResult( $this->submitQuery($query));
   }
 
   
@@ -78,9 +78,9 @@ class Users {
       $query = "SELECT * 
                 FROM `joins` j, `user` u 
                 WHERE u.email = j.email AND 
-                      tripId = " . $this->mysqlString($tripId);
+                      tripId = " . ModelsUtils::mysqlstring($tripId);
 
-      return returnResult( $this->submitQuery($query));
+      return $this->returnResult( $this->submitQuery($query));
   }
     
 
@@ -94,37 +94,30 @@ class Users {
                     j.tripID IN (SELECT T1.tripID 
                                  FROM `location` L1, `travelling_transportation` T1 
                                  WHERE L1.locationID = T1.to_locationID AND 
-                                       L1.city = " . $this->mysqlString($city) . ")";
+                                       L1.city = " . ModelsUtils::mysqlstring($city) . ")";
 
-    return returnResult( $this->submitQuery($query));
+    return $this->returnResult( $this->submitQuery($query));
   }
     
   // Return all trips a user is involved in
     public function returnAllUsersTrips($email) {
         $query = "SELECT `email`, `tripId` 
                   FROM `plan` p 
-                  WHERE p.email = " . $this->mysqlString($email) . " 
+                  WHERE p.email = " . ModelsUtils::mysqlstring($email) . " 
                   UNION 
                   SELECT `email`, `tripId` 
                   FROM `joins` j 
-                  WHERE j.email = " . $this->mysqlString($email);
+                  WHERE j.email = " . ModelsUtils::mysqlstring($email);
   
-    return returnResult( $this->submitQuery($query));
+    return $this->returnResult( $this->submitQuery($query));
   }
-
 
     private function submitQuery($query){
         $db = new Db();
-
+    
         return $db->query($query);
-
+    
     }
-
-    private function mysqlString($string){
-        return '\'' . $string . '\'';
-    }
-
-
 
   // Helper function for returning results into an
   // array

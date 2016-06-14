@@ -30,7 +30,7 @@ DROP TABLE IF EXISTS accommodation CASCADE;
 create table user
 	(email varchar(40) not null,
 		username varchar(30) not null,
-		password varchar(30) not null,
+		password varchar(150) not null,
 		name varchar(40) null,
 		hometown varchar(40) null,
 		country varchar(40) null,
@@ -144,34 +144,34 @@ CREATE TABLE tripRating
 
 
 insert into user
-	values('bob@gmail.com', 'bobsmith', 'apples', 'Bob Smith', 'Vancouver', 'Canada', '1995-09-12', 'I am cool', 4);
+	values('bob@gmail.com', 'bobsmith', '$6$rounds=5000$bob@gmail.com$ajkpRTIRKd711I9aMbApgl8APZCnwgNRIWbVLj0aItHSjGv6NNY7FOl0aJP5c7hNAnFCFRyPBmdOSO5Wk1Ikj1', 'Bob Smith', 'Vancouver', 'Canada', '1995-09-12', 'I am cool', 4);
 
 insert into user
-	values('mary123@gmail.com', 'mary123', 'pears', 'Mary Jackson', 'Kelowna', 'Canada', '1990-04-09', 'I am cool', 3);
+	values('mary123@gmail.com', 'mary123', '$6$rounds=5000$mary123@gmail.co$iP07x/j8u1mxH1RvZGEgurFcR5OJ3NCaatWiDr/NH8ifVtFZ3LhvSLRaT219qaMLpjLjU4W04r75slzmqaUl41', 'Mary Jackson', 'Kelowna', 'Canada', '1990-04-09', 'I am cool', 3);
 
 insert into user
-	values('lalla@hotmail.com', 'lallala', 'watermelon', 'Lalla Peterson', 'Rome', 'Italy', '1987-04-11', 'I am cool', 2);
+	values('lalla@hotmail.com', 'lallala', '$6$rounds=5000$lalla@hotmail.co$6J6ryyboDg0QVrfgqWUNTBewnb9s5kcr8741nEG.GaSWwdAbYRDDvV7Rsn3EnyFIFHbRYa8SJhdjXYwzwvfVt/', 'Lalla Peterson', 'Rome', 'Italy', '1987-04-11', 'I am cool', 2);
 
 insert into user
-	values('johndavies@gmail.com', 'johnnyd', 'grapes', 'John Davies', 'Paris', 'France', '1956-02-20', 'I am cool', 1);
+	values('johndavies@gmail.com', 'johnnyd', '$6$rounds=5000$johndavies@gmail$.9GdUdBFZtm3JZtU1XD5ZC1ngz9nDS1F/OnsgP3rvkpB4.Sr8hFFhdy4tl08DjHJwFys5L1HSiGTKEGNrhBpx1', 'John Davies', 'Paris', 'France', '1956-02-20', 'I am cool', 1);
 
 insert into user
-	values('garylee@gmail.com', 'glee', 'peaches', 'Gary Lee', 'Victoria', 'Canada', '1971-07-13', 'I am cool', 5);
+	values('garylee@gmail.com', 'glee', '$6$rounds=5000$garylee@gmail.co$zhjDgXC3fFPjN.G.GRIVrbCZKMW1R0Z6LyUzCKK4ITIuHjUs2acBUIsSaWMd0QmNiXaSREiFMC1r2NDkOrHS/0', 'Gary Lee', 'Victoria', 'Canada', '1971-07-13', 'I am cool', 5);
 
 insert into user
-	values('hsimpson@gmail.com', 'howardsimpson', 'plums', 'Howard Simpson', 'Burnaby', 'Canada', '1978-06-21', 'I am cool', null);
+	values('hsimpson@gmail.com', 'howardsimpson', '$6$rounds=5000$hsimpson@gmail.c$FjwMTVRxWnWkewYsP4YX7ftTH7qiZU5l0a/O836QKf7/S4BoodfOtU3TDUT6GnB7N8e9FtKR8/UljpOleYu2W0', 'Howard Simpson', 'Burnaby', 'Canada', '1978-06-21', 'I am cool', null);
 
 insert into user
-	values('cool.dude@gmail.com', 'cool786pson', 'pl777ums', 'Cool dude', 'Winnipeg', 'Canada', '1980-06-22', 'I am cool', 4);
+	values('cool.dude@gmail.com', 'cool786pson', '$6$rounds=5000$cool.dude@gmail.$sAexhZ.eAwYBfqxElvirL3ZypY96BnG6H2.uQilFagImfytYFukh9GNBZ271/.2HMf68S9w.P7EqSRj6KJN/l1', 'Cool dude', 'Winnipeg', 'Canada', '1980-06-22', 'I am cool', 4);
 
 insert into user
-	values('jeco@gmail.com', 'jecoIo', 'love', 'Jeco Simpson', 'Whistler', 'Canada', '1972-08-21', 'I am cool', null);
+	values('jeco@gmail.com', 'jecoIo', '$6$rounds=5000$jeco@gmail.com$qWaUQTNLlwPq6T6NpG0TSFiuxgTa0VucqbsxtTYa3xdYLfFiwAtOEUY3XanPjGSzACl13gXNUCdhDQfOk8S.Z.', 'Jeco Simpson', 'Whistler', 'Canada', '1972-08-21', 'I am cool', null);
 
 insert into user
-	values('pilo@gmail.com', 'piloCY', 'heyoo', 'Pilo Zes', 'Calgary', 'Canada', '1985-06-21', 'I am cool', null);
+	values('pilo@gmail.com', 'piloCY', '$6$rounds=5000$pilo@gmail.com$Bvzj.8p9JXwhcK8qTr5e7yP7BL/BDzWJ5TPrZ6NHEsQvfLwuMfZs8RfeV9K0PWf85xSJhNpTxw/v4kUU4jf3Y0', 'Pilo Zes', 'Calgary', 'Canada', '1985-06-21', 'I am cool', null);
 
 insert into user
-	values('tuso@gmail.com', 'tuso82', 'mepickyou', 'Tuso Jelo', 'Edmonton', 'Canada', '1982-06-21', 'I am not cool', 1);
+	values('tuso@gmail.com', 'tuso82', '$6$rounds=5000$tuso@gmail.com$vN.PUOVGZsPTqJRwSdzb/QnkD7Rl6w1MhgBGcc9RauU.XguTCaXDb6.dqkvSVKWXe11i3npxPbAavhBv5tE/I0', 'Tuso Jelo', 'Edmonton', 'Canada', '1982-06-21', 'I am not cool', 1);
 
 insert into admin
 	values('bob@gmail.com');
