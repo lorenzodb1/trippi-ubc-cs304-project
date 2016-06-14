@@ -45,7 +45,10 @@ function checkWhichQuery() {
     'search-for-incomplete-trips',
     'search-for-complete-trips',
     'search-for-all-users-on-trip',
-    'search-for-all-trips-starting-from'
+    'search-for-all-trips-starting-from',
+    'search-for-all-trips-by-equal-duration',
+    'search-for-all-trips-by-greater-duration',
+    'search-for-all-trips-by-lesser-duration'
   ];
 
   if( document.getElementById(RADIOBUTTONS[0]).checked ) {
@@ -80,6 +83,12 @@ function checkWhichQuery() {
     searchForAllUsersOnTrip();
   } else if (document.getElementById(RADIOBUTTONS[15]).checked ) {
     searchForAllTripsStartingFrom();
+  } else if (document.getElementById(RADIOBUTTONS[16]).checked ) {
+    searchTripsByEqualDuration();
+  } else if (document.getElementById(RADIOBUTTONS[17]).checked ) {
+    searchTripsByGreaterDuration();
+  } else if (document.getElementById(RADIOBUTTONS[18]).checked ) {
+    searchTripsByLesserDuration();
   } else {
 
   }
@@ -240,6 +249,48 @@ function searchForAllTripsStartingFrom() {
 
   createForm(URL, { queryFunction: "searchForAllTripsStartingFrom",
     startLocation: startLocation
+  });
+}
+
+function searchTripsByEqualDuration() {
+  var INPUTIDS = [
+    'search-for-all-trips-by-equal-duration-input-1'
+  ]
+
+  var duration = document.getElementById(INPUTIDS[0]).value;
+
+  var URL = "http://localhost/trippi-ubc-cs304-project/public/search/trips";
+
+  createForm(URL, { queryFunction: "searchTripsByEqualDuration",
+    duration: duration
+  });
+}
+
+function searchTripsByGreaterDuration() {
+  var INPUTIDS = [
+    'search-for-all-trips-by-greater-duration-input-1'
+  ]
+
+  var duration = document.getElementById(INPUTIDS[0]).value;
+
+  var URL = "http://localhost/trippi-ubc-cs304-project/public/search/trips";
+
+  createForm(URL, { queryFunction: "searchTripsByGreaterDuration",
+    duration: duration
+  });
+}
+
+function searchTripsByLesserDuration() {
+  var INPUTIDS = [
+    'search-for-all-trips-by-lesser-duration-input-1'
+  ]
+
+  var duration = document.getElementById(INPUTIDS[0]).value;
+
+  var URL = "http://localhost/trippi-ubc-cs304-project/public/search/trips";
+
+  createForm(URL, { queryFunction: "searchTripsByLesserDuration",
+    duration: duration
   });
 }
 

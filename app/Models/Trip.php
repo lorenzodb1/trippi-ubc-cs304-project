@@ -81,7 +81,7 @@ class Trip{
         $db = new Db();
         $query = "SELECT tripID 
                   FROM `trip` 
-                  WHERE startLocation = " . $this->mysqlString($location);
+                  WHERE startLocation = " . $this->mysqlString($location) . "";
         
         return $this->returnResult( $this->submitQuery($query));
     }
@@ -164,8 +164,8 @@ class Trip{
         $db = new Db();
 
         $query = "SELECT t.tripName AS tripName
-                  FROM trip t
-                  WHERE t.tripId =" . $this->mysqlString($tripId);
+                  FROM `trip` t
+                  WHERE t.tripId =" . $this->mysqlString($tripId) . "";
 
         return $this->returnResult( $this->submitQuery($query));
     }
@@ -175,7 +175,7 @@ class Trip{
 
         $db = new Db();
 
-        $query = "SELECT tripID FROM trip t, trip_duration d WHERE t.startDate = d.startDate AND t.endDate = d.endDate AND duration = '$duration''";
+        $query = "SELECT tripID, d.duration FROM `trip` t, `trip_duration` d WHERE t.startDate = d.startDate AND t.endDate = d.endDate AND duration = '$duration'";
 
         return $this->returnResult( $this->submitQuery($query));
     }
@@ -185,7 +185,7 @@ class Trip{
 
         $db = new Db();
 
-        $query = "SELECT tripID FROM trip t, trip_duration d WHERE t.startDate = d.startDate AND t.endDate = d.endDate AND duration > '$duration''";
+        $query = "SELECT tripID, d.duration FROM `trip` t, `trip_duration` d WHERE t.startDate = d.startDate AND t.endDate = d.endDate AND duration > '$duration'";
 
         return $this->returnResult( $this->submitQuery($query));
     }
@@ -195,7 +195,7 @@ class Trip{
 
         $db = new Db();
 
-        $query = "SELECT tripID FROM trip t, trip_duration d WHERE t.startDate = d.startDate AND t.endDate = d.endDate AND duration < '$duration''";
+        $query = "SELECT tripID, d.duration FROM `trip` t, `trip_duration` d WHERE t.startDate = d.startDate AND t.endDate = d.endDate AND duration < '$duration'";
 
         return $this->returnResult( $this->submitQuery($query));
     }

@@ -238,7 +238,49 @@ class SearchController {
             $startLocation = filter_var($data['startLocation'], FILTER_SANITIZE_STRING);
 
             $trips = new Trip();
-            $tripList = $trips->searchUsersOnTrip($startLocation);
+            $tripList = $trips->searchTripsByStartLocation($startLocation);
+
+            if($tripList) {
+              return $view->render($response, 'search/search.twig', [
+                    'response'=> $tripList
+                ]);
+            } else {
+              return $view->render($response, 'search/search.twig', []);
+            }
+
+        } else if( $queryFunction == 'searchTripsByEqualDuration') {
+            $duration = filter_var($data['duration'], FILTER_SANITIZE_STRING);
+
+            $trips = new Trip();
+            $tripList = $trips->searchTripsByEqualDuration($duration);
+
+            if($tripList) {
+              return $view->render($response, 'search/search.twig', [
+                    'response'=> $tripList
+                ]);
+            } else {
+              return $view->render($response, 'search/search.twig', []);
+            }
+
+        }   else if( $queryFunction == 'searchTripsByGreaterDuration') {
+            $duration = filter_var($data['duration'], FILTER_SANITIZE_STRING);
+
+            $trips = new Trip();
+            $tripList = $trips->searchTripsByGreaterDuration($duration);
+
+            if($tripList) {
+              return $view->render($response, 'search/search.twig', [
+                    'response'=> $tripList
+                ]);
+            } else {
+              return $view->render($response, 'search/search.twig', []);
+            }
+
+        } else if( $queryFunction == 'searchTripsByLesserDuration') {
+            $duration = filter_var($data['duration'], FILTER_SANITIZE_STRING);
+
+            $trips = new Trip();
+            $tripList = $trips->searchTripsByLesserDuration($duration);
 
             if($tripList) {
               return $view->render($response, 'search/search.twig', [

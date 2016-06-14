@@ -34,6 +34,11 @@
             <p>End Date: {{ result.endDate }}</p>
         {% endif %}
 
+        <!-- Trip Duration -->
+        {%if result.duration %}
+            <p>Duration: {{ result.duration }}</p>
+        {% endif %}
+
         <!-- Start Location -->
         {%if result.startLocation %}
             <p>Start Location: {{ result.startLocation }}</p>
