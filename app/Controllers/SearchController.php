@@ -154,5 +154,103 @@ class SearchController {
 
     }
 
+    public function searchByTrip(Response $response, Request $request, Twig $view, Router $router) {
+        $uri = $request->getUri();
+        $data = $request->getQueryParams();
+
+        $queryFunction = filter_var($data['queryFunction'], FILTER_SANITIZE_STRING);
+
+        if( $queryFunction == 'searchForMaxRatedTrip') {
+            $trips = new Trip();
+            $tripList = $trips->searchMaxTripRating();
+
+            if($tripList) {
+              return $view->render($response, 'search/search.twig', [
+                    'response'=> $tripList
+                ]);
+            } else {
+              return $view->render($response, 'search/search.twig', []);
+            }
+
+        } else if( $queryFunction == 'searchForMinRatedTrip') {
+            $trips = new Trip();
+            $tripList = $trips->searchMinTripRating();
+
+            if($tripList) {
+              return $view->render($response, 'search/search.twig', [
+                    'response'=> $tripList
+                ]);
+            } else {
+              return $view->render($response, 'search/search.twig', []);
+            }
+
+        } else if( $queryFunction == 'searchForAvgRatedTrip') {
+            $trips = new Trip();
+            $tripList = $trips->searchAvgTripRatingByTrip();
+
+            if($tripList) {
+              return $view->render($response, 'search/search.twig', [
+                    'response'=> $tripList
+                ]);
+            } else {
+              return $view->render($response, 'search/search.twig', []);
+            }
+
+        } else if( $queryFunction == 'searchIncompleteTrips') {
+            $trips = new Trip();
+            $tripList = $trips->searchIncompleteTrips();
+
+            if($tripList) {
+              return $view->render($response, 'search/search.twig', [
+                    'response'=> $tripList
+                ]);
+            } else {
+              return $view->render($response, 'search/search.twig', []);
+            }
+
+        } else if( $queryFunction == 'searchCompleteTrips') {
+            $trips = new Trip();
+            $tripList = $trips->searchCompleteTrips();
+
+            if($tripList) {
+              return $view->render($response, 'search/search.twig', [
+                    'response'=> $tripList
+                ]);
+            } else {
+              return $view->render($response, 'search/search.twig', []);
+            }
+
+        } else if( $queryFunction == 'searchForAllUsersOnTrip') {
+            $tripId = filter_var($data['tripId'], FILTER_SANITIZE_STRING);
+
+            $trips = new Trip();
+            $tripList = $trips->searchUsersOnTrip($tripId);
+
+            if($tripList) {
+              return $view->render($response, 'search/search.twig', [
+                    'response'=> $tripList
+                ]);
+            } else {
+              return $view->render($response, 'search/search.twig', []);
+            }
+
+        }  else if( $queryFunction == 'searchForAllTripsStartingFrom') {
+            $startLocation = filter_var($data['startLocation'], FILTER_SANITIZE_STRING);
+
+            $trips = new Trip();
+            $tripList = $trips->searchUsersOnTrip($startLocation);
+
+            if($tripList) {
+              return $view->render($response, 'search/search.twig', [
+                    'response'=> $tripList
+                ]);
+            } else {
+              return $view->render($response, 'search/search.twig', []);
+            }
+
+        }
+    }
+
+
 
 }

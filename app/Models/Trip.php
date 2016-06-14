@@ -17,123 +17,89 @@ class Trip{
     // return array of tripID and rating
     public function searchMaxTripRating() {
         $db = new Db();
-        $query = "SELECT tripId, rating 
+        $query = "SELECT *
                   FROM tripRating 
                   WHERE rating = (SELECT MAX(rating) 
                                   FROM tripRating)";
-        $result = $db->query($query);
-        $rows = array();
-        while($row = mysqli_fetch_array($result)) {
-            $rows[] = $row;
-        }
-        return $rows;
+        return $this->returnResult( $this->submitQuery($query));
     }
     // this is an aggregation query
     // return array of tripID and rating
     public function searchMinTripRating() {
         $db = new Db();
-        $query = "SELECT tripId, rating 
+        $query = "SELECT *
                   FROM tripRating 
                   WHERE rating = (SELECT MIN(rating) 
                                   FROM tripRating)";
-        $result = $db->query($query);
-        $rows = array();
-        while($row = mysqli_fetch_array($result)) {
-            $rows[] = $row;
-        }
-        return $rows;
+        return $this->returnResult( $this->submitQuery($query));
     }
     // this is an aggregation query
     // return array of tripID and rating (ordered by rating in descending order)
     public function searchAvgTripRatingByTrip() {
         $db = new Db();
-        $query = "SELECT tripID, AVG(rating) 
+        $query = "SELECT tripID, AVG(rating), comment 
                   FROM `tripRating` 
                   GROUP BY tripID 
                   ORDER BY AVG(rating) DESC";
-        $result = $db->query($query);
-        $rows = array();
-        while($row = mysqli_fetch_array($result)) {
-            $rows[] = $row;
-        }
-        return $rows;
+        return $this->returnResult( $this->submitQuery($query));
     }
     // projection/selection query
     // return array of tripID
     public function searchIncompleteTrips() {
         $db = new Db();
-        $query = "SELECT tripID 
+        $query = "SELECT *
                   FROM `trip` 
                   WHERE status = 'incomplete'";
-        $result = $db->query($query);
-        $rows = array();
-        while($row = mysqli_fetch_array($result)) {
-            $rows[] = $row;
-        }
-        return $rows;
+    
+        return $this->returnResult( $this->submitQuery($query));
     }
     // projection/selection query
     // return array of tripID
     public function searchCompleteTrips() {
         $db = new Db();
-        $query = "SELECT tripID 
+        $query = "SELECT *
                   FROM `trip` 
                   WHERE status = 'complete'";
-        $result = $db->query($query);
-        $rows = array();
-        while($row = mysqli_fetch_array($result)) {
-            $rows[] = $row;
-        }
-        return $rows;
+    
+        return $this->returnResult( $this->submitQuery($query));
     }
     // projection/selection query
     // return names of all people who have joined a trip with a specified tripID
     public function searchUsersOnTrip($tripID) {
         $db = new Db();
-        $query = "SELECT u.name 
-                  FROM joins j, `user` u 
+        $query = "SELECT u.username
+                  FROM `joins` j, `user` u 
                   WHERE j.email = u.email AND 
                         tripId = " . $tripID . " 
                   ORDER BY u.name";
-        $result = $db->query($query);
-        $rows = array();
-        while($row = mysqli_fetch_array($result)) {
-            $rows[] = $row;
-        }
-        return $rows;
+        
+        return $this->returnResult( $this->submitQuery($query));
     }
     // projection/selection query
     // return tripIDs of trip with specified startLocation
     public function searchTripsByStartLocation($location) {
         $db = new Db();
         $query = "SELECT tripID 
-                  FROM trip 
+                  FROM `trip` 
                   WHERE startLocation = " . $this->mysqlString($location);
-        $result = $db->query($query);
-        $rows = array();
-        while($row = mysqli_fetch_array($result)) {
-            $rows[] = $row;
-        }
-        return $rows;
+        
+        return $this->returnResult( $this->submitQuery($query));
     }
 
-    private function mysqlString($string){
-        return '\'' . $string . '\'';
-    }
+
 
     public function getLocationsByTripId($tripId){
         $db = new Db();
 
         $query = "SELECT l.city AS city,
                          l.country AS country
-                  FROM location l, travelling_transportation t
+                  FROM `location` l, `travelling_transportation` t
                   WHERE (l.locationID = t.from_locationID or 
                         l.locationID = t.to_locationID) AND" .
                          $this->mysqlString($tripId) . " = 
                         t.tripID";
 
-        $result = $db->query($query);
-        return $result;
+        return $this->returnResult( $this->submitQuery($query));
     }
 
     public function getTravelingInformationByTripId($tripId){
@@ -151,9 +117,7 @@ class Trip{
                         l2.locationID = t.to_locationID AND" .
                         $this->mysqlString($tripId) . "= t.tripID";
 
-        $result = $db->query($query);
-
-        return $result;
+        return $this->returnResult( $this->submitQuery($query));
     }
 
     public function getActivitiesByTripId($tripId){
@@ -172,9 +136,7 @@ class Trip{
                         (a.locationID = t.from_locationID or
                         a.locationID = t.to_locationID)";
 
-        $result = $db->query($query);
-        return $result;
-
+        return $this->returnResult( $this->submitQuery($query));
     }
 
     public function getAccomodationsByTripId($tripId){
@@ -195,8 +157,7 @@ class Trip{
                         (a.locationID = t.from_locationID or
                         a.locationID = t.to_locationID)";
 
-        $result = $db->query($query);
-        return $result;
+        return $this->returnResult( $this->submitQuery($query));
     }
     public function getTripNameById($tripId)
     {
@@ -206,8 +167,7 @@ class Trip{
                   FROM trip t
                   WHERE t.tripId =" . $this->mysqlString($tripId);
 
-        $result = $db->query($query);
-        return $result;
+        return $this->returnResult( $this->submitQuery($query));
     }
 
     // return tripIDs of trip with duration equal to specified duration
@@ -217,13 +177,7 @@ class Trip{
 
         $query = "SELECT tripID FROM trip t, trip_duration d WHERE t.startDate = d.startDate AND t.endDate = d.endDate AND duration = '$duration''";
 
-        $result = $db->query($query);
-
-        $rows = array();
-        while($row = mysqli_fetch_array($result)) {
-            $rows[] = $row;
-        }
-        return $rows;
+        return $this->returnResult( $this->submitQuery($query));
     }
 
     // return tripIDs of trip with duration greater than specified duration
@@ -233,13 +187,7 @@ class Trip{
 
         $query = "SELECT tripID FROM trip t, trip_duration d WHERE t.startDate = d.startDate AND t.endDate = d.endDate AND duration > '$duration''";
 
-        $result = $db->query($query);
-
-        $rows = array();
-        while($row = mysqli_fetch_array($result)) {
-            $rows[] = $row;
-        }
-        return $rows;
+        return $this->returnResult( $this->submitQuery($query));
     }
 
     // return tripIDs of trip with duration less than specified duration
@@ -249,13 +197,36 @@ class Trip{
 
         $query = "SELECT tripID FROM trip t, trip_duration d WHERE t.startDate = d.startDate AND t.endDate = d.endDate AND duration < '$duration''";
 
-        $result = $db->query($query);
+        return $this->returnResult( $this->submitQuery($query));
+    }
 
+
+    /*** Helper Functions ***/
+    private function mysqlString($string){
+        return '\'' . $string . '\'';
+    }
+
+    private function submitQuery($query){
+        $db = new Db();
+
+        return $db->query($query);
+
+    }
+
+    // Helper function for returning results into an
+    // array
+    private function returnResult( $result ) {
+      if( $result ) {
+        // Successful Match
         $rows = array();
         while($row = mysqli_fetch_array($result)) {
-            $rows[] = $row;
+          $rows[] = $row;
         }
         return $rows;
+      } else {
+        // No match found
+        return false;
+      }  
     }
 
 

@@ -105,11 +105,118 @@
     <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> Submit Query
   </button>
 
+  <div class="panel panel-primary" style="margin: 10px 10px 10px 10px;">
+    <div class="panel-heading">
+      <h3 class="panel-title">Results</h3>
+    </div>
+    <div id="results-panel" class="panel-body">
+      {% if response %}
+        <div class="'row">
+
+          {% for index, result in response %}
+              <div class="col-md-4 col-sm-6">
+                  {% include 'search/partials/UserSearchResultItem.twig' with {result: result} %}
+              </div>
+              {% if (index + 1) % 3 ==0 %}
+        </div>
+
+        <div class="row">
+              {% endif %}
+
+
+
+          {% endfor %}
+
+        </div>
+
+      {% else %}
+        No results.
+      {% endif %}
+    </div>
+  </div>
+
 </div>
 
 
 <!-- Trip Content -->
 <div id="trips-content" class style="display: none;">
+  
+  <!-- Search Max Trip Rating -->
+  <div class="radio">
+    <label><input id="search-for-max-trip-rating" type="radio" name="optradio">Search for Maximum Rated Trips</label>
+  </div>
+
+    <!-- Search Main Trip Rating -->
+  <div class="radio">
+    <label><input id="search-for-min-trip-rating" type="radio" name="optradio">Search for Minimum Rated Trips</label>
+  </div>
+
+  <!-- View All Trips which Are Rated the Average -->
+  <div class="radio">
+    <label><input id="search-for-avg-trip-rating" type="radio" name="optradio">View All Trips which Are Rated the Average </label>
+  </div>
+
+  <!-- View All Incomplete Trips -->
+  <div class="radio">
+    <label><input id="search-for-incomplete-trips" type="radio" name="optradio">View All Trips which are not Complete</label>
+  </div>
+
+  <!-- View All Complete Trips -->
+  <div class="radio">
+    <label><input id="search-for-complete-trips" type="radio" name="optradio">View All Trips which are Complete</label>
+  </div>
+
+  <!-- View All Users on a Trip-->
+  <div class="radio">
+    <label><input id="search-for-all-users-on-trip" type="radio" name="optradio">Search for all Users in Trip: </label>
+    <div class="input-group input-group-sm" style="display: inline-block;">
+      <input id="search-for-all-users-on-trip-input-1" type="text" class="form-control" placeholder="Trip ID e.g., 10000000" aria-describedby="basic-addon1">
+    </div>
+  </div>
+
+  <!-- View All Trips that Start in Location-->
+  <div class="radio">
+    <label><input id="search-for-all-trips-starting-from" type="radio" name="optradio">Search for all trips starting from: </label>
+    <div class="input-group input-group-sm" style="display: inline-block;">
+      <input id="search-for-all-trips-starting-from-input-1" type="text" class="form-control" placeholder="e.g., Vancouver" aria-describedby="basic-addon1">
+    </div>
+  </div>
+
+  <!-- Submit Query Button-->
+  <button type="button" class="btn btn-primary btn-lg" onclick="checkWhichQuery()">
+    <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> Submit Query
+  </button>
+
+  <div class="panel panel-primary" style="margin: 10px 10px 10px 10px;">
+    <div class="panel-heading">
+      <h3 class="panel-title">Results</h3>
+    </div>
+    <div id="results-panel" class="panel-body">
+      {% if response %}
+        <div class="'row">
+
+          {% for index, result in response %}
+              <div class="col-md-4 col-sm-6">
+                  {% include 'search/partials/TripSearchResultItem.twig' with {result: result} %}
+              </div>
+              {% if (index + 1) % 3 ==0 %}
+        </div>
+
+        <div class="row">
+              {% endif %}
+
+
+
+          {% endfor %}
+
+        </div>
+
+      {% else %}
+        No results.
+      {% endif %}
+    </div>
+  </div>
+
 </div>
 
 
@@ -120,36 +227,6 @@
 
 <!-- Activities Content -->
 <div id="activities-content" class style="display: none;">
-</div>
-
-<div class="panel panel-primary" style="margin: 10px 10px 10px 10px;">
-  <div class="panel-heading">
-    <h3 class="panel-title">Results</h3>
-  </div>
-  <div id="results-panel" class="panel-body">
-    {% if response %}
-      <div class="'row">
-
-        {% for index, result in response %}
-            <div class="col-md-4 col-sm-6">
-                {% include 'search/partials/UserSearchResultItem.twig' with {result: result} %}
-            </div>
-            {% if (index + 1) % 3 ==0 %}
-      </div>
-
-      <div class="row">
-            {% endif %}
-
-
-
-        {% endfor %}
-
-      </div>
-
-    {% else %}
-      No results.
-    {% endif %}
-  </div>
 </div>
 
 

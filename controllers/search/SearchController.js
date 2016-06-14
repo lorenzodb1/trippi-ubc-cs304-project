@@ -38,7 +38,14 @@ function checkWhichQuery() {
     'search-by-user-location',
     'search-by-users-in-trip',
     'search-by-users-travelled-to-location',
-    'search-for-users-trips'
+    'search-for-users-trips',
+    'search-for-max-trip-rating',
+    'search-for-min-trip-rating',
+    'search-for-avg-trip-rating',
+    'search-for-incomplete-trips',
+    'search-for-complete-trips',
+    'search-for-all-users-on-trip',
+    'search-for-all-trips-starting-from'
   ];
 
   if( document.getElementById(RADIOBUTTONS[0]).checked ) {
@@ -58,12 +65,27 @@ function checkWhichQuery() {
   } else if (document.getElementById(RADIOBUTTONS[7]).checked ) {
     searchByUsersTravelledToLocation();
   } else if (document.getElementById(RADIOBUTTONS[8]).checked ) {
-
+    // All of a user's trips
+  } else if (document.getElementById(RADIOBUTTONS[9]).checked ) {
+    searchForMaxRatedTrip();
+  } else if (document.getElementById(RADIOBUTTONS[10]).checked ) {
+    searchForMinRatedTrip();
+  } else if (document.getElementById(RADIOBUTTONS[11]).checked ) {
+    searchForAvgRatedTrip();
+  } else if (document.getElementById(RADIOBUTTONS[12]).checked ) {
+    searchIncompleteTrips();
+  } else if (document.getElementById(RADIOBUTTONS[13]).checked ) {
+    searchCompleteTrips();
+  } else if (document.getElementById(RADIOBUTTONS[14]).checked ) {
+    searchForAllUsersOnTrip();
+  } else if (document.getElementById(RADIOBUTTONS[15]).checked ) {
+    searchForAllTripsStartingFrom();
   } else {
 
   }
 }
 
+/*** USERS ***/
 function searchByUserName() {
   var INPUTIDS = [
     'search-by-username-input-1'
@@ -162,8 +184,67 @@ function searchByUsersTravelledToLocation() {
   });
 }
 
+/*** TRIPS ***/
+function searchForMaxRatedTrip() {
+  var URL = "http://localhost/trippi-ubc-cs304-project/public/search/trips";
+
+  createForm(URL, { queryFunction: "searchForMaxRatedTrip"});
+}
+
+function searchForMinRatedTrip() {
+  var URL = "http://localhost/trippi-ubc-cs304-project/public/search/trips";
+
+  createForm(URL, { queryFunction: "searchForMinRatedTrip"});
+}
+
+function searchForAvgRatedTrip() {
+  var URL = "http://localhost/trippi-ubc-cs304-project/public/search/trips";
+
+  createForm(URL, { queryFunction: "searchForAvgRatedTrip"});
+}
+
+function searchIncompleteTrips() {
+  var URL = "http://localhost/trippi-ubc-cs304-project/public/search/trips";
+
+  createForm(URL, { queryFunction: "searchIncompleteTrips"});
+}
+
+function searchCompleteTrips() {
+  var URL = "http://localhost/trippi-ubc-cs304-project/public/search/trips";
+
+  createForm(URL, { queryFunction: "searchCompleteTrips"});
+}
+
+function searchForAllUsersOnTrip() {
+  var INPUTIDS = [
+    'search-for-all-users-on-trip-input-1'
+  ]
+
+  var tripId = document.getElementById(INPUTIDS[0]).value;
+
+  var URL = "http://localhost/trippi-ubc-cs304-project/public/search/trips";
+
+  createForm(URL, { queryFunction: "searchForAllUsersOnTrip",
+    tripId: tripId
+  });
+}
+
+function searchForAllTripsStartingFrom() {
+  var INPUTIDS = [
+    'search-for-all-trips-starting-from-input-1'
+  ]
+
+  var startLocation = document.getElementById(INPUTIDS[0]).value;
+
+  var URL = "http://localhost/trippi-ubc-cs304-project/public/search/trips";
+
+  createForm(URL, { queryFunction: "searchForAllTripsStartingFrom",
+    startLocation: startLocation
+  });
+}
 
 
+/*** HELPERS ***/
 function createForm(requestURL, items) {
   var name,
       form = document.createElement("form"),
