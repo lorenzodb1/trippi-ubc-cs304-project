@@ -4,9 +4,9 @@
     <div class="caption">
         <h4>
         {%if result.tripID %}
-            Trip ID: <a href="#">{{ result.tripID }}
+            Trip ID: <a href="{{ path_for('trip.getTrip', {tripId: result.tripID})}}">{{ result.tripID }}
         {% else %}
-            Trip Id: <a href="#">{{ result.tripId}}
+            Trip Id: <a href="{{ path_for('trip.getTrip', {tripId: result.tripID})}}">{{ result.tripId}}
         {% endif %}</a> </h4>
 
         <!-- Trip Name -->
