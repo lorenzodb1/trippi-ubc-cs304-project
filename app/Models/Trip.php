@@ -16,6 +16,18 @@ class Trip
      */
     // this is an aggregation query
     // return array of tripID and rating
+
+    public function deleteTrip($tripId)
+    {
+        $db = new Db();
+        $query = "DELETE FROM trip WHERE tripName = " . ModelsUtils::mysqlstring($tripId);
+        $result = $db->query($query);
+        return $result;
+    }
+
+
+
+
     public function searchMaxTripRating()
     {
         $db = new Db();

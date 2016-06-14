@@ -19,7 +19,7 @@ use Trippi\Models\TripIDGenerator;
 use Trippi\Models\CreateTrip;
 use Slim\Router as router2;
 
-class CreateTripController{
+class CreateTripController  {
 
     public function createTrip(Request $request, Response $response, Twig $view, router2 $router){
         $data = $request->getParsedBody();
@@ -32,6 +32,8 @@ class CreateTripController{
         
         $create = new CreateTrip();
         $createdTrip = $create->createNewTrip($tripID, $startDate, $endDate, $tripName);
+        
+        
 
         $tripModel = new Trip();
         $tripNames = $tripModel->getTripNameById($tripID);

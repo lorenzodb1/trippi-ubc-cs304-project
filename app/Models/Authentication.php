@@ -36,22 +36,22 @@ class Authentication{
       return false;
     }
   }
+    
 
-  /**
-   * @param $email user email
-   * @return mixed query of all trip info associated with the user.
-   */
-  public static function userTrips($email){
-    $db = new Db();
-    $query = "SELECT t.tripId AS id, t.tripName AS tripName, t.startDate AS `from`, t.endDate AS `to` 
-              FROM joins j, trip t 
-              WHERE " . ModelsUtils::mysqlstring($email) . " = j.email AND j.tripId = t.tripId
-              UNION
-              SELECT t.tripId AS id, t.tripName AS tripName, t.startDate AS `from`, t.endDate AS `to` 
-              FROM plan p, trip t 
-              WHERE " . ModelsUtils::mysqlstring($email) . " = p.email AND p.tripId = t.tripId";
-    //$query2 = "SELECT a.locationID, l.city, l.country, a.rating FROM accomodation a, location l WHERE a.locationID = l.locationID and a.rating > 2";
-    $tripsHotelResult = $db->query($query);
-    return $tripsHotelResult;
-  }
+    public  function userPlanTrip($email) {
+        $db = new Db();
+        $query = "SELECT t.tripId AS id, tripName, startDate AS 'from', endDate AS 'to' FROM trip t, plan p where t.tripId = p.tripId AND p.email = " . ModelsUtils::mysqlString($email) ."";
+        $result = $db->query($query);
+        return $result;
+    }
+
+    public  function userJoinTrip($email) {
+        $db = new Db();
+        $query = "SELECT t.tripId AS id, tripName, startDate AS 'from', endDate AS 'to' FROM trip t, join j where t.tripId = j.tripId AND j.email = " . ModelsUtils::mysqlString($email) ."";
+        $result = $db->query($query);
+        return $result;
+
+    }
+
+
 }
