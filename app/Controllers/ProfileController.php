@@ -26,13 +26,16 @@ class ProfileController{
         $accommodations = $tripModel->getAccomodationsByTripId($tripId);
         $activities = $tripModel->getActivitiesByTripId($tripId);
         $tripNames = $tripModel->getTripNameById($tripId);
+        $users = $tripModel->searchUsersOnTrip($tripId);
+
         
         return $view->render($response, 'trip/trip.twig', [
             'locations'=> $locations,
             'travelInfo'=> $travelInfo,
             'accommodations'=> $accommodations,
             'activities'=>$activities,
-            'tripNames'=>$tripNames
+            'tripNames'=>$tripNames,
+            'users'=>$users
         ]);
         
 

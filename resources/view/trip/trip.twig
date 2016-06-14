@@ -140,6 +140,39 @@
             {% endif %}
 
         </div>
+
+    <div class="col-md-4">
+        <h3>Users on trip </h3>
+        {% if users %}
+            <div class="well">
+                <table class ="table">
+                    <thead>
+                    <tr>
+                        <th>UserName</th>
+                        <th>Name</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for index, user in users %}
+                        <tr>
+                            <td>{{ user.userName }} </td>
+                            <td>{{ user.name }}</td>
+
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+
+
+                </table>
+            </div>
+
+        {% else %}
+            <p> This trip has no users </p>
+        {% endif %}
+
+
+    </div>
+
     </div>
 
 {% endblock %}

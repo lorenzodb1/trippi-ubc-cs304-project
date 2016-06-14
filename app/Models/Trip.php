@@ -97,11 +97,16 @@ class Trip
     public function searchUsersOnTrip($tripID)
     {
         $db = new Db();
-        $query = "SELECT u.name 
+        $query = "SELECT DISTINCT u.name AS `name`, u.username AS userName 
                   FROM joins j, `user` u 
-                  WHERE j.email = u.email AND 
-                        tripId = " . $tripID . " 
-                  ORDER BY u.name";
+                  WHERE (j.email = u.email AND 
+                        j.tripId =" . ModelsUtils::mysqlString($tripID) .")
+                  UNION
+                  SELECT DISTINCT u.name AS `name`, u.username AS userName 
+                  FROM admin a, plan p, `user` u 
+                  WHERE (p.email = a.email AND
+                         a.email = u.email AND
+                        p.tripId =" . ModelsUtils::mysqlString($tripID) .")";
         $result = $db->query($query);
         $rows = array();
         while ($row = mysqli_fetch_array($result)) {
@@ -173,12 +178,14 @@ class Trip
                          a.place AS activityPlace,
                          a.adate AS `date`
                   FROM location l, travelling_transportation t, activity a
-                  WHERE (l.locationID = t.from_locationID or 
-                        l.locationID = t.to_locationID) AND" .
+                  WHERE ((l.locationID = t.from_locationID) AND" .
                         $this->mysqlString($tripId) . " = 
                         t.tripID AND
-                        (a.locationID = t.from_locationID or
-                        a.locationID = t.to_locationID)";
+                        (a.locationID = t.from_locationID)) or
+                        ((l.locationID = t.to_locationID) AND" .
+            $this->mysqlString($tripId) . " = 
+                        t.tripID AND
+                        (a.locationID = t.to_locationID))";
 
         $result = $db->query($query);
         return $result;
@@ -196,12 +203,14 @@ class Trip
                          a.startDate AS `from`,
                          a.endDate AS `to`
                   FROM location l, travelling_transportation t, accomodation a
-                  WHERE (l.locationID = t.from_locationID or 
-                        l.locationID = t.to_locationID) AND" .
+                  WHERE ((l.locationID = t.from_locationID) AND" .
                         $this->mysqlString($tripId) . " = 
                         t.tripID AND
-                        (a.locationID = t.from_locationID or
-                        a.locationID = t.to_locationID)";
+                        (a.locationID = t.from_locationID)) or
+                        ((l.locationID = t.to_locationID) AND" .
+            $this->mysqlString($tripId) . " = 
+                        t.tripID AND
+                        (a.locationID = t.to_locationID))";
 
         $result = $db->query($query);
         return $result;
