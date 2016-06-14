@@ -124,8 +124,6 @@ class Trip
         }
         return $rows;
     }
-<<<<<<< HEAD
-=======
 
     private function mysqlString($string){
         return '\'' . $string . '\'';
@@ -270,5 +268,4 @@ class Trip
 
 
 
->>>>>>> master
 }

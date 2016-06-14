@@ -44,40 +44,38 @@ class HomeController{
             return $response->withRedirect($router->pathFor('home'));
         }
     }
-<<<<<<< HEAD
-    
+
     /*
      * TODO: To be completed...
      */
-    public function signUp(Response $response, Request $request, Twig $view, Router $router){
+    public function signUp(Response $response, Request $request, Twig $view, Router $router)
+    {
         $data = $request->getParsedBody();
-        $test_email = filter_var($data['email'],FILTER_SANITIZE_EMAIL);
+        $test_email = filter_var($data['email'], FILTER_SANITIZE_EMAIL);
         $email = $data['email'];
-        if($test_email != $email) {
+        if ($test_email != $email) {
             //go back to homepage and say what when wrong
             return $response->withRedirect($router->pathFor('home'));
         }
-        $password =  $data['password'];
-        if(!ModelsUtils::verifyEmail($email)){
+        $password = $data['password'];
+        if (!ModelsUtils::verifyEmail($email)) {
             //check if the password exists
             $check = new SignUp();
             $signup = $check->sign_up($email, $password);
-            if($signup) {
+            if ($signup) {
 //                return $view->render($response, 'profile/profile.twig', [
 //                    'users'=> $login,
 //                    'trips'=> $authenticate->userTrips($email)
 //                ]);
-            }
-            else{
+            } else {
 //                return $response->withRedirect($router->pathFor('home'));
             }
-        }
-        else{
+        } else {
 //            return $response->withRedirect($router->pathFor('home'));
         }
-=======
+    }
+
     public function getTrip(Response $response, Request $request, Twig $view, Router $router){
         return $view->render($response, 'trip/trip.twig');
->>>>>>> master
     }
 }
