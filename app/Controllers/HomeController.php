@@ -18,6 +18,7 @@ use Trippi\Models\SignUp;
 use Trippi\Models\Trip;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
+use Trippi\Models\UserRating;
 
 //testing
 class HomeController{
@@ -41,7 +42,8 @@ class HomeController{
                 return $view->render($response, 'profile/profile.twig', [
                     'users'=> $login,
                     'plannedTrips'=> Authentication::userPlanTrip($email),
-                    'joinedTrips' => Authentication::userJoinTrip($email)
+                    'joinedTrips' => Authentication::userJoinTrip($email),
+                    'ratings' => UserRating::view_ratings($email)
                 ]);
             }
             else{

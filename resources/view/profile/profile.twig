@@ -119,6 +119,28 @@
 
             {% endif %}
 
+            <h3>Your ratings from other users</h3>
+                <div class="well">
+                    <table class ="table">
+                        <thead>
+                        <tr>
+                            <th>Rater</th>
+                            <th>Rating</th>
+                            <th>Comment</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for index, rating in ratings %}
+                            <tr>
+                                <td></td>
+                                <td>{{ rating.rater }}</td>
+                                <td>{{ rating.rating}}</td>
+                                <td>{{ rating.comment }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
         </div>
     </div>
 
