@@ -227,9 +227,9 @@ class Trip{
         return $this->returnResult( $this->submitQuery($query));
     }
 
-    public function getTripNameById($tripId){
+    /*public function getTripNameById($tripId){
         return $this->getTripNamesById($tripId)->fetch_object()->tripName;
-    }
+    }*/
 
     // return tripIDs of trip with duration equal to specified duration
     public function searchTripsByEqualDuration($duration) {
