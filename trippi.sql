@@ -1,6 +1,7 @@
 use DB_trippi;
 -- use testing_DB;
 -- SET FOREIGN_KEY_CHECKS=0;
+
 DROP TABLE IF EXISTS user CASCADE;
 DROP TABLE IF EXISTS admin CASCADE;
 DROP TABLE IF EXISTS trip CASCADE;
@@ -13,18 +14,19 @@ DROP TABLE IF EXISTS location CASCADE;
 DROP TABLE IF EXISTS activity CASCADE;
 DROP TABLE IF EXISTS accommodation CASCADE;
 
--- DROP TABLE user;
--- DROP TABLE admin;
--- DROP TABLE trip;
--- DROP TABLE trip_duration;
--- DROP TABLE plan;
--- DROP TABLE travelling_transportation;
--- DROP TABLE travelling_duration;
--- DROP TABLE joins;
--- DROP TABLE location;
--- DROP TABLE activity;
--- DROP TABLE accommodation;
-
+-- DROP TABLE IF EXISTS `user`;
+-- DROP TABLE IF EXISTS admin;
+-- DROP TABLE IF EXISTS trip_duration;
+-- DROP TABLE IF EXISTS trip;
+-- DROP TABLE IF EXISTS plan;
+-- DROP TABLE IF EXISTS location;
+-- DROP TABLE IF EXISTS travelling_transportation;
+-- DROP TABLE IF EXISTS travelling_duration;
+-- DROP TABLE IF EXISTS joins;
+-- DROP TABLE IF EXISTS activity;
+-- DROP TABLE IF EXISTS accomodation;
+-- DROP TABLE IF EXISTS userRating;
+-- DROP TABLE IF EXISTS tripRating;
 
 
 create table user
@@ -37,6 +39,7 @@ create table user
 		dateOfBirth date null,
 		aboutMe varchar(140) null,
 		rating int(1) null,
+		karma int(10) null,
 		primary key (email));
 
 create table admin
@@ -104,8 +107,6 @@ create table joins
 		foreign key(tripId) references trip(tripId),
 		foreign key(email) references user(email));
 
-
-
 create table activity
 	(name varchar(40) not null,
 		place varchar(40) null,
@@ -144,36 +145,45 @@ CREATE TABLE tripRating
     FOREIGN KEY (tripID) REFERENCES trip(tripId),
     FOREIGN KEY (email) REFERENCES user(email));
 
+insert into user
+	values('bob@gmail.com', 'bobsmith', '$6$rounds=5000$bob@gmail.com$ajkpRTIRKd711I9aMbApgl8APZCnwgNRIWbVLj0aItHSjGv6NNY7FOl0aJP5c7hNAnFCFRyPBmdOSO5Wk1Ikj1', 'Bob Smith', 'Vancouver', 'Canada', '1995-09-12', 'I am cool', 4, 0);
 
 insert into user
-	values('bob@gmail.com', 'bobsmith', '$6$rounds=5000$bob@gmail.com$ajkpRTIRKd711I9aMbApgl8APZCnwgNRIWbVLj0aItHSjGv6NNY7FOl0aJP5c7hNAnFCFRyPBmdOSO5Wk1Ikj1', 'Bob Smith', 'Vancouver', 'Canada', '1995-09-12', 'I am cool', 4);
+	values('mary123@gmail.com', 'mary123', '$6$rounds=5000$mary123@gmail.co$iP07x/j8u1mxH1RvZGEgurFcR5OJ3NCaatWiDr/NH8ifVtFZ3LhvSLRaT219qaMLpjLjU4W04r75slzmqaUl41', 'Mary Jackson', 'Kelowna', 'Canada', '1990-04-09', 'I am cool', 3, 0);
 
 insert into user
-	values('mary123@gmail.com', 'mary123', '$6$rounds=5000$mary123@gmail.co$iP07x/j8u1mxH1RvZGEgurFcR5OJ3NCaatWiDr/NH8ifVtFZ3LhvSLRaT219qaMLpjLjU4W04r75slzmqaUl41', 'Mary Jackson', 'Kelowna', 'Canada', '1990-04-09', 'I am cool', 3);
+	values('lalla@hotmail.com', 'lallala', '$6$rounds=5000$lalla@hotmail.co$6J6ryyboDg0QVrfgqWUNTBewnb9s5kcr8741nEG.GaSWwdAbYRDDvV7Rsn3EnyFIFHbRYa8SJhdjXYwzwvfVt/', 'Lalla Peterson', 'Rome', 'Italy', '1987-04-11', 'I am cool', 2, 0);
 
 insert into user
-	values('lalla@hotmail.com', 'lallala', '$6$rounds=5000$lalla@hotmail.co$6J6ryyboDg0QVrfgqWUNTBewnb9s5kcr8741nEG.GaSWwdAbYRDDvV7Rsn3EnyFIFHbRYa8SJhdjXYwzwvfVt/', 'Lalla Peterson', 'Rome', 'Italy', '1987-04-11', 'I am cool', 2);
+	values('johndavies@gmail.com', 'johnnyd', '$6$rounds=5000$johndavies@gmail$.9GdUdBFZtm3JZtU1XD5ZC1ngz9nDS1F/OnsgP3rvkpB4.Sr8hFFhdy4tl08DjHJwFys5L1HSiGTKEGNrhBpx1', 'John Davies', 'Paris', 'France', '1956-02-20', 'I am cool', 1, 0);
 
 insert into user
-	values('johndavies@gmail.com', 'johnnyd', '$6$rounds=5000$johndavies@gmail$.9GdUdBFZtm3JZtU1XD5ZC1ngz9nDS1F/OnsgP3rvkpB4.Sr8hFFhdy4tl08DjHJwFys5L1HSiGTKEGNrhBpx1', 'John Davies', 'Paris', 'France', '1956-02-20', 'I am cool', 1);
+	values('garylee@gmail.com', 'glee', '$6$rounds=5000$garylee@gmail.co$zhjDgXC3fFPjN.G.GRIVrbCZKMW1R0Z6LyUzCKK4ITIuHjUs2acBUIsSaWMd0QmNiXaSREiFMC1r2NDkOrHS/0', 'Gary Lee', 'Victoria', 'Canada', '1971-07-13', 'I am cool', 5, 0);
 
 insert into user
-	values('garylee@gmail.com', 'glee', '$6$rounds=5000$garylee@gmail.co$zhjDgXC3fFPjN.G.GRIVrbCZKMW1R0Z6LyUzCKK4ITIuHjUs2acBUIsSaWMd0QmNiXaSREiFMC1r2NDkOrHS/0', 'Gary Lee', 'Victoria', 'Canada', '1971-07-13', 'I am cool', 5);
+	values('hsimpson@gmail.com', 'howardsimpson', '$6$rounds=5000$hsimpson@gmail.c$FjwMTVRxWnWkewYsP4YX7ftTH7qiZU5l0a/O836QKf7/S4BoodfOtU3TDUT6GnB7N8e9FtKR8/UljpOleYu2W0', 'Howard Simpson', 'Burnaby', 'Canada', '1978-06-21', 'I am cool', null, 0);
 
 insert into user
-	values('hsimpson@gmail.com', 'howardsimpson', '$6$rounds=5000$hsimpson@gmail.c$FjwMTVRxWnWkewYsP4YX7ftTH7qiZU5l0a/O836QKf7/S4BoodfOtU3TDUT6GnB7N8e9FtKR8/UljpOleYu2W0', 'Howard Simpson', 'Burnaby', 'Canada', '1978-06-21', 'I am cool', null);
+	values('cool.dude@gmail.com', 'cool786pson', '$6$rounds=5000$cool.dude@gmail.$sAexhZ.eAwYBfqxElvirL3ZypY96BnG6H2.uQilFagImfytYFukh9GNBZ271/.2HMf68S9w.P7EqSRj6KJN/l1', 'Cool dude', 'Winnipeg', 'Canada', '1980-06-22', 'I am cool', 4, 0);
 
 insert into user
-	values('cool.dude@gmail.com', 'cool786pson', '$6$rounds=5000$cool.dude@gmail.$sAexhZ.eAwYBfqxElvirL3ZypY96BnG6H2.uQilFagImfytYFukh9GNBZ271/.2HMf68S9w.P7EqSRj6KJN/l1', 'Cool dude', 'Winnipeg', 'Canada', '1980-06-22', 'I am cool', 4);
+	values('jeco@gmail.com', 'jecoIo', '$6$rounds=5000$jeco@gmail.com$qWaUQTNLlwPq6T6NpG0TSFiuxgTa0VucqbsxtTYa3xdYLfFiwAtOEUY3XanPjGSzACl13gXNUCdhDQfOk8S.Z.', 'Jeco Simpson', 'Whistler', 'Canada', '1972-08-21', 'I am cool', null, 0);
 
 insert into user
-	values('jeco@gmail.com', 'jecoIo', '$6$rounds=5000$jeco@gmail.com$qWaUQTNLlwPq6T6NpG0TSFiuxgTa0VucqbsxtTYa3xdYLfFiwAtOEUY3XanPjGSzACl13gXNUCdhDQfOk8S.Z.', 'Jeco Simpson', 'Whistler', 'Canada', '1972-08-21', 'I am cool', null);
+	values('pilo@gmail.com', 'piloCY', '$6$rounds=5000$pilo@gmail.com$Bvzj.8p9JXwhcK8qTr5e7yP7BL/BDzWJ5TPrZ6NHEsQvfLwuMfZs8RfeV9K0PWf85xSJhNpTxw/v4kUU4jf3Y0', 'Pilo Zes', 'Calgary', 'Canada', '1985-06-21', 'I am cool', null, 0);
 
 insert into user
-	values('pilo@gmail.com', 'piloCY', '$6$rounds=5000$pilo@gmail.com$Bvzj.8p9JXwhcK8qTr5e7yP7BL/BDzWJ5TPrZ6NHEsQvfLwuMfZs8RfeV9K0PWf85xSJhNpTxw/v4kUU4jf3Y0', 'Pilo Zes', 'Calgary', 'Canada', '1985-06-21', 'I am cool', null);
+	values('tuso@gmail.com', 'tuso82', '$6$rounds=5000$tuso@gmail.com$vN.PUOVGZsPTqJRwSdzb/QnkD7Rl6w1MhgBGcc9RauU.XguTCaXDb6.dqkvSVKWXe11i3npxPbAavhBv5tE/I0', 'Tuso Jelo', 'Edmonton', 'Canada', '1982-06-21', 'I am not cool', 1, 0);
 
-insert into user
-	values('tuso@gmail.com', 'tuso82', '$6$rounds=5000$tuso@gmail.com$vN.PUOVGZsPTqJRwSdzb/QnkD7Rl6w1MhgBGcc9RauU.XguTCaXDb6.dqkvSVKWXe11i3npxPbAavhBv5tE/I0', 'Tuso Jelo', 'Edmonton', 'Canada', '1982-06-21', 'I am not cool', 1);
+CREATE DEFINER=`root`@`localhost` TRIGGER `karma_plan` AFTER INSERT ON `plan`
+FOR EACH ROW UPDATE user
+             SET karma = karma + 1
+             WHERE NEW.email = user.email;
+
+CREATE DEFINER=`root`@`localhost` TRIGGER `karma_join` AFTER INSERT ON `joins`
+FOR EACH ROW UPDATE user
+             SET karma = karma + 1
+             WHERE NEW.email = user.email;
 
 insert into admin
 	values('bob@gmail.com');
@@ -263,19 +273,19 @@ insert into plan
 	values('10000007','garylee@gmail.com');
 
 insert into location
-	values('1', 'Vancouver', 'Canada');
+	values('10000001', 'Vancouver', 'Canada');
 
 insert into location
-	values('2', 'Rome', 'Italy');
+	values('10000002', 'Rome', 'Italy');
 
 insert into location
-	values('3', 'Saskatoon', 'Canada');
+	values('10000003', 'Saskatoon', 'Canada');
 
 insert into location
-	values('4', 'Singapore', 'Singapore');
+	values('10000004', 'Singapore', 'Singapore');
 
 insert into location
-	values('5', 'Medellin', 'Colombia');
+	values('10000005', 'Medellin', 'Colombia');
 
 insert into travelling_duration
 	values('2016-07-08', '2016-07-09', "1 day");
@@ -293,19 +303,19 @@ insert into travelling_duration
 	values('2016-10-11', '2016-10-13', "2 days");
 
 insert into travelling_transportation
-	values('1', '1', '2', '10000000', '2016-07-08', '2016-07-09', 1299, 'Flight');
+	values('10000001', '10000001', '10000002', '10000000', '2016-07-08', '2016-07-09', 1299, 'Flight');
 
 insert into travelling_transportation
-	values('2', '2', '5', '10000001', '2016-07-18', '2016-07-20', 2000, 'Flight');
+	values('10000002', '10000002', '10000005', '10000001', '2016-07-18', '2016-07-20', 2000, 'Flight');
 
 insert into travelling_transportation
-	values('3', '4', '1', '10000002', '2016-12-14', '2016-12-20', 10000, 'Boat');
+	values('10000003', '10000004', '10000001', '10000002', '2016-12-14', '2016-12-20', 10000, 'Boat');
 
 insert into travelling_transportation
-	values('4', '1', '3', '10000003', '2016-12-23', '2016-12-25', 3000, 'Car');
+	values('10000004', '10000001', '10000003', '10000003', '2016-12-23', '2016-12-25', 3000, 'Car');
 
 insert into travelling_transportation
-	values('5', '5', '2', '10000004', '2016-10-11', '2016-10-13', 2000, 'Flight');
+	values('10000005', '10000005', '10000002', '10000004', '2016-10-11', '2016-10-13', 2000, 'Flight');
 
 insert into joins
 	values('10000000', 'hsimpson@gmail.com');
@@ -323,34 +333,34 @@ insert into joins
 	values('10000002', 'tuso@gmail.com');
 
 insert into activity
-	values('colosseum', 'roma', '2016-07-10', '20', '2');
+	values('colosseum', 'roma', '2016-07-10', '20', '10000002');
 
 insert into activity
-	values('grouse_mountain', 'vancouver', '2016-07-07', '10', '1');
+	values('grouse_mountain', 'vancouver', '2016-07-07', '10', '10000001');
         
 insert into activity
-	values('hiking', 'Saskatoon', '2016-12-24', '60', '3');
+	values('hiking', 'Saskatoon', '2016-12-24', '60', '10000003');
 
 insert into activity
-	values('clubbing', 'medellin', '2016-07-21', '30', '5');
+	values('clubbing', 'medellin', '2016-07-21', '30', '10000005');
 
 insert into activity
-	values('eating_noodles', 'singapore', '2016-12-25', '15', '4');
+	values('eating_noodles', 'singapore', '2016-12-25', '15', '10000004');
         
 insert into accomodation
-	values('hotel_hilton', 'hotel', '750', '5', '2016-07-09', '2016-07-18', '2');
+	values('hotel_hilton', 'hotel', '750', '5', '2016-07-09', '2016-07-18', '10000002');
 
 insert into accomodation
-	values('hotel_sheraton', 'hotel', '630', '4', '2016-07-05', '2016-07-8', '1');
+	values('hotel_sheraton', 'hotel', '630', '4', '2016-07-05', '2016-07-8', '10000001');
 
 insert into accomodation
-	values('casa_estrella', 'hostel', '30', '3', '2016-07-20', '2016-10-11', '5');
+	values('casa_estrella', 'hostel', '30', '3', '2016-07-20', '2016-10-11', '10000005');
         
 insert into accomodation
-	values('hostel_chung', 'hostel', '20', '2', '2016-12-20', '2016-12-13', '4');
+	values('hostel_chung', 'hostel', '20', '2', '2016-12-20', '2016-12-13', '10000004');
         
 insert into accomodation
-	values('goose_house', 'bnb', '50', '3', '2016-12-25', '2016-12-28', '3');
+	values('goose_house', 'bnb', '50', '3', '2016-12-25', '2016-12-28', '10000003');
 
 insert into tripRating
 	values('10000000', 'hsimpson@gmail.com', 6, 'love the places');
@@ -382,8 +392,6 @@ insert into userRating
 
 insert into userRating
 	values('pilo@gmail.com', 'tuso@gmail.com', 10, 'awesome');
-
-
 
 
 

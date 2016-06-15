@@ -6,8 +6,12 @@
  * Time: 9:51 PM
  */
 namespace Trippi\Models;
-class Trip
-{
+
+
+
+
+class Trip{
+
     /**
      * The table associated with the model.
      *
@@ -58,9 +62,6 @@ class Trip
         return $result;
     }
 
-
-
-
     public function searchMaxTripRating()
     {
         $db = new Db();
@@ -68,74 +69,47 @@ class Trip
                   FROM tripRating 
                   WHERE rating = (SELECT MAX(rating) 
                                   FROM tripRating)";
-        $result = $db->query($query);
-        $rows = array();
-        while ($row = mysqli_fetch_array($result)) {
-            $rows[] = $row;
-        }
-        return $rows;
+        return $this->returnResult( $this->submitQuery($query));
     }
     // this is an aggregation query
     // return array of tripID and rating
-    public function searchMinTripRating()
-    {
+    public function searchMinTripRating() {
         $db = new Db();
-        $query = "SELECT tripId, rating 
+        $query = "SELECT *
                   FROM tripRating 
                   WHERE rating = (SELECT MIN(rating) 
                                   FROM tripRating)";
-        $result = $db->query($query);
-        $rows = array();
-        while ($row = mysqli_fetch_array($result)) {
-            $rows[] = $row;
-        }
-        return $rows;
+        return $this->returnResult( $this->submitQuery($query));
     }
     // this is an aggregation query
     // return array of tripID and rating (ordered by rating in descending order)
-    public function searchAvgTripRatingByTrip()
-    {
+    public function searchAvgTripRatingByTrip() {
         $db = new Db();
-        $query = "SELECT tripID, AVG(rating) 
+        $query = "SELECT tripID, AVG(rating), comment 
                   FROM `tripRating` 
                   GROUP BY tripID 
                   ORDER BY AVG(rating) DESC";
-        $result = $db->query($query);
-        $rows = array();
-        while ($row = mysqli_fetch_array($result)) {
-            $rows[] = $row;
-        }
-        return $rows;
+        return $this->returnResult( $this->submitQuery($query));
     }
     // projection/selection query
     // return array of tripID
-    public function searchIncompleteTrips()
-    {
+    public function searchIncompleteTrips() {
         $db = new Db();
-        $query = "SELECT tripID 
+        $query = "SELECT *
                   FROM `trip` 
                   WHERE status = " . ModelsUtils::mysqlstring('incomplete');
-        $result = $db->query($query);
-        $rows = array();
-        while ($row = mysqli_fetch_array($result)) {
-            $rows[] = $row;
-        }
-        return $rows;
+    
+        return $this->returnResult( $this->submitQuery($query));
     }
     // projection/selection query
     // return array of tripID
-    public function searchCompleteTrips()
-    {
+    public function searchCompleteTrips() {
         $db = new Db();
-        $query = "SELECT tripID 
+        $query = "SELECT *
                   FROM `trip` 
                   WHERE status = " . ModelsUtils::mysqlstring('complete');
-        $result = $db->query($query);
-        $rows = array();
-        while ($row = mysqli_fetch_array($result)) {
-            $rows[] = $row;
-        }
-        return $rows;
+    
+        return $this->returnResult( $this->submitQuery($query));
     }
     // projection/selection query
     // return names of all people who have joined a trip with a specified tripID
@@ -161,37 +135,29 @@ class Trip
     }
     // projection/selection query
     // return tripIDs of trip with specified startLocation
-    public function searchTripsByStartLocation($location)
-    {
+    public function searchTripsByStartLocation($location) {
         $db = new Db();
         $query = "SELECT tripID 
-                  FROM trip 
+                  FROM `trip` 
                   WHERE startLocation = " . ModelsUtils::mysqlstring($location);
-        $result = $db->query($query);
-        $rows = array();
-        while ($row = mysqli_fetch_array($result)) {
-            $rows[] = $row;
-        }
-        return $rows;
+        
+        return $this->returnResult( $this->submitQuery($query));
     }
 
-    private function mysqlString($string){
-        return '\'' . $string . '\'';
-    }
+
 
     public function getLocationsByTripId($tripId){
         $db = new Db();
 
         $query = "SELECT l.city AS city,
                          l.country AS country
-                  FROM location l, travelling_transportation t
+                  FROM `location` l, `travelling_transportation` t
                   WHERE (l.locationID = t.from_locationID or 
                         l.locationID = t.to_locationID) AND" .
                          $this->mysqlString($tripId) . " = 
                         t.tripID";
 
-        $result = $db->query($query);
-        return $result;
+        return $this->returnResult( $this->submitQuery($query));
     }
 
     public function getTravelingInformationByTripId($tripId){
@@ -209,9 +175,7 @@ class Trip
                         l2.locationID = t.to_locationID AND" .
                         $this->mysqlString($tripId) . "= t.tripID";
 
-        $result = $db->query($query);
-
-        return $result;
+        return $this->returnResult( $this->submitQuery($query));
     }
 
     public function getActivitiesByTripId($tripId){
@@ -221,7 +185,8 @@ class Trip
                          l.country AS country,
                          a.name AS activityName,
                          a.place AS activityPlace,
-                         a.adate AS `date`
+                         a.adate AS `date`,
+                         a.cost AS cost
                   FROM location l, travelling_transportation t, activity a
                   WHERE ((l.locationID = t.from_locationID) AND" .
                         $this->mysqlString($tripId) . " = 
@@ -232,9 +197,7 @@ class Trip
                         t.tripID AND
                         (a.locationID = t.to_locationID))";
 
-        $result = $db->query($query);
-        return $result;
-
+        return $this->returnResult( $this->submitQuery($query));
     }
 
     public function getAccomodationsByTripId($tripId){
@@ -257,35 +220,35 @@ class Trip
                         t.tripID AND
                         (a.locationID = t.to_locationID))";
 
-        $result = $db->query($query);
-        return $result;
+        return $this->returnResult( $this->submitQuery($query));
     }
     public function getTripNameById($tripId)
     {
         $db = new Db();
 
         $query = "SELECT t.tripName AS tripName
-                  FROM trip t
-                  WHERE t.tripId =" . $this->mysqlString($tripId);
+                  FROM `trip` t
+                  WHERE t.tripId =" . $this->mysqlString($tripId) . "";
 
-        $result = $db->query($query);
-        return $result;
+        return $this->returnResult( $this->submitQuery($query));
     }
+
+    /*public function getTripNameById($tripId){
+        return $this->getTripNamesById($tripId)->fetch_object()->tripName;
+    }*/
 
     // return tripIDs of trip with duration equal to specified duration
     public function searchTripsByEqualDuration($duration) {
 
         $db = new Db();
 
-        $query = "SELECT tripID FROM trip t, trip_duration d WHERE t.startDate = d.startDate AND t.endDate = d.endDate AND duration = '$duration''";
+        $query = "SELECT tripID 
+                  FROM trip t, trip_duration d 
+                  WHERE t.startDate = d.startDate AND 
+                        t.endDate = d.endDate AND 
+                        duration = '$duration'";
 
-        $result = $db->query($query);
-
-        $rows = array();
-        while($row = mysqli_fetch_array($result)) {
-            $rows[] = $row;
-        }
-        return $rows;
+        return $this->returnResult( $this->submitQuery($query));
     }
 
     // return tripIDs of trip with duration greater than specified duration
@@ -293,15 +256,13 @@ class Trip
 
         $db = new Db();
 
-        $query = "SELECT tripID FROM trip t, trip_duration d WHERE t.startDate = d.startDate AND t.endDate = d.endDate AND duration > '$duration''";
+        $query = "SELECT tripID 
+                  FROM trip t, trip_duration d 
+                  WHERE t.startDate = d.startDate AND 
+                        t.endDate = d.endDate AND 
+                        duration > '$duration'";
 
-        $result = $db->query($query);
-
-        $rows = array();
-        while($row = mysqli_fetch_array($result)) {
-            $rows[] = $row;
-        }
-        return $rows;
+        return $this->returnResult( $this->submitQuery($query));
     }
 
     // return tripIDs of trip with duration less than specified duration
@@ -309,17 +270,63 @@ class Trip
 
         $db = new Db();
 
-        $query = "SELECT tripID FROM trip t, trip_duration d WHERE t.startDate = d.startDate AND t.endDate = d.endDate AND duration < '$duration''";
+        $query = "SELECT tripID 
+                  FROM trip t, trip_duration d 
+                  WHERE t.startDate = d.startDate AND 
+                        t.endDate = d.endDate AND 
+                        duration < '$duration'";
 
-        $result = $db->query($query);
+        return $this->returnResult( $this->submitQuery($query));
+    }
 
+
+    /*** Helper Functions ***/
+    private function mysqlString($string){
+        return '\'' . $string . '\'';
+    }
+
+    private function submitQuery($query){
+        $db = new Db();
+
+        return $db->query($query);
+
+    }
+
+    // Helper function for returning results into an
+    // array
+    private function returnResult( $result ) {
+      if( $result ) {
+        // Successful Match
         $rows = array();
         while($row = mysqli_fetch_array($result)) {
+          $rows[] = $row;
+        }
+        return $rows;
+      } else {
+        // No match found
+        return false;
+      }  
+    }
+
+    public function findMostLoyalCompanion($email)
+    {
+        $db = new Db();
+        $query = "SELECT u.username
+                  FROM `user` u 
+                  WHERE u.email IN (SELECT j.email
+                                    FROM `joins` j 
+                                    WHERE j.tripId IN (SELECT p.tripId
+                                                       FROM `plan` p 
+                                                       WHERE p.email = " . ModelsUtils::mysqlString($email) . ")
+                                    GROUP BY j.email
+                                    HAVING COUNT(*) = (SELECT COUNT(DISTINCT p.tripId)
+                                                       FROM `plan` p 
+                                                       WHERE p.email = " . ModelsUtils::mysqlString($email) . "))";
+        $result = $db->query($query);
+        $rows = array();
+        while ($row = mysqli_fetch_array($result)) {
             $rows[] = $row;
         }
         return $rows;
     }
-
-
-
 }
