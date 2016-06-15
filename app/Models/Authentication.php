@@ -38,7 +38,7 @@ class Authentication{
   }
     
 
-    public static function userPlanTrip($email) {
+    public  function userPlanTrip($email) {
         $db = new Db();
         $query = "SELECT t.tripId AS id, tripName, startDate AS 'from', endDate AS 'to' 
                   FROM trip t, plan p where t.tripId = p.tripId AND 
@@ -47,7 +47,7 @@ class Authentication{
         return $result;
     }
 
-    public static function userJoinTrip($email) {
+    public  function userJoinTrip($email) {
         $db = new Db();
         $query = "SELECT t.tripId AS id, tripName, startDate AS 'from', endDate AS 'to' 
                   FROM trip t, `joins` j 

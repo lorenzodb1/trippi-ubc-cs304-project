@@ -1,0 +1,70 @@
+{% extends 'templates/app.twig' %}
+
+{% block content %}
+
+    <div class ="row">
+        <div class="col-md-8">
+            <h1>Would you like to add a trip segment?</h1>
+            <h2>TripName: {{ tripName }}</h2>
+            <h3>TripId: {{ tripId }}</h3>
+            <form action="{{ path_for('addLocationDetails') }}" method="post">
+
+                <div class="form-group">
+
+                    <label for="tripId">TripId</label>
+
+                    <input type="text" name="tripId" id="tripId" class="form-control">
+
+                </div>
+
+                <h3>Locations: here you can add Starting Location and End location</h3>
+
+                <div class="form-group">
+
+                    <label for="fromCity">Starting City</label>
+
+                    <input type="text" name="fromCity" id="fromCity" class="form-control">
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="fromCountry">Starting Country</label>
+
+                    <input type="text" name="fromCountry" id="fromCountry" class="form-control">
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="toCity">Ending City</label>
+
+                    <input type="text" name="toCity" id="toCity" class="form-control">
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="toCountry">Ending Country</label>
+
+                    <input type="text" name="toCountry" id="toCountry" class="form-control">
+
+                </div>
+
+                <button type="submit" class="btn btn-default">add</button>
+
+            </form>
+
+        </div>
+        <div class="col-md-4">
+
+            <h2>Return To Profile?</h2>
+
+            <td><a href="#"><h3>Go Back To Profile</h3></a></td>
+
+
+        </div>
+
+    </div>
+
+{% endblock %}
