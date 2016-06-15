@@ -15,9 +15,16 @@ $app->post('/new_account', ['Trippi\Controllers\HomeController', 'signUp'])->set
 
 $app->post('/new_profile', ['Trippi\Controllers\NewProfileController', 'create_profile'])->setName('getInfo');
 
-$app->get('/search', ['Trippi\Controllers\SearchController', 'index'])->setName('goToSearch');
+// Locations
+$app->get('/locations', ['Trippi\Controllers\LocationsController', 'searchByLocation'])->setName('searchByLocation');
 
+// Activities
+$app->post('/activities', ['Trippi\Controllers\ActivitiesController', 'updateActivity'])->setName('updateActivity');
+
+// Search Routes
+$app->get('/search', ['Trippi\Controllers\SearchController', 'index'])->setName('goToSearch');
 $app->get('/search/users', ['Trippi\Controllers\SearchController', 'searchByUser'])->setName('searchByUser');
+$app->get('/search/trips', ['Trippi\Controllers\SearchController', 'searchByTrip'])->setName('searchByTrip');
 
 //TODO: SM: this rout naming a a bit confusing it goes to the home buts its route with trips time permiting we can refactor the name.
 $app->get('/profile', ['Trippi\Controllers\HomeController', 'signIn'])->setName('Trips.signIn');
