@@ -8,15 +8,18 @@
 
 namespace Trippi\Controllers;
 
+use Illuminate\Database\Eloquent\Model;
 use Slim\Router;
+use Trippi\Models\Authentication;
+use Trippi\Models\Profile;
 use Trippi\Models\Trip;
+use Trippi\Models\UserRating;
 
 
 use Slim\Views\Twig;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Router as router3;
-use Trippi\Models\Authentication;
 
 class ProfileController{
 
@@ -39,8 +42,6 @@ class ProfileController{
             'tripNames'=>$tripNames,
             'users'=>$users
         ]);
-        
-
     }
     
     public function deleteTrip($tripId, $email, Request $request, Response $response, Twig $view, router3 $router) {
@@ -98,6 +99,12 @@ class ProfileController{
                 'trips'=> $allTrips]);
     }
 
-    
-
+    public function getOtherUser($email, Request $request, Response $response, Twig $view) {
+        return $view->render($response, 'profile/other_profile.twig', [
+            'users'=> Profile::get_profile($email),
+            'plannedTrips'=> Authentication::userPlanTrip($email),
+            'joinedTrips' => Authentication::userJoinTrip($email),
+            'ratings' => UserRating::view_ratings($email)
+        ]);
+    }
 }

@@ -25,7 +25,7 @@ class UserRating {
     public static function view_ratings($rated_email)
     {
         $db = new Db();
-        $query = "SELECT u2.name AS `rater`, ur.rating AS `rating`, ur.comment AS `comment`
+        $query = "SELECT u2.username AS `username`, u2.email AS `email`, u2.name AS `rater`, ur.rating AS `rating`, ur.comment AS `comment`
                   FROM `userrating` ur, `user` u2
                   WHERE u2.email = ur.emailRater AND
 	                    u2.email <> ur.emailRated AND
@@ -37,7 +37,7 @@ class UserRating {
     public static function view_ratings_by_highest($rated_email)
     {
         $db = new Db();
-        $query = "SELECT u2.name AS `rater`, ur.rating AS `rating`, ur.comment AS `comment`
+        $query = "SELECT u2.username AS `username`, u2.email AS `email`, u2.name AS `rater`, ur.rating AS `rating`, ur.comment AS `comment`
                   FROM `userrating` ur, `user` u2
                   WHERE u2.email = ur.emailRater AND
 	                    u2.email <> ur.emailRated AND

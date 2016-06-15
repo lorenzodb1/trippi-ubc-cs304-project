@@ -49,4 +49,23 @@ class Profile {
         $result = $db->query($query);
         return $result;
     }
+
+    public static function get_profile($email) {
+        $db = new Db();
+        $query = "SELECT `email`,`username`,`name`,`hometown`,`country`,`dateOfBirth`, `aboutMe`, `rating`, `karma`
+                  FROM `user` 
+                  WHERE `email` = " . ModelsUtils::mysqlstring($email);
+        $result = $db->query($query);
+        if( $result != false ) {
+            // Successful Match
+            $rows = array();
+            while($row = mysqli_fetch_array($result)) {
+                $rows[] = $row;
+            }
+            return $rows;
+        } else {
+            // No match found
+            return false;
+        }
+    }
 }
