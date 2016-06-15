@@ -26,6 +26,9 @@ $app->get('/createProfile', ['Trippi\Controllers\CreateTripController', 'createT
 $app->get('/deleteProfile/{tripId}', ['Trippi\Controllers\ProfileController', 'deleteTrip'])->setName('trip.deleteTrip');
 
 
+$app->get('/getTrips', ['Trippi\Controllers\ProfileController', 'getAllTrips'])->setName('trip.getAllTrips');
+
+
 
 
 

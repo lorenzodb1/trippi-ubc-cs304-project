@@ -1,0 +1,58 @@
+{% extends 'templates/app.twig' %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-8">
+            <h1>All Trippi Trips</h1>
+            {% if trips %}
+                <div class="well">
+                    <table class ="table">
+                        <thead>
+                        <tr>
+                            <th>Trip Id</th>
+                            <th>Trip Name</th>
+                            <th>From</th>
+                            <th>To</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for index, trip in trips %}
+                            <tr>
+                                <td>{{ trip.tripId }}</td>
+                                <td>{{ trip.tripName }}</td>
+                                <td>{{ trip.from }}</td>
+                                <td>{{ trip.to }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+
+
+                    </table>
+                </div>
+
+            {% else %}
+                <p> No trips to show! </p>
+
+            {% endif %}
+        </div>
+
+
+
+
+        <div class="col-md-4">
+            <h1>Total Number of Trips</h1>
+            <td><h3>{{ triggerInfo }}</h3></td>
+
+
+        </div>
+
+
+
+
+    </div>
+
+
+{% endblock %}
+

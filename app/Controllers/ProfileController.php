@@ -55,6 +55,18 @@ class ProfileController{
             return $response->withRedirect($router->pathFor('Trips.signIn'));
         }
     }
+
+    public function getAllTrips(Request $request, Response $response, Twig $view) {
+        $trip = new Trip();
+        $allTrips = $trip->allTrips();
+        $count = $trip->countTrips();
+        
+
+        
+            return $view->render($response, 'trip/trips.twig', [
+                'trips'=> $allTrips,
+                'triggerInfo' => $count]);
+    }
     
 
 }

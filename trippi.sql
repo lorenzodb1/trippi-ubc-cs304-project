@@ -59,14 +59,14 @@ create table trip
 		tripName varchar(30) not null,
 		startLocation varchar(30) null,
 		primary key(tripId),
-		foreign key(startDate, endDate) references trip_duration(startDate, endDate));
+		foreign key(startDate, endDate) references trip_duration(startDate, endDate) on delete CASCADE );
 
 create table plan
 	(tripId char(8) not null,
 		email varchar(40) not null,
 		primary key(tripId, email),
-		foreign key(tripId) references trip(tripId),
-		foreign key(email) references admin(email));
+		foreign key(tripId) references trip(tripId) on delete CASCADE ,
+		foreign key(email) references admin(email) on delete CASCADE);
 
 create table location
 	(locationID char(8) not null,
@@ -79,6 +79,8 @@ create table travelling_duration
 		endDate date not null,
 		duration varchar(20) not null,
 		primary key(startDate, endDate));
+
+
 
 create table travelling_transportation
 	(transportationID char(8) not null,

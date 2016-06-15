@@ -17,10 +17,42 @@ class Trip
     // this is an aggregation query
     // return array of tripID and rating
 
+    public function allTrips() {
+        $db = new Db();
+        $query = "SELECT tripId, tripName, startDate as 'from', endDate as 'to' FROM trip";
+        $result = $db->query($query);
+        return $result;
+    }
+
+    public function countTrips() {
+        $db = new Db();
+        $query = "SELECT count(tripId) as numTrips FROM trip";
+        $result = $db->query($query);
+
+        return $result->fetch_object()->numTrips;
+    }
+    
     public function deleteTrip($tripId)
     {
         $db = new Db();
-        $query = "DELETE FROM trip WHERE tripName = " . ModelsUtils::mysqlstring($tripId);
+        $query = "DELETE FROM trip_duration WHERE startDate = (SELECT startDate FROM trip WHERE tripId = " . ModelsUtils::mysqlstring($tripId) . ") and
+         startDate = (SELECT startDate FROM trip WHERE tripId = " . ModelsUtils::mysqlstring($tripId) . ")";
+        $result = $db->query($query);
+        return $result;
+    }
+    
+
+    public function getStartDate($tripId) {
+        $db = new Db();
+        $query = "SELECT startDate FROM trip WHERE tripId = " . ModelsUtils::mysqlstring($tripId);
+        $result = $db->query($query);
+        return $result;
+
+    }
+
+    public function getEndDate($tripId) {
+        $db = new Db();
+        $query = "SELECT endDate FROM trip WHERE tripId = " . ModelsUtils::mysqlstring($tripId);
         $result = $db->query($query);
         return $result;
     }
