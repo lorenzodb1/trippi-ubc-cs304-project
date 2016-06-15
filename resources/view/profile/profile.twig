@@ -99,7 +99,6 @@
                             <th>Trip Name</th>
                             <th>From</th>
                             <th>To</th>
-
                         </tr>
                         </thead>
                         <tbody>
@@ -112,8 +111,6 @@
                             </tr>
                         {% endfor %}
                         </tbody>
-
-
                     </table>
                 </div>
 
@@ -122,6 +119,27 @@
 
             {% endif %}
 
+            <h3>Your ratings from other users</h3>
+                <div class="well">
+                    <table class ="table">
+                        <thead>
+                        <tr>
+                            <th>Rater</th>
+                            <th>Rating</th>
+                            <th>Comment</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for index, item in ratings %}
+                            <tr>
+                                <td>{{ item.rater }}</td>
+                                <td>{{ item.rating}}</td>
+                                <td>{{ item.comment }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
         </div>
     </div>
 
