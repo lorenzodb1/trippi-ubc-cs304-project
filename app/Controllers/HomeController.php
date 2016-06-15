@@ -6,6 +6,8 @@
  * Time: 2:58 PM
  */
 namespace Trippi\Controllers;
+
+use ControllersUtils;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Slim\Views\Twig;
@@ -16,10 +18,9 @@ use Trippi\Models\SignUp;
 use Trippi\Models\Trip;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
+
 //testing
 class HomeController{
-
-
 
     public function index(Response $response, Request $request, Twig $view, Trip $trip){
         return $view->render($response, 'login.twig', [
@@ -52,33 +53,24 @@ class HomeController{
         }
     }
 
-    /*
-     * TODO: To be completed...
-     */
     public function signUp(Response $response, Request $request, Twig $view, Router $router)
     {
         $data = $request->getParsedBody();
-        $test_email = filter_var($data['email'], FILTER_SANITIZE_EMAIL);
-        $email = $data['email'];
-        if ($test_email != $email) {
-            //go back to homepage and say what when wrong
-            return $response->withRedirect($router->pathFor('home'));
-        }
+        $username = filter_var($data['username'], FILTER_SANITIZE_STRING);
+        $email = filter_var($data['email'], FILTER_SANITIZE_EMAIL);
         $password = $data['password'];
-        if (!ModelsUtils::verifyEmail($email)) {
-            //check if the password exists
-            $check = new SignUp();
-            $signup = $check->sign_up($email, $password);
+        if (ModelsUtils::verifyEmail($email)) {
+            $signup = SignUp::sign_up($username, $email, $password);
             if ($signup) {
-//                return $view->render($response, 'profile/profile.twig', [
-//                    'users'=> $login,
-//                    'trips'=> $authenticate->userTrips($email)
-//                ]);
+                return $view->render($response, 'profile/new_profile.twig', [
+                    'user'=> $username
+                ]);
             } else {
-//                return $response->withRedirect($router->pathFor('home'));
+                return $response->withRedirect($router->pathFor('home'));
             }
-        } else {
-//            return $response->withRedirect($router->pathFor('home'));
+        }
+        else{
+            return $response->withRedirect($router->pathFor('home'));
         }
     }
 
