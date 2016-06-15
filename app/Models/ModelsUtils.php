@@ -28,10 +28,6 @@ class ModelsUtils {
                   FROM `user` 
                   WHERE `email` = " . ModelsUtils::mysqlString($email);
         $result = $db->query($query);
-        if( $result != false ) {
-            return true;
-        } else {
-            return false;
-        }
+        return ($result) ? true : false;
     }
 }

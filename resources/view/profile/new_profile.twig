@@ -1,0 +1,81 @@
+{% extends 'templates/app.twig' %}
+
+{% block content %}
+
+    <div class ="row">
+
+        <form action="{{ path_for('getInfo')}}" method="post">
+
+        <div class="col-md-8">
+
+                <div class="col-md-6">
+                    <h5>Welcome {{ user | raw }}, create your profile and log in again!</h5>
+
+                    <div class="form-group">
+
+                        <label for="name">Name</label>
+
+                        <input type="text" name="name" id="name" class="form-control">
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label for="dob">Date of Birth</label>
+
+                        <input type="date" name="dob" id="dob" class="form-control">
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label for="Hometown">Hometown</label>
+
+                        <input type="text" name="hometown" id="hometown" class="form-control">
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label for="Country">Country</label>
+
+                        <input type="text" name="country" id="country" class="form-control">
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label for="About yourself">About me</label>
+
+                        <input type="text" name="bio" id="bio" class="form-control">
+                    </div>
+
+                    <div class="form-group">
+
+                        <label for="name">Email</label>
+
+                        <input type="email" name="email" id="email" class="form-control">
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label for="name">Password</label>
+
+                        <input type="password" name="password" id="password" class="form-control">
+
+                    </div>
+
+                    <button type="submit" class="btn btn-default">Create Profile</button>
+
+                </div>
+
+            </div>
+
+        </form>
+
+    </div>
+
+
+
+{% endblock %}
