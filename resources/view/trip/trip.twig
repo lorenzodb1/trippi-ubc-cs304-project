@@ -8,7 +8,9 @@
             {% for index, name in tripNames %}
                 <h2> {{ name.tripName }} </h2>
             {% endfor %}
-            <h3>Locations</h3>
+            <h3 style="display: inline-block;">Locations</h3>
+            <img id="add-location-btn" style="width: 25px;
+    vertical-align: sub;" src="http://localhost/trippi-ubc-cs304-project/assets/add.png" >
             {% if locations %}
                 <div class="well">
                     <table class ="table">
@@ -22,8 +24,13 @@
                         <tbody>
                         {% for index, location in locations %}
                             <tr>
-                                <td>{{ location.city }}</td>
-                                <td>{{ location.country }}</td>
+                                <td id="location-city-{{index}}">{{ location.city }}</td>
+                                <td id="location-country-{{index}}" > {{ location.country }}</td>
+                                <td>
+                                    <button style="float: right;" type="button" class="btn btn-info" data-toggle="modal" data-target="#locationModal" data-title="Edit Location" onclick="showLocationModal( {{ index }} )">
+                                        <span class="glyphicon glyphicon-option-horizontal" aria-hidden="true"></span>
+                                    </button> 
+                                </td>
                             </tr>
                         {% endfor %}
                         </tbody>
@@ -35,7 +42,9 @@
             {% else %}
                 <p> This trip has no locations information </p>
             {% endif %}
-            <h3>Traveling Information</h3>
+            <h3 style="display: inline-block;">Traveling Information</h3>
+            <img  id="add-travel-info-btn" style="width: 25px;
+        vertical-align: sub;" src="http://localhost/trippi-ubc-cs304-project/assets/add.png" >
             {% if travelInfo %}
                 <div class="well">
                     <table class ="table">
@@ -51,11 +60,17 @@
                         <tbody>
                         {% for index, travel in travelInfo %}
                             <tr>
-                                <td>{{ travel.fromCity }}, {{travel.fromCountry}}</td>
-                                <td>{{ travel.toCity }}, {{ travel.toCountry }} </td>
-                                <td>{{ travel.typeTravel }}</td>
-                                <td>{{ travel.fromDate }}</td>
-                                <td>{{ travel.toDate }}</td>
+                                <td id="travel-from-{{ index }}">{{ travel.fromCity }}, {{travel.fromCountry}}</td>
+                                <td id="travel-toLocation-{{ index }}">{{ travel.toCity }}, {{ travel.toCountry }} </td>
+                                <td id="travel-typeTravel-{{ index }}">{{ travel.typeTravel }}</td>
+                                <td id="travel-startDate-{{ index }}">{{ travel.fromDate }}</td>
+                                <td id="travel-finishDate-{{ index }}">{{ travel.toDate }}</td>
+                                <td>
+                                    <button style="float: right;" type="button" class="btn btn-info"  data-toggle="modal" data-target="#travelModal" onclick="showTravelModal( {{ index }} )">
+                                        <span class="glyphicon glyphicon-option-horizontal" aria-hidden="true"></span>
+                                    </button> 
+                                </td>
+
 
                             </tr>
                         {% endfor %}
@@ -68,7 +83,9 @@
             {% else %}
                 <p> This trip has no Traveling Information </p>
             {% endif %}
-            <h3>Accommodations</h3>
+            <h3 style="display: inline-block;">Accommodations</h3>
+            <img id="add-accommodations-btn"  style="width: 25px;
+    vertical-align: sub;" src="http://localhost/trippi-ubc-cs304-project/assets/add.png" >
             {% if accommodations %}
                 <div class="well">
                     <table class ="table">
@@ -93,7 +110,11 @@
                                 <td>{{ accom.rating }}</td>
                                 <td>{{ accom.from }}</td>
                                 <td>{{ accom.to }}</td>
-
+                                <td>
+                                    <button style="float: right;" type="button" class="btn btn-info" onclick="checkWhichQuery()">
+                                        <span class="glyphicon glyphicon-option-horizontal" aria-hidden="true"></span>
+                                    </button> 
+                                </td>
                             </tr>
                         {% endfor %}
                         </tbody>
@@ -105,7 +126,9 @@
             {% else %}
                 <p> This trip has no accommodations </p>
             {% endif %}
-            <h3>Activities</h3>
+            <h3 style="display: inline-block;">Activities</h3>
+            <img id="add-activities-btn"  style="width: 25px;
+    vertical-align: sub;" src="http://localhost/trippi-ubc-cs304-project/assets/add.png" >
             {% if activities %}
                 <div class="well">
                     <table class ="table">
@@ -115,18 +138,24 @@
                             <th>Country</th>
                             <th>Activity Name</th>
                             <th>Activity Place</th>
+                            <th>Cost</th>
                             <th>Date</th>
                         </tr>
                         </thead>
                         <tbody>
                         {% for index, activity in activities %}
                             <tr>
-                                <td>{{ activity.city}} </td>
-                                <td>{{ activity.country }} </td>
-                                <td>{{ activity.activityName}}</td>
-                                <td>{{ activity.activityPlace}}</td>
-                                <td>{{ activity.date }}</td>
-
+                                <td id="activity-city-{{ index }}">{{ activity.city}} </td>
+                                <td id="activity-country-{{ index }}">{{ activity.country }} </td>
+                                <td id="activity-activity-name-{{ index }}">{{ activity.activityName}}</td>
+                                <td id="activity-activity-place-{{ index }}">{{ activity.activityPlace}}</td>
+                                <td id="activity-cost-{{ index }}">{{ activity.cost}}</td>
+                                <td id="activity-date-{{ index }}">{{ activity.date }}</td>
+                                <td>
+                                    <button style="float: right;" type="button" class="btn btn-info" data-toggle="modal" data-target="#activitiesModal" onclick="showActivitiesModal( {{ index }} )">
+                                        <span class="glyphicon glyphicon-option-horizontal" aria-hidden="true"></span>
+                                    </button> 
+                                </td>
                             </tr>
                         {% endfor %}
                         </tbody>
@@ -142,7 +171,9 @@
         </div>
 
     <div class="col-md-4">
-        <h3>Users on trip </h3>
+        <h3 style="display: inline-block;">Users on trip </h3>
+        <img  id="add-users-btn" style="width: 25px;
+    vertical-align: sub;" src="http://localhost/trippi-ubc-cs304-project/assets/add.png" >
         {% if users %}
             <div class="well">
                 <table class ="table">
@@ -157,7 +188,11 @@
                         <tr>
                             <td>{{ user.userName }} </td>
                             <td>{{ user.name }}</td>
-
+                            <td>
+                                <button style="float: right;" type="button" class="btn btn-info" onclick="checkWhichQuery()">
+                                    <span class="glyphicon glyphicon-option-horizontal" aria-hidden="true"></span>
+                                </button> 
+                            </td>
                         </tr>
                     {% endfor %}
                     </tbody>
@@ -173,6 +208,53 @@
 
     </div>
 
+</div>
+
+<!-- Travel Modal -->
+<div class="modal fade" id="activitiesModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">Edit Travel</h4>
+        <span id="activity-modal-index" style="visibility: hidden;"><>
+      </div>
+      <div class="modal-body">        
+        <div class="input-group input-group-sm" style="display: inline-block;">
+          <span>City:</span> 
+          <input id="activity-city-input" type="text" class="form-control" placeholder="" aria-describedby="basic-addon1" disabled>
+        </div>
+        <div class="input-group input-group-sm" style="display: inline-block;">
+          <span>Country:</span> 
+          <input id="activity-country-input" type="text" class="form-control" placeholder="" aria-describedby="basic-addon1" disabled>
+        </div>
+        <div class="input-group input-group-sm" style="display: inline-block;">
+          <span>Activity Name:</span> 
+          <input id="activity-activity-name-input" type="text" class="form-control" placeholder="" aria-describedby="basic-addon1">
+        </div>
+        <div class="input-group input-group-sm" style="display: inline-block;">
+          <span>Activity Place:</span> 
+          <input id="activity-activity-place-input" type="text" class="form-control" placeholder="" aria-describedby="basic-addon1" disabled>
+        </div>
+        <div class="input-group input-group-sm" style="display: inline-block;">
+          <span>Cost:</span> 
+          <input id="activity-cost-input" type="text" class="form-control" placeholder="" aria-describedby="basic-addon1" >
+        </div>
+        <div class="input-group input-group-sm" style="display: inline-block;">
+          <span>Date:</span> 
+          <input id="activity-date-input" type="text" class="form-control" placeholder="" aria-describedby="basic-addon1">
+        </div>
+
+      </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" onclick="updateActivity( )">Update</button>
     </div>
+    </div>
+  </div>
+</div>
 
 {% endblock %}

@@ -36,6 +36,7 @@ class NewProfileController {
                 $login = Authentication::login($email, $password);
                 if ($login) {
                     return $view->render($response, 'profile/profile.twig', [
+                        'userEmail' => $email,
                         'users'=> $login,
                         'plannedTrips'=> Authentication::userPlanTrip($email),
                         'joinedTrips' => Authentication::userJoinTrip($email)
