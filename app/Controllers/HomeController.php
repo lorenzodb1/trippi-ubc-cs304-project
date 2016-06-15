@@ -14,6 +14,7 @@ use Slim\Views\Twig;
 use Slim\Router;
 use Trippi\Models\Authentication;
 use Trippi\Models\ModelsUtils;
+use Trippi\Models\Profile;
 use Trippi\Models\SignUp;
 use Trippi\Models\Trip;
 use Psr\Http\Message\ResponseInterface as Response;
@@ -64,7 +65,7 @@ class HomeController{
             $signup = SignUp::sign_up($username, $email, $password);
             if ($signup) {
                 return $view->render($response, 'profile/new_profile.twig', [
-                    'user'=> $username
+                    'users'=> Profile::get_profile($email)
                 ]);
             } else {
                 return $response->withRedirect($router->pathFor('home'));

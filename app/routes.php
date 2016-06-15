@@ -13,7 +13,7 @@ $app->post('/profile', ['Trippi\Controllers\HomeController', 'signIn'])->setName
 
 $app->post('/new_account', ['Trippi\Controllers\HomeController', 'signUp'])->setName('signUp');
 
-$app->post('/new_profile', ['Trippi\Controllers\NewProfileController', 'create_profile'])->setName('getInfo');
+$app->post('/new_profile/{email}', ['Trippi\Controllers\NewProfileController', 'create_profile'])->setName('getInfo');
 
 // Locations
 $app->get('/locations', ['Trippi\Controllers\LocationsController', 'searchByLocation'])->setName('searchByLocation');
