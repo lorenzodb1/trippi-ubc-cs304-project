@@ -4,25 +4,22 @@
 
     <div class ="row">
         <div class="col-md-8">
-            <h3>Add Trip Details</h3>
-            <h4>Trip: {{ tripName }}</h4>
-            <h4>TripId: {{ tripId }}</h4>
-            {#<form action="{{ path_for('signIn')}}" method="post">#}
-            <form action="#">
-
-
+            <h1>Add Trip Details</h1>
+            <h2>TripName: {{ tripName }}</h2>
+            <h3>TripId: {{ tripId }}</h3>
+            <form action="{{ path_for('addLocationDetails') }}" method="post">
 
                 <div class="form-group">
 
-                    <label for="tripID">TripID</label>
+                    <label for="tripId">TripId</label>
 
-                    <input type="tripId" name="email" id="email" class="form-control">
+                    <input type="text" name="tripId" id="tripId" class="form-control">
 
                 </div>
 
-                <h4>Locations</h4>
+                <h3>Locations: here you can list to and from location details</h3>
 
-                <h5>From</h5>
+                <h4>From</h4>
 
                 <div class="form-group">
 
@@ -42,9 +39,9 @@
 
                 <div class="form-group">
 
-                    <label for="hotelName">Hotel Name</label>
+                    <label for="hotelNameFrom">Hotel Name</label>
 
-                    <input type="text" name="hotelName" id="hotelName" class="form-control">
+                    <input type="text" name="hotelNameFrom" id="hotelNameFrom" class="form-control">
 
                 </div>
 
@@ -72,7 +69,7 @@
 
                 </div>
 
-                <h5>To</h5>
+                <h4>To</h4>
 
                 <div class="form-group">
 
@@ -123,7 +120,7 @@
                 </div>
 
 
-                <h4>Transportation</h4>
+                <h3>Transportation: here you can add your transportation dates for the to and from</h3>
 
 
                 <div class="form-group">
@@ -142,12 +139,15 @@
 
                 </div>
 
-                <button type="submit" class="btn btn-default">Sign In</button>
+                <button type="submit" class="btn btn-default">add details</button>
 
 
 
 
             </form>
+
+        </div>
+        <div class="col-md-4">
 
         </div>
 

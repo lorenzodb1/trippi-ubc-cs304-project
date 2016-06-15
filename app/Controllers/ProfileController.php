@@ -26,7 +26,7 @@ class ProfileController{
         $travelInfo = $tripModel->getTravelingInformationByTripId($tripId);
         $accommodations = $tripModel->getAccomodationsByTripId($tripId);
         $activities = $tripModel->getActivitiesByTripId($tripId);
-        $tripNames = $tripModel->getTripNameById($tripId);
+        $tripNames = $tripModel->getTripNamesById($tripId);
         $users = $tripModel->searchUsersOnTrip($tripId);
 
         
@@ -54,6 +54,18 @@ class ProfileController{
         else {
             return $response->withRedirect($router->pathFor('Trips.signIn'));
         }
+    }
+
+    public function getAllTrips(Request $request, Response $response, Twig $view) {
+        $trip = new Trip();
+        $allTrips = $trip->allTrips();
+        $count = $trip->countTrips();
+        
+
+        
+            return $view->render($response, 'trip/trips.twig', [
+                'trips'=> $allTrips,
+                'triggerInfo' => $count]);
     }
     
 
