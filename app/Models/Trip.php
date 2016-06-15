@@ -227,7 +227,7 @@ class Trip
         $result = $db->query($query);
         return $result;
     }
-    public function getTripNameById($tripId)
+    public function getTripNamesById($tripId)
     {
         $db = new Db();
 
@@ -237,6 +237,10 @@ class Trip
 
         $result = $db->query($query);
         return $result;
+    }
+
+    public function getTripNameById($tripId){
+        return $this->getTripNamesById($tripId)->fetch_object()->tripName;
     }
 
     // return tripIDs of trip with duration equal to specified duration
