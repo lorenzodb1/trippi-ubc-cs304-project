@@ -57,7 +57,7 @@ create table trip
 		endDate date not null,
 		status varchar(20) not null,
 		tripName varchar(30) not null,
-		startLocation varchar(30) not null,
+		startLocation varchar(30) null,
 		primary key(tripId),
 		foreign key(startDate, endDate) references trip_duration(startDate, endDate));
 

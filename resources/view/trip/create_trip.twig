@@ -1,0 +1,156 @@
+{% extends 'templates/app.twig' %}
+
+{% block content %}
+
+    <div class ="row">
+        <div class="col-md-8">
+            <h3>Add Trip Details</h3>
+            <h4>Trip: {{ tripName }}</h4>
+            <h4>TripId: {{ tripId }}</h4>
+            {#<form action="{{ path_for('signIn')}}" method="post">#}
+            <form action="#">
+
+
+
+                <div class="form-group">
+
+                    <label for="tripID">TripID</label>
+
+                    <input type="tripId" name="email" id="email" class="form-control">
+
+                </div>
+
+                <h4>Locations</h4>
+
+                <h5>From</h5>
+
+                <div class="form-group">
+
+                    <label for="fromCity">City</label>
+
+                    <input type="text" name="fromCity" id="fromCity" class="form-control">
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="fromCountry">Country</label>
+
+                    <input type="text" name="fromCountry" id="fromCountry" class="form-control">
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="hotelName">Hotel Name</label>
+
+                    <input type="text" name="hotelName" id="hotelName" class="form-control">
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="checkInDateFrom">check In Date (YYYY-MM-DD)</label>
+
+                    <input type="text" name="checkInDateFrom" id="checkInDateFrom" class="form-control">
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="checkOutDateFrom">Check Out Date (YYYY-MM-DD)</label>
+
+                    <input type="text" name="checkOutDateFrom" id="checkOutDateFrom" class="form-control">
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="activityFrom">activity</label>
+
+                    <input type="text" name="activityFrom" id="activityFrom" class="form-control">
+
+                </div>
+
+                <h5>To</h5>
+
+                <div class="form-group">
+
+                    <label for="toCity">City</label>
+
+                    <input type="text" name="toCity" id="toCity" class="form-control">
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="toCountry">Country</label>
+
+                    <input type="text" name="toCountry" id="toCountry" class="form-control">
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="hotelNameTo">Hotel Name</label>
+
+                    <input type="text" name="hotelNameTo" id="hotelNameTo" class="form-control">
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="checkInDateTo">check In Date (YYYY-MM-DD)</label>
+
+                    <input type="text" name="checkInDateTo" id="checkInDateTo" class="form-control">
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="checkOutDateTo">Check Out Date (YYYY-MM-DD)</label>
+
+                    <input type="text" name="checkOutDateTo" id="checkOutDateTo" class="form-control">
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="activityTo">activity</label>
+
+                    <input type="text" name="activityTo" id="activityTo" class="form-control">
+
+                </div>
+
+
+                <h4>Transportation</h4>
+
+
+                <div class="form-group">
+
+                    <label for="startDate">Start Date(YYYY-MM-DD)</label>
+
+                    <input type="text" name="startDate" id="startDate" class="form-control">
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="endDate">End Date(YYYY-MM-DD)</label>
+
+                    <input type="text" name="endDate" id="endDate" class="form-control">
+
+                </div>
+
+                <button type="submit" class="btn btn-default">Sign In</button>
+
+
+
+
+            </form>
+
+        </div>
+
+    </div>
+
+{% endblock %}

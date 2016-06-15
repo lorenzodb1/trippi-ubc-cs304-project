@@ -35,11 +35,10 @@ class NewProfileController {
             if ($create) {
                 $login = Authentication::login($email, $password);
                 if ($login) {
-                    var_dump($login);
-                    var_dump(Authentication::userTrips($email));
                     return $view->render($response, 'profile/profile.twig', [
-                        'users' => $login,
-                        'trips' => Authentication::userTrips($email)
+                        'users'=> $login,
+                        'plannedTrips'=> Authentication::userPlanTrip($email),
+                        'joinedTrips' => Authentication::userJoinTrip($email)
                     ]);
                 }
             } else {

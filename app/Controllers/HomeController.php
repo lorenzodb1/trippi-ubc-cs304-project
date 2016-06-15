@@ -35,10 +35,13 @@ class HomeController{
         if(ModelsUtils::verifyEmail($email)){
             //check if the password is correct
             $login = Authentication::login($email, $password);
+            
             if($login) {
+                
                 return $view->render($response, 'profile/profile.twig', [
                     'users'=> $login,
-                    'trips'=> Authentication::userTrips($email)
+                    'plannedTrips'=> Authentication::userPlanTrip($email),
+                    'joinedTrips' => Authentication::userJoinTrip($email)
                 ]);
             }
             else{
@@ -49,10 +52,6 @@ class HomeController{
             return $response->withRedirect($router->pathFor('home'));
         }
     }
-
-    /*
-     * TODO: To be completed...
-     */
 
     public function signUp(Response $response, Request $request, Twig $view, Router $router)
     {
