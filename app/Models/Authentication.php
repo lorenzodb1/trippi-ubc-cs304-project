@@ -19,7 +19,7 @@ class Authentication{
   // Return info associated with user (as an array) if email and password match, otherwise return false
   public static function login($email, $password) {
     $db = new Db();
-    $query = "SELECT `email`,`username`,`name`,`hometown`,`country`,`dateOfBirth`, `aboutMe` 
+    $query = "SELECT `email`,`username`,`name`,`hometown`,`country`,`dateOfBirth`, `aboutMe`, `karma`
               FROM `user` 
               WHERE `email` = " . ModelsUtils::mysqlstring($email) . " AND 
                     `password`  = " . ModelsUtils::mysqlstring(crypt($password, '$6$rounds=5000$' . $email . '$'));
@@ -40,18 +40,20 @@ class Authentication{
 
     public  function userPlanTrip($email) {
         $db = new Db();
-        $query = "SELECT t.tripId AS id, tripName, startDate AS 'from', endDate AS 'to' FROM trip t, plan p where t.tripId = p.tripId AND p.email = " . ModelsUtils::mysqlString($email) ."";
+        $query = "SELECT t.tripId AS id, tripName, startDate AS 'from', endDate AS 'to' 
+                  FROM trip t, plan p where t.tripId = p.tripId AND 
+                       p.email = " . ModelsUtils::mysqlString($email);
         $result = $db->query($query);
         return $result;
     }
 
     public  function userJoinTrip($email) {
         $db = new Db();
-        $query = "SELECT t.tripId AS id, tripName, startDate AS 'from', endDate AS 'to' FROM trip t, join j where t.tripId = j.tripId AND j.email = " . ModelsUtils::mysqlString($email) ."";
+        $query = "SELECT t.tripId AS id, tripName, startDate AS 'from', endDate AS 'to' 
+                  FROM trip t, `joins` j 
+                  WHERE t.tripId = j.tripId AND 
+                        j.email = " . ModelsUtils::mysqlString($email);
         $result = $db->query($query);
         return $result;
-
     }
-
-
 }

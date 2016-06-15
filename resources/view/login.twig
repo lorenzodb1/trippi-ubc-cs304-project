@@ -30,7 +30,7 @@
             </form>
 
         </div>
-        <form action="#" method="post">
+        <form action="{{ path_for('signUp')}}" method="post">
             <div class="col-md-8">
                 <div class="col-md-6">
                     <h3>Sign Up</h3>
@@ -58,44 +58,11 @@
                         <input type="password" name="password" id="password" class="form-control">
 
                     </div>
+                    <button type="submit" class="btn btn-default">Sign Up</button>
 
                 </div>
-                <div class="col-md-6">
-                    <h5>(Optional)</h5>
 
-                    <div class="form-group">
 
-                        <label for="name">Name</label>
-
-                        <input type="text" name="name" id="name" class="form-control">
-
-                    </div>
-
-                    <div class="form-group">
-
-                        <label for="dob">Date of Birth</label>
-
-                        <input type="date" name="dob" id="dob" class="form-control">
-
-                    </div>
-
-                    <div class="form-group">
-
-                        <label for="homeTown">Home Town</label>
-
-                        <input type="text" name="homeTown" id="homeTown" class="form-control">
-
-                    </div>
-
-                    <div class="form-group">
-
-                        <label for="description">about me</label>
-
-                        <input type="text" name="description" id="description" class="form-control">
-
-                    </div>
-
-                    <button type="submit" class="btn btn-default">Sign Up</button>
 
                 </div>
 

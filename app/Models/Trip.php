@@ -17,16 +17,45 @@ class Trip
     // this is an aggregation query
     // return array of tripID and rating
 
-    public function deleteTrip($tripId)
-    {
+    public function allTrips() {
         $db = new Db();
-        $query = "DELETE FROM trip WHERE tripName = " . ModelsUtils::mysqlstring($tripId);
+        $query = "SELECT tripId, tripName, startDate as 'from', endDate as 'to' FROM trip";
         $result = $db->query($query);
         return $result;
     }
 
+    public function countTrips() {
+        $db = new Db();
+        $query = "SELECT count(tripId) as numTrips FROM trip";
+        $result = $db->query($query);
 
+        return $result->fetch_object()->numTrips;
+    }
+    
+    public function deleteTrip($tripId)
+    {
+        $db = new Db();
+        $query = "DELETE FROM trip_duration WHERE startDate = (SELECT startDate FROM trip WHERE tripId = " . ModelsUtils::mysqlstring($tripId) . ") and
+         startDate = (SELECT startDate FROM trip WHERE tripId = " . ModelsUtils::mysqlstring($tripId) . ")";
+        $result = $db->query($query);
+        return $result;
+    }
+    
 
+    public function getStartDate($tripId) {
+        $db = new Db();
+        $query = "SELECT startDate FROM trip WHERE tripId = " . ModelsUtils::mysqlstring($tripId);
+        $result = $db->query($query);
+        return $result;
+
+    }
+
+    public function getEndDate($tripId) {
+        $db = new Db();
+        $query = "SELECT endDate FROM trip WHERE tripId = " . ModelsUtils::mysqlstring($tripId);
+        $result = $db->query($query);
+        return $result;
+    }
 
     public function searchMaxTripRating()
     {
@@ -248,7 +277,11 @@ class Trip
 
         $db = new Db();
 
-        $query = "SELECT tripID FROM trip t, trip_duration d WHERE t.startDate = d.startDate AND t.endDate = d.endDate AND duration = '$duration''";
+        $query = "SELECT tripID 
+                  FROM trip t, trip_duration d 
+                  WHERE t.startDate = d.startDate AND 
+                        t.endDate = d.endDate AND 
+                        duration = '$duration'";
 
         $result = $db->query($query);
 
@@ -264,7 +297,11 @@ class Trip
 
         $db = new Db();
 
-        $query = "SELECT tripID FROM trip t, trip_duration d WHERE t.startDate = d.startDate AND t.endDate = d.endDate AND duration > '$duration''";
+        $query = "SELECT tripID 
+                  FROM trip t, trip_duration d 
+                  WHERE t.startDate = d.startDate AND 
+                        t.endDate = d.endDate AND 
+                        duration > '$duration'";
 
         $result = $db->query($query);
 
@@ -280,7 +317,11 @@ class Trip
 
         $db = new Db();
 
-        $query = "SELECT tripID FROM trip t, trip_duration d WHERE t.startDate = d.startDate AND t.endDate = d.endDate AND duration < '$duration''";
+        $query = "SELECT tripID 
+                  FROM trip t, trip_duration d 
+                  WHERE t.startDate = d.startDate AND 
+                        t.endDate = d.endDate AND 
+                        duration < '$duration'";
 
         $result = $db->query($query);
 
@@ -291,6 +332,25 @@ class Trip
         return $rows;
     }
 
-
-
+    public function findMostLoyalCompanion($email)
+    {
+        $db = new Db();
+        $query = "SELECT u.username
+                  FROM `user` u 
+                  WHERE u.email IN (SELECT j.email
+                                    FROM `joins` j 
+                                    WHERE j.tripId IN (SELECT p.tripId
+                                                       FROM `plan` p 
+                                                       WHERE p.email = " . ModelsUtils::mysqlString($email) . ")
+                                    GROUP BY j.email
+                                    HAVING COUNT(*) = (SELECT COUNT(DISTINCT p.tripId)
+                                                       FROM `plan` p 
+                                                       WHERE p.email = " . ModelsUtils::mysqlString($email) . "))";
+        $result = $db->query($query);
+        $rows = array();
+        while ($row = mysqli_fetch_array($result)) {
+            $rows[] = $row;
+        }
+        return $rows;
+    }
 }

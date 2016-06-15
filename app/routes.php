@@ -11,6 +11,10 @@ $app->get('/', ['Trippi\Controllers\HomeController', 'index'])->setName('home');
 
 $app->post('/profile', ['Trippi\Controllers\HomeController', 'signIn'])->setName('signIn');
 
+$app->post('/new_account', ['Trippi\Controllers\HomeController', 'signUp'])->setName('signUp');
+
+$app->post('/new_profile', ['Trippi\Controllers\NewProfileController', 'create_profile'])->setName('getInfo');
+
 $app->get('/search', ['Trippi\Controllers\SearchController', 'index'])->setName('goToSearch');
 
 $app->get('/search/users', ['Trippi\Controllers\SearchController', 'searchByUser'])->setName('searchByUser');
@@ -26,6 +30,9 @@ $app->post('/createProfile/addLocations', ['Trippi\Controllers\CreateTripControl
 
 
 $app->get('/deleteProfile/{tripId}', ['Trippi\Controllers\ProfileController', 'deleteTrip'])->setName('trip.deleteTrip');
+
+
+$app->get('/getTrips', ['Trippi\Controllers\ProfileController', 'getAllTrips'])->setName('trip.getAllTrips');
 
 
 
