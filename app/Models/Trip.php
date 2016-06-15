@@ -6,7 +6,6 @@
  * Time: 9:51 PM
  */
 namespace Trippi\Models;
-use mysqli;
 class Trip
 {
     /**
@@ -17,6 +16,14 @@ class Trip
     // this is an aggregation query
     // return array of tripID and rating
 
+    public function removeTrip($tripId, $email) {
+        $db = new Db();
+        $query = "DELETE FROM joins WHERE tripId = " . ModelsUtils::mysqlString($tripId) ." AND email = " . ModelsUtils::mysqlString($email);
+        $result = $db->query($query);
+        return $result;
+    }
+    
+    
     public function allTrips() {
         $db = new Db();
         $query = "SELECT tripId, tripName, startDate as 'from', endDate as 'to' FROM trip";
@@ -24,13 +31,7 @@ class Trip
         return $result;
     }
 
-    public function countTrips() {
-        $db = new Db();
-        $query = "SELECT count(tripId) as numTrips FROM trip";
-        $result = $db->query($query);
 
-        return $result->fetch_object()->numTrips;
-    }
     
     public function deleteTrip($tripId)
     {

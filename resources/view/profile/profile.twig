@@ -11,7 +11,7 @@
 
             <form action="{{ path_for('trip.createTrip')}}" method="post">
 
-                <h3>Create Trip</h3>
+                <h3>Create a Trip</h3>
 
                 <div class="form-group">
 
@@ -54,6 +54,7 @@
         </div>
 
         <div class="col-md-8">
+
             <h3>Your Planned Trips</h3>
             {% if plannedTrips %}
                 <div class="well">
@@ -75,7 +76,7 @@
                                 <td>{{ trip.tripName }}</td>
                                 <td>{{ trip.from }}</td>
                                 <td>{{ trip.to }}</td>
-                                <td><a href="{{ path_for('trip.deleteTrip', {tripId: trip.id})}}" method="get">Delete</a></td>
+                                <td><a href="{{ path_for('trip.deleteTrip', {tripId: trip.id, email: userEmail})}}" method="get">Delete</a></td>
                             </tr>
                         {% endfor %}
                         </tbody>
@@ -98,18 +99,22 @@
                             <th>Trip Name</th>
                             <th>From</th>
                             <th>To</th>
+                            <th></th>
 
                         </tr>
                         </thead>
                         <tbody>
+
                         {% for index, trip in joinedTrips %}
                             <tr>
                                 <td><a href="{{ path_for('trip.getTrip', {tripId: trip.id})}}" method="get">{{ trip.id }}</a></td>
                                 <td>{{ trip.tripName }}</td>
                                 <td>{{ trip.from }}</td>
                                 <td>{{ trip.to }}</td>
+                                <td><a href="{{ path_for('trip.removeTrip', {tripId: trip.id, email: userEmail})}}" method="get">Remove</a></td>
                             </tr>
                         {% endfor %}
+
                         </tbody>
 
 

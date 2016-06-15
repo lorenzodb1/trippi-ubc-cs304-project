@@ -27,10 +27,17 @@ $app->post('/createProfile', ['Trippi\Controllers\CreateTripController', 'create
 $app->get('/createProfile', ['Trippi\Controllers\CreateTripController', 'createTrip'])->setName('trip.getCreateTrip');
 
 
-$app->get('/deleteProfile/{tripId}', ['Trippi\Controllers\ProfileController', 'deleteTrip'])->setName('trip.deleteTrip');
+$app->get('/deleteProfile/{tripId}/{email}', ['Trippi\Controllers\ProfileController', 'deleteTrip'])->setName('trip.deleteTrip');
 
 
 $app->get('/getTrips', ['Trippi\Controllers\ProfileController', 'getAllTrips'])->setName('trip.getAllTrips');
+
+$app->post('/joinProfile', ['Trippi\Controllers\JoinTripController', 'joinTrip'])->setName('trip.joinTrip');
+
+
+$app->get('/removeTrip/{tripId}/{email}', ['Trippi\Controllers\ProfileController', 'removeTrip'])->setName('trip.removeTrip');
+
+
 
 
 

@@ -42,12 +42,31 @@
 
 
         <div class="col-md-4">
-            <h1>Total Number of Trips</h1>
-            <td><h3>{{ triggerInfo }}</h3></td>
+            <form action="{{ path_for('trip.joinTrip')}}" method="post">
+
+                <h3>Join a Trip</h3>
+
+                <div class="form-group">
+
+                    <label for="email">Your Email</label>
+
+                    <input type="email" name="email" id="email" class="form-control">
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="tripId">Trip ID</label>
+
+                    <input type="text" name="tripId" id="tripId" class="form-control">
+
+                </div>
+
+                <button type="submit" class="btn btn-default">Join</button>
+            </form>
 
 
         </div>
-
 
 
 

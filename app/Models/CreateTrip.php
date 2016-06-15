@@ -7,7 +7,6 @@
  */
 
 namespace Trippi\Models;
-use mysqli;
 
 class CreateTrip {
     

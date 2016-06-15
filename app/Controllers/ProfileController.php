@@ -16,6 +16,7 @@ use Slim\Views\Twig;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Router as router3;
+use Trippi\Models\Authentication;
 
 class ProfileController{
 
@@ -42,13 +43,44 @@ class ProfileController{
 
     }
     
-    public function deleteTrip($tripId, Request $request, Response $response, Twig $view, router3 $router) {
+    public function deleteTrip($tripId, $email, Request $request, Response $response, Twig $view, router3 $router) {
         
         $trip = new Trip();
         $deletedTrip = $trip->deleteTrip($tripId);
         
         if($deletedTrip) {
+            $auth = new Authentication();
+            $login = $auth->getUserInfo($email);
+
+            return $view->render($response, 'profile/profile.twig', [
+                'userEmail' =>$email,
+                'users'=> $login,
+                'plannedTrips'=> $auth->userPlanTrip($email),
+                'joinedTrips' => $auth->userJoinTrip($email)
+            ]);
+        }
+
+        else {
             return $response->withRedirect($router->pathFor('Trips.signIn'));
+        }
+    }
+
+    public function removeTrip($tripId, $email, Request $request, Response $response, Twig $view, router3 $router) {
+
+        $trip = new Trip();
+        $removedTrip = $trip->removeTrip($tripId, $email);
+
+        if($removedTrip) {
+            $auth = new Authentication();
+            
+            $login = $auth->getUserInfo($email);
+
+            return $view->render($response, 'profile/profile.twig', [
+                'userEmail' =>$email,
+                'users'=> $login,
+                'plannedTrips'=> $auth->userPlanTrip($email),
+                'joinedTrips' => $auth->userJoinTrip($email)
+            ]);
         }
 
         else {
@@ -59,14 +91,13 @@ class ProfileController{
     public function getAllTrips(Request $request, Response $response, Twig $view) {
         $trip = new Trip();
         $allTrips = $trip->allTrips();
-        $count = $trip->countTrips();
         
 
         
             return $view->render($response, 'trip/trips.twig', [
-                'trips'=> $allTrips,
-                'triggerInfo' => $count]);
+                'trips'=> $allTrips]);
     }
+
     
 
 }
