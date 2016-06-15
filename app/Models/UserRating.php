@@ -12,38 +12,38 @@ use mysqli;
 
 class UserRating {
 
-    public function add_rating($rater_email, $rated_email, $rating, $comment) {
+    public static function add_rating($rater_email, $rated_email, $rating, $comment)
+    {
         $db = new Db();
         $query = "INSERT INTO `userrating`(`emailRater`, `emailRated`, `rating`, `comment`)
-                  VALUES (" . $rater_email . ", " . $rated_email . ", " . $rating . ", " . $comment . ")";
+                  VALUES (" . ModelsUtils::mysqlString($rater_email) . ", " . ModelsUtils::mysqlString($rated_email) . ", 
+                          " . ModelsUtils::mysqlString($rating) . ", " . ModelsUtils::mysqlString($comment) . ")";
         $result = $db->query($query);
         return $result;
     }
 
-    public function view_ratings($rated_email) {
+    public static function view_ratings($rated_email)
+    {
         $db = new Db();
-        $query = "SELECT *
-                  FROM `userrating`
-                  WHERE `emailRated` = " . $rated_email;
+        $query = "SELECT u2.name AS `rater`, ur.rating AS `rating`, ur.comment AS `comment`
+                  FROM `userrating` ur, `user` u2
+                  WHERE u2.email = ur.emailRater AND
+	                    u2.email <> ur.emailRated AND
+                        `emailRated` = " . ModelsUtils::mysqlString($rated_email);
         $result = $db->query($query);
-        $rows = array();
-        while ($row = mysqli_fetch_array($result)) {
-            $rows[] = $row;
-        }
-        return $rows;
+        return $result;
     }
 
-    public function view_ratings_by_highest($rated_email) {
+    public static function view_ratings_by_highest($rated_email)
+    {
         $db = new Db();
-        $query = "SELECT * 
-                  FROM `userrating` 
-                  WHERE `emailRated` = " . $rated_email . " 
+        $query = "SELECT u2.name AS `rater`, ur.rating AS `rating`, ur.comment AS `comment`
+                  FROM `userrating` ur, `user` u2
+                  WHERE u2.email = ur.emailRater AND
+	                    u2.email <> ur.emailRated AND
+                        `emailRated` = " . ModelsUtils::mysqlString($rated_email) . " 
                   ORDER BY `rating` DESC";
         $result = $db->query($query);
-        $rows = array();
-        while ($row = mysqli_fetch_array($result)) {
-            $rows[] = $row;
-        }
-        return $rows;
+        return $result;
     }
 }
