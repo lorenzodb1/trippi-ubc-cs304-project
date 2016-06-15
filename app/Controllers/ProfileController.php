@@ -8,8 +8,12 @@
 
 namespace Trippi\Controllers;
 
+use Illuminate\Database\Eloquent\Model;
 use Slim\Router;
+use Trippi\Models\Authentication;
+use Trippi\Models\Profile;
 use Trippi\Models\Trip;
+use Trippi\Models\UserRating;
 
 
 use Slim\Views\Twig;
@@ -67,6 +71,13 @@ class ProfileController{
                 'trips'=> $allTrips,
                 'triggerInfo' => $count]);
     }
-    
 
+    public function getOtherUser($email, Request $request, Response $response, Twig $view) {
+        return $view->render($response, 'profile/other_profile.twig', [
+            'users'=> Profile::get_profile($email),
+            'plannedTrips'=> Authentication::userPlanTrip($email),
+            'joinedTrips' => Authentication::userJoinTrip($email),
+            'ratings' => UserRating::view_ratings($email)
+        ]);
+    }
 }

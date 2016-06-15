@@ -34,6 +34,12 @@ $app->get('/deleteProfile/{tripId}', ['Trippi\Controllers\ProfileController', 'd
 
 $app->get('/getTrips', ['Trippi\Controllers\ProfileController', 'getAllTrips'])->setName('trip.getAllTrips');
 
+$app->get('/otherProfile/{email}', ['Trippi\Controllers\ProfileController', 'getOtherUser'])->setName('getProfile');
+
+$app->post('/otherProfile/', ['Trippi\Controllers\ProfileController', 'getOtherUser'])->setName('viewProfile');
+
+$app->post('/addedRating/{remail}', ['Trippi\Controllers\RatingsController', 'add_rating'])->setName('addRating');
+
 
 
 
