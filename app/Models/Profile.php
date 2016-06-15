@@ -24,7 +24,7 @@ class Profile {
                   SET `name` = " . ModelsUtils::mysqlstring($name) . ", 
                       `hometown` = " . ModelsUtils::mysqlstring($hometown) . ", `country` = " . ModelsUtils::mysqlstring($country) . ", 
                       `dateOfBirth` = " . ModelsUtils::mysqlstring($dateOfBirth) . ", `aboutMe` = " . ModelsUtils::mysqlstring($aboutMe) . ", 
-                       `karma` = 0
+                      `karma` = 0
                   WHERE `email` = " . ModelsUtils::mysqlstring($email) . " AND 
                         `password` = " . ModelsUtils::mysqlstring(crypt($password, '$6$rounds=5000$' . $email . '$'));
         $result = $db->query($query);
