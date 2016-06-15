@@ -273,19 +273,19 @@ insert into plan
 	values('10000007','garylee@gmail.com');
 
 insert into location
-	values('1', 'Vancouver', 'Canada');
+	values('10000001', 'Vancouver', 'Canada');
 
 insert into location
-	values('2', 'Rome', 'Italy');
+	values('10000002', 'Rome', 'Italy');
 
 insert into location
-	values('3', 'Saskatoon', 'Canada');
+	values('10000003', 'Saskatoon', 'Canada');
 
 insert into location
-	values('4', 'Singapore', 'Singapore');
+	values('10000004', 'Singapore', 'Singapore');
 
 insert into location
-	values('5', 'Medellin', 'Colombia');
+	values('10000005', 'Medellin', 'Colombia');
 
 insert into travelling_duration
 	values('2016-07-08', '2016-07-09', "1 day");
@@ -303,19 +303,19 @@ insert into travelling_duration
 	values('2016-10-11', '2016-10-13', "2 days");
 
 insert into travelling_transportation
-	values('1', '1', '2', '10000000', '2016-07-08', '2016-07-09', 1299, 'Flight');
+	values('10000001', '10000001', '10000002', '10000000', '2016-07-08', '2016-07-09', 1299, 'Flight');
 
 insert into travelling_transportation
-	values('2', '2', '5', '10000001', '2016-07-18', '2016-07-20', 2000, 'Flight');
+	values('10000002', '10000002', '10000005', '10000001', '2016-07-18', '2016-07-20', 2000, 'Flight');
 
 insert into travelling_transportation
-	values('3', '4', '1', '10000002', '2016-12-14', '2016-12-20', 10000, 'Boat');
+	values('10000003', '10000004', '10000001', '10000002', '2016-12-14', '2016-12-20', 10000, 'Boat');
 
 insert into travelling_transportation
-	values('4', '1', '3', '10000003', '2016-12-23', '2016-12-25', 3000, 'Car');
+	values('10000004', '10000001', '10000003', '10000003', '2016-12-23', '2016-12-25', 3000, 'Car');
 
 insert into travelling_transportation
-	values('5', '5', '2', '10000004', '2016-10-11', '2016-10-13', 2000, 'Flight');
+	values('10000005', '10000005', '10000002', '10000004', '2016-10-11', '2016-10-13', 2000, 'Flight');
 
 insert into joins
 	values('10000000', 'hsimpson@gmail.com');
@@ -333,34 +333,34 @@ insert into joins
 	values('10000002', 'tuso@gmail.com');
 
 insert into activity
-	values('colosseum', 'roma', '2016-07-10', '20', '2');
+	values('colosseum', 'roma', '2016-07-10', '20', '10000002');
 
 insert into activity
-	values('grouse_mountain', 'vancouver', '2016-07-07', '10', '1');
+	values('grouse_mountain', 'vancouver', '2016-07-07', '10', '10000001');
         
 insert into activity
-	values('hiking', 'Saskatoon', '2016-12-24', '60', '3');
+	values('hiking', 'Saskatoon', '2016-12-24', '60', '10000003');
 
 insert into activity
-	values('clubbing', 'medellin', '2016-07-21', '30', '5');
+	values('clubbing', 'medellin', '2016-07-21', '30', '10000005');
 
 insert into activity
-	values('eating_noodles', 'singapore', '2016-12-25', '15', '4');
+	values('eating_noodles', 'singapore', '2016-12-25', '15', '10000004');
         
 insert into accomodation
-	values('hotel_hilton', 'hotel', '750', '5', '2016-07-09', '2016-07-18', '2');
+	values('hotel_hilton', 'hotel', '750', '5', '2016-07-09', '2016-07-18', '10000002');
 
 insert into accomodation
-	values('hotel_sheraton', 'hotel', '630', '4', '2016-07-05', '2016-07-8', '1');
+	values('hotel_sheraton', 'hotel', '630', '4', '2016-07-05', '2016-07-8', '10000001');
 
 insert into accomodation
-	values('casa_estrella', 'hostel', '30', '3', '2016-07-20', '2016-10-11', '5');
+	values('casa_estrella', 'hostel', '30', '3', '2016-07-20', '2016-10-11', '10000005');
         
 insert into accomodation
-	values('hostel_chung', 'hostel', '20', '2', '2016-12-20', '2016-12-13', '4');
+	values('hostel_chung', 'hostel', '20', '2', '2016-12-20', '2016-12-13', '10000004');
         
 insert into accomodation
-	values('goose_house', 'bnb', '50', '3', '2016-12-25', '2016-12-28', '3');
+	values('goose_house', 'bnb', '50', '3', '2016-12-25', '2016-12-28', '10000003');
 
 insert into tripRating
 	values('10000000', 'hsimpson@gmail.com', 6, 'love the places');

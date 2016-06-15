@@ -26,6 +26,8 @@ $app->get('/profile/{tripId}', ['Trippi\Controllers\ProfileController', 'getTrip
 $app->post('/createProfile', ['Trippi\Controllers\CreateTripController', 'createTrip'])->setName('trip.createTrip');
 $app->get('/createProfile', ['Trippi\Controllers\CreateTripController', 'createTrip'])->setName('trip.getCreateTrip');
 
+$app->post('/createProfile/addLocations', ['Trippi\Controllers\CreateTripController', 'addLocationDetails'])->setName('addLocationDetails');
+
 
 $app->get('/deleteProfile/{tripId}', ['Trippi\Controllers\ProfileController', 'deleteTrip'])->setName('trip.deleteTrip');
 
