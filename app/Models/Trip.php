@@ -57,9 +57,6 @@ class Trip
         return $result;
     }
 
-
-
-
     public function searchMaxTripRating()
     {
         $db = new Db();
@@ -276,7 +273,11 @@ class Trip
 
         $db = new Db();
 
-        $query = "SELECT tripID FROM trip t, trip_duration d WHERE t.startDate = d.startDate AND t.endDate = d.endDate AND duration = '$duration''";
+        $query = "SELECT tripID 
+                  FROM trip t, trip_duration d 
+                  WHERE t.startDate = d.startDate AND 
+                        t.endDate = d.endDate AND 
+                        duration = '$duration'";
 
         $result = $db->query($query);
 
@@ -292,7 +293,11 @@ class Trip
 
         $db = new Db();
 
-        $query = "SELECT tripID FROM trip t, trip_duration d WHERE t.startDate = d.startDate AND t.endDate = d.endDate AND duration > '$duration''";
+        $query = "SELECT tripID 
+                  FROM trip t, trip_duration d 
+                  WHERE t.startDate = d.startDate AND 
+                        t.endDate = d.endDate AND 
+                        duration > '$duration'";
 
         $result = $db->query($query);
 
@@ -308,7 +313,11 @@ class Trip
 
         $db = new Db();
 
-        $query = "SELECT tripID FROM trip t, trip_duration d WHERE t.startDate = d.startDate AND t.endDate = d.endDate AND duration < '$duration''";
+        $query = "SELECT tripID 
+                  FROM trip t, trip_duration d 
+                  WHERE t.startDate = d.startDate AND 
+                        t.endDate = d.endDate AND 
+                        duration < '$duration'";
 
         $result = $db->query($query);
 
@@ -319,6 +328,25 @@ class Trip
         return $rows;
     }
 
-
-
+    public function findMostLoyalCompanion($email)
+    {
+        $db = new Db();
+        $query = "SELECT u.username
+                  FROM `user` u 
+                  WHERE u.email IN (SELECT j.email
+                                    FROM `joins` j 
+                                    WHERE j.tripId IN (SELECT p.tripId
+                                                       FROM `plan` p 
+                                                       WHERE p.email = " . ModelsUtils::mysqlString($email) . ")
+                                    GROUP BY j.email
+                                    HAVING COUNT(*) = (SELECT COUNT(DISTINCT p.tripId)
+                                                       FROM `plan` p 
+                                                       WHERE p.email = " . ModelsUtils::mysqlString($email) . "))";
+        $result = $db->query($query);
+        $rows = array();
+        while ($row = mysqli_fetch_array($result)) {
+            $rows[] = $row;
+        }
+        return $rows;
+    }
 }

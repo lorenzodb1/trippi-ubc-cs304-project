@@ -50,8 +50,5 @@ class Authentication{
         $query = "SELECT t.tripId AS id, tripName, startDate AS 'from', endDate AS 'to' FROM trip t, join j where t.tripId = j.tripId AND j.email = " . ModelsUtils::mysqlString($email) ."";
         $result = $db->query($query);
         return $result;
-
     }
-
-
 }
