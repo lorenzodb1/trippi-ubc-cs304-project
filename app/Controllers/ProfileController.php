@@ -26,7 +26,7 @@ class ProfileController{
         $travelInfo = $tripModel->getTravelingInformationByTripId($tripId);
         $accommodations = $tripModel->getAccomodationsByTripId($tripId);
         $activities = $tripModel->getActivitiesByTripId($tripId);
-        $tripNames = $tripModel->getTripNamesById($tripId);
+        $tripNames = $tripModel->getTripNameById($tripId);
         $users = $tripModel->searchUsersOnTrip($tripId);
 
         
