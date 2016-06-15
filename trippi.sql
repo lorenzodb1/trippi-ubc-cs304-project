@@ -175,10 +175,15 @@ insert into user
 insert into user
 	values('tuso@gmail.com', 'tuso82', '$6$rounds=5000$tuso@gmail.com$vN.PUOVGZsPTqJRwSdzb/QnkD7Rl6w1MhgBGcc9RauU.XguTCaXDb6.dqkvSVKWXe11i3npxPbAavhBv5tE/I0', 'Tuso Jelo', 'Edmonton', 'Canada', '1982-06-21', 'I am not cool', 1, 0);
 
-CREATE DEFINER = `root`@`localhost` TRIGGER `karma_plan` AFTER INSERT ON `plan`
+CREATE DEFINER = `root`@`localhost` TRIGGER `karma_rating` BEFORE INSERT ON `userRating`
 FOR EACH ROW UPDATE user
              SET karma = karma + 1
-             WHERE NEW.email = user.email;
+             WHERE NEW.emailRater = user.email;
+
+CREATE DEFINER = `root`@`localhost` TRIGGER `karma_plan` AFTER INSERT ON `plan`
+FOR EACH ROW UPDATE user
+SET karma = karma + 1
+WHERE NEW.email = user.email;
 
 CREATE DEFINER = `root`@`localhost` TRIGGER `karma_join` AFTER INSERT ON `joins`
 FOR EACH ROW UPDATE user
