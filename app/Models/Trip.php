@@ -137,7 +137,8 @@ class Trip{
                          l.country AS country,
                          a.name AS activityName,
                          a.place AS activityPlace,
-                         a.adate AS `date`
+                         a.adate AS `date`,
+                         a.cost AS cost
                   FROM location l, travelling_transportation t, activity a
                   WHERE ((l.locationID = t.from_locationID) AND" .
                         $this->mysqlString($tripId) . " = 

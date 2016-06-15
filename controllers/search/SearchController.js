@@ -107,7 +107,7 @@ function searchByUserName() {
   var userName = document.getElementById(INPUTIDS[0]).value;
   var URL = "http://localhost/trippi-ubc-cs304-project/public/search/users";
 
-  createForm(GET, URL, { queryFunction: "searchUserByUserName",
+  createSearchForm(GET, URL, { queryFunction: "searchUserByUserName",
     username: userName
   });
 
@@ -121,7 +121,7 @@ function searchByUsersName() {
   var usersName = document.getElementById(INPUTIDS[0]).value;
   var URL = "http://localhost/trippi-ubc-cs304-project/public/search/users";
 
-  createForm(GET, URL, { queryFunction: "searchByUsersName",
+  createSearchForm(GET, URL, { queryFunction: "searchByUsersName",
     name: usersName
   });
 }
@@ -134,7 +134,7 @@ function searchByUserEmail() {
   var email = document.getElementById(INPUTIDS[0]).value;
   var URL = "http://localhost/trippi-ubc-cs304-project/public/search/users";
 
-  createForm(GET, URL, { queryFunction: "searchByUsersEmail",
+  createSearchForm(GET, URL, { queryFunction: "searchByUsersEmail",
     email: email
   });
 }
@@ -147,7 +147,7 @@ function searchByUserRating() {
   var rating = document.getElementById(INPUTIDS[0]).value;
   var URL = "http://localhost/trippi-ubc-cs304-project/public/search/users";
 
-  createForm(GET, URL, { queryFunction: "searchByUserRating",
+  createSearchForm(GET, URL, { queryFunction: "searchByUserRating",
     rating: rating
   });
 }
@@ -163,7 +163,7 @@ function searchByUserLocation() {
 
   var URL = "http://localhost/trippi-ubc-cs304-project/public/search/users";
 
-  createForm(GET, URL, { queryFunction: "searchByUserLocation",
+  createSearchForm(GET, URL, { queryFunction: "searchByUserLocation",
     city: city,
     country: country
   });
@@ -178,7 +178,7 @@ function searchByUsersInTrip() {
 
   var URL = "http://localhost/trippi-ubc-cs304-project/public/search/users";
 
-  createForm(GET, URL, { queryFunction: "searchByUsersInTrip",
+  createSearchForm(GET, URL, { queryFunction: "searchByUsersInTrip",
     tripId: tripId
   });
 }
@@ -192,7 +192,7 @@ function searchByUsersTravelledToLocation() {
 
   var URL = "http://localhost/trippi-ubc-cs304-project/public/search/users";
 
-  createForm(GET, URL, { queryFunction: "searchByUsersTravelledToLocation",
+  createSearchForm(GET, URL, { queryFunction: "searchByUsersTravelledToLocation",
     city: city
   });
 }
@@ -201,31 +201,31 @@ function searchByUsersTravelledToLocation() {
 function searchForMaxRatedTrip() {
   var URL = "http://localhost/trippi-ubc-cs304-project/public/search/trips";
 
-  createForm(GET, URL, { queryFunction: "searchForMaxRatedTrip"});
+  createSearchForm(GET, URL, { queryFunction: "searchForMaxRatedTrip"});
 }
 
 function searchForMinRatedTrip() {
   var URL = "http://localhost/trippi-ubc-cs304-project/public/search/trips";
 
-  createForm(GET, URL, { queryFunction: "searchForMinRatedTrip"});
+  createSearchForm(GET, URL, { queryFunction: "searchForMinRatedTrip"});
 }
 
 function searchForAvgRatedTrip() {
   var URL = "http://localhost/trippi-ubc-cs304-project/public/search/trips";
 
-  createForm(GET, URL, { queryFunction: "searchForAvgRatedTrip"});
+  createSearchForm(GET, URL, { queryFunction: "searchForAvgRatedTrip"});
 }
 
 function searchIncompleteTrips() {
   var URL = "http://localhost/trippi-ubc-cs304-project/public/search/trips";
 
-  createForm(GET, URL, { queryFunction: "searchIncompleteTrips"});
+  createSearchForm(GET, URL, { queryFunction: "searchIncompleteTrips"});
 }
 
 function searchCompleteTrips() {
   var URL = "http://localhost/trippi-ubc-cs304-project/public/search/trips";
 
-  createForm(GET, URL, { queryFunction: "searchCompleteTrips"});
+  createSearchForm(GET, URL, { queryFunction: "searchCompleteTrips"});
 }
 
 function searchForAllUsersOnTrip() {
@@ -237,7 +237,7 @@ function searchForAllUsersOnTrip() {
 
   var URL = "http://localhost/trippi-ubc-cs304-project/public/search/trips";
 
-  createForm(GET, URL, { queryFunction: "searchForAllUsersOnTrip",
+  createSearchForm(GET, URL, { queryFunction: "searchForAllUsersOnTrip",
     tripId: tripId
   });
 }
@@ -251,7 +251,7 @@ function searchForAllTripsStartingFrom() {
 
   var URL = "http://localhost/trippi-ubc-cs304-project/public/search/trips";
 
-  createForm(GET, URL, { queryFunction: "searchForAllTripsStartingFrom",
+  createSearchForm(GET, URL, { queryFunction: "searchForAllTripsStartingFrom",
     startLocation: startLocation
   });
 }
@@ -265,7 +265,7 @@ function searchTripsByEqualDuration() {
 
   var URL = "http://localhost/trippi-ubc-cs304-project/public/search/trips";
 
-  createForm(GET, URL, { queryFunction: "searchTripsByEqualDuration",
+  createSearchForm(GET, URL, { queryFunction: "searchTripsByEqualDuration",
     duration: duration
   });
 }
@@ -279,7 +279,7 @@ function searchTripsByGreaterDuration() {
 
   var URL = "http://localhost/trippi-ubc-cs304-project/public/search/trips";
 
-  createForm(GET, URL, { queryFunction: "searchTripsByGreaterDuration",
+  createSearchForm(GET, URL, { queryFunction: "searchTripsByGreaterDuration",
     duration: duration
   });
 }
@@ -293,25 +293,25 @@ function searchTripsByLesserDuration() {
 
   var URL = "http://localhost/trippi-ubc-cs304-project/public/search/trips";
 
-  createForm(GET, URL, { queryFunction: "searchTripsByLesserDuration",
+  createSearchForm(GET, URL, { queryFunction: "searchTripsByLesserDuration",
     duration: duration
   });
 }
 
 
 /*** HELPERS ***/
-function createForm(requestType, requestURL, JSONObj) {
+function createSearchForm(requestType, requestURL, JSONObj) {
   $.ajax({  
     type: requestType,  
     url: requestURL, 
     data: JSONObj,
-    success: responseHandler
+    success: searchResponseHandler
   });
 
   clearResultTable();
 }
 
-function responseHandler(returnedResponse) {
+function searchResponseHandler(returnedResponse) {
   response = JSON.parse(returnedResponse);
 
   if( response ) {

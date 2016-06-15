@@ -22,6 +22,9 @@ class SearchController {
         return $view->render($response, 'search/search.twig', []);
     }
 
+    /*
+     * Search for any user
+     */
     public function searchByUser(Response $response, Request $request, Twig $view, Router $router) {
         $uri = $request->getUri();
         $data = $request->getQueryParams();
@@ -134,6 +137,9 @@ class SearchController {
         }
     }
 
+    /*
+     * Search for any trip
+     */
     public function searchByTrip(Response $response, Request $request, Twig $view, Router $router) {
         $uri = $request->getUri();
         $data = $request->getQueryParams();
