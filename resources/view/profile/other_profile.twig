@@ -58,20 +58,19 @@
                             <th>Trip Name</th>
                             <th>From</th>
                             <th>To</th>
-                            <th></th>
-
                         </tr>
                         </thead>
                         <tbody>
+                {% for index, user in users %}
                         {% for index, trip in plannedTrips %}
                             <tr>
                                 <td><a href="{{ path_for('trip.getTrip', {tripId: trip.id})}}" method="get">{{ trip.id }}</a></td>
                                 <td>{{ trip.tripName }}</td>
                                 <td>{{ trip.from }}</td>
                                 <td>{{ trip.to }}</td>
-                                <td><a href="{{ path_for('trip.deleteTrip', {tripId: trip.id})}}" method="get">Delete</a></td>
                             </tr>
                         {% endfor %}
+                {% endfor %}
                         </tbody>
                     </table>
                 </div>

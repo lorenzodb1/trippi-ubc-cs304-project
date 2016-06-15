@@ -24,7 +24,7 @@ class Profile {
                   SET `name` = " . ModelsUtils::mysqlstring($name) . ", 
                       `hometown` = " . ModelsUtils::mysqlstring($hometown) . ", `country` = " . ModelsUtils::mysqlstring($country) . ", 
                       `dateOfBirth` = " . ModelsUtils::mysqlstring($dateOfBirth) . ", `aboutMe` = " . ModelsUtils::mysqlstring($aboutMe) . ", 
-                       `rating` = 0, `karma` = 0
+                      `rating` = 0, `karma` = 0
                   WHERE `email` = " . ModelsUtils::mysqlstring($email);
         $result = $db->query($query);
         return $result;
