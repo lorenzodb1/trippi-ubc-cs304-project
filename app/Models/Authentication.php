@@ -20,8 +20,8 @@ class Authentication{
     public function getUserInfo($email) {
         $db = new Db();
         $query = "SELECT `email`,`username`,`name`,`hometown`,`country`,`dateOfBirth`, `aboutMe` 
-              FROM `user` 
-              WHERE `email` = " . ModelsUtils::mysqlstring($email);
+                  FROM `user` 
+                  WHERE `email` = " . ModelsUtils::mysqlstring($email);
         $result = $db->query($query);
         if($result) {
             $rows = array();
@@ -35,10 +35,6 @@ class Authentication{
         }
     }
     
-    
-    
-    
-  
 
   // Login
   // Called after verifyEmail, then if verified,
