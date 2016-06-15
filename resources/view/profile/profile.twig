@@ -130,12 +130,11 @@
                         </tr>
                         </thead>
                         <tbody>
-                        {% for index, rating in ratings %}
+                        {% for index, item in ratings %}
                             <tr>
-                                <td></td>
-                                <td>{{ rating.rater }}</td>
-                                <td>{{ rating.rating}}</td>
-                                <td>{{ rating.comment }}</td>
+                                <td>{{ item.rater }}</td>
+                                <td>{{ item.rating}}</td>
+                                <td>{{ item.comment }}</td>
                             </tr>
                         {% endfor %}
                         </tbody>

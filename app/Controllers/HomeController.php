@@ -36,9 +36,7 @@ class HomeController{
         if(ModelsUtils::verifyEmail($email)){
             //check if the password is correct
             $login = Authentication::login($email, $password);
-            
             if($login) {
-                
                 return $view->render($response, 'profile/profile.twig', [
                     'users'=> $login,
                     'plannedTrips'=> Authentication::userPlanTrip($email),

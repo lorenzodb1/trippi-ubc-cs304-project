@@ -16,7 +16,8 @@ class UserRating {
     {
         $db = new Db();
         $query = "INSERT INTO `userrating`(`emailRater`, `emailRated`, `rating`, `comment`)
-                  VALUES (" . $rater_email . ", " . $rated_email . ", " . $rating . ", " . $comment . ")";
+                  VALUES (" . ModelsUtils::mysqlString($rater_email) . ", " . ModelsUtils::mysqlString($rated_email) . ", 
+                          " . ModelsUtils::mysqlString($rating) . ", " . ModelsUtils::mysqlString($comment) . ")";
         $result = $db->query($query);
         return $result;
     }
@@ -28,7 +29,7 @@ class UserRating {
                   FROM `userrating` ur, `user` u2
                   WHERE u2.email = ur.emailRater AND
 	                    u2.email <> ur.emailRated AND
-                        `emailRated` = " . $rated_email;
+                        `emailRated` = " . ModelsUtils::mysqlString($rated_email);
         $result = $db->query($query);
         return $result;
     }
@@ -40,7 +41,7 @@ class UserRating {
                   FROM `userrating` ur, `user` u2
                   WHERE u2.email = ur.emailRater AND
 	                    u2.email <> ur.emailRated AND
-                        `emailRated` = " . $rated_email . " 
+                        `emailRated` = " . ModelsUtils::mysqlString($rated_email) . " 
                   ORDER BY `rating` DESC";
         $result = $db->query($query);
         return $result;
