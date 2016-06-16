@@ -7,17 +7,9 @@
             <h1>Would you like to add a trip segment?</h1>
             <h2>TripName: {{ tripName }}</h2>
             <h3>TripId: {{ tripId }}</h3>
-            <form action="{{ path_for('addLocationDetails') }}" method="post">
+            <form action="{{ path_for('addLocationDetails', {email: email, tripName: tripName, tripId: tripId}) }}" method="post">
 
-                <div class="form-group">
-
-                    <label for="tripId">TripId</label>
-
-                    <input type="text" name="tripId" id="tripId" class="form-control">
-
-                </div>
-
-                <h3>Locations: here you can add Starting Location and End location</h3>
+                <h4>Locations: here you can add Starting Location and End locations for a segment of you trip</h4>
 
                 <div class="form-group">
 

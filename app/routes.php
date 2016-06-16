@@ -30,10 +30,10 @@ $app->get('/search/trips', ['Trippi\Controllers\SearchController', 'searchByTrip
 $app->get('/profile', ['Trippi\Controllers\HomeController', 'signIn'])->setName('Trips.signIn');
 
 $app->get('/profile/{tripId}/{email}', ['Trippi\Controllers\ProfileController', 'getTrip'])->setName('trip.getTrip');
-$app->post('/createProfile', ['Trippi\Controllers\CreateTripController', 'createTrip'])->setName('trip.createTrip');
+$app->post('/createProfile/{email}', ['Trippi\Controllers\CreateTripController', 'createTrip'])->setName('trip.createTrip');
 $app->get('/createProfile', ['Trippi\Controllers\CreateTripController', 'createTrip'])->setName('trip.getCreateTrip');
 
-$app->post('/createProfile/addLocations', ['Trippi\Controllers\CreateTripController', 'addLocationDetails'])->setName('addLocationDetails');
+$app->post('/addLocations/{email}/{tripName}/{tripId}', ['Trippi\Controllers\CreateTripController', 'addLocationDetails'])->setName('addLocationDetails');
 
 $app->get('/deleteProfile/{tripId}/{email}', ['Trippi\Controllers\ProfileController', 'deleteTrip'])->setName('trip.deleteTrip');
 
@@ -52,9 +52,9 @@ $app->get('/profileTrip/{tripId}/{email}', ['Trippi\Controllers\ProfileControlle
 
 $app->get('/getProfile/{email}', ['Trippi\Controllers\HomeController', 'getProfile'])->setName('trip.getProfile');
 
-$app->post('/createProfile/addTransportation', ['Trippi\Controllers\CreateTripController', 'addTransportationDetails'])->setName('addTransportationDetails');
-$app->post('/createProfile/addActivities/{locationId1}/{locationId2}/{tripId}', ['Trippi\Controllers\CreateTripController', 'addLocationActivityDetails'])->setName('addLocationActivities');
-$app->post('/createProfile/addAccommodations/{locationId1}/{locationId2}/{tripId}', ['Trippi\Controllers\CreateTripController', 'addAccommodationDetails'])->setName('addLocationAccommodations');
+$app->post('/addTransportation/{email}/{tripId}/{tripName}/{startLocationId}/{endLocationId}', ['Trippi\Controllers\CreateTripController', 'addTransportationDetails'])->setName('addTransportationDetails');
+$app->post('/addActivities/{email}/{locationId1}/{locationId2}/{tripId}/{tripName}', ['Trippi\Controllers\CreateTripController', 'addLocationActivityDetails'])->setName('addLocationActivities');
+$app->post('/addAccommodations/{email}/{locationId1}/{locationId2}/{tripId}/{tripName}', ['Trippi\Controllers\CreateTripController', 'addAccommodationDetails'])->setName('addLocationAccommodations');
 
 
 $app->get('/removeTrip/{tripId}/{email}', ['Trippi\Controllers\ProfileController', 'removeTrip'])->setName('trip.removeTrip');
