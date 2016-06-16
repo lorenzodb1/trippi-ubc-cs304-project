@@ -19,13 +19,13 @@ use Slim\Router as router3;
 
 class RatingsController{
 
-    public function add_rating($remail, Request $request, Response $response, Twig $view, router3 $router) {
+    public function add_rating($email, $remail, Request $request, Response $response, Twig $view, router3 $router) {
         $data = $request->getParsedBody();
-        $email = filter_var($data['email'], FILTER_SANITIZE_EMAIL);
         $rating =  filter_var($data['rating'],FILTER_SANITIZE_STRING);
         $comment = filter_var($data['comment'],FILTER_SANITIZE_STRING);
         UserRating::add_rating($email, $remail, $rating, $comment);
         return $view->render($response, 'profile/other_profile.twig', [
+            'uemail' => $email,
             'users'=> Profile::get_profile($remail),
             'plannedTrips'=> Authentication::userPlanTrip($remail),
             'joinedTrips' => Authentication::userJoinTrip($remail),

@@ -99,12 +99,23 @@ class ProfileController{
                 'trips'=> $allTrips]);
     }
 
-    public function getOtherUser($email, Request $request, Response $response, Twig $view) {
-        return $view->render($response, 'profile/other_profile.twig', [
-            'users'=> Profile::get_profile($email),
-            'plannedTrips'=> Authentication::userPlanTrip($email),
-            'joinedTrips' => Authentication::userJoinTrip($email),
-            'ratings' => UserRating::view_ratings($email)
-        ]);
+    public function getOtherUser($email, $remail, Request $request, Response $response, Twig $view) {
+        if($email == $remail) {
+            return $view->render($response, 'profile/profile.twig', [
+                'userEmail' => $email,
+                'users'=> Profile::get_profile($email),
+                'plannedTrips' => Authentication::userPlanTrip($email),
+                'joinedTrips' => Authentication::userJoinTrip($email),
+                'ratings' => UserRating::view_ratings($email)
+            ]);
+        } else {
+            return $view->render($response, 'profile/other_profile.twig', [
+                'uemail' => $remail,
+                'users'=> Profile::get_profile($email),
+                'plannedTrips'=> Authentication::userPlanTrip($email),
+                'joinedTrips' => Authentication::userJoinTrip($email),
+                'ratings' => UserRating::view_ratings($email)
+            ]);
+        }
     }
 }

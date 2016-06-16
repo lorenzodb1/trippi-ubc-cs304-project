@@ -9,17 +9,17 @@
             {% endfor %}
 
             {% for index, user in users %}
-                <form action="{{ path_for('addRating', {remail: user.email})}}" method="post">
+                <form action="{{ path_for('addRating', {email: uemail, remail: user.email})}}" method="post">
 
                     <h3>Rate this user!</h3>
 
-                    <div class="form-group">
+                    {#<div class="form-group">#}
 
-                        <label for="rating">Enter your email again</label>
+                        {#<label for="rating">Enter your email again</label>#}
 
-                        <input type="email" name="email" id="email" class="form-control">
+                        {#<input type="email" name="email" id="email" class="form-control">#}
 
-                    </div>
+                    {#</div>#}
 
                     <div class="form-group">
 
@@ -132,7 +132,7 @@
                     <tbody>
                     {% for index, item in ratings %}
                         <tr>
-                            <td><a href="{{ path_for('getProfile', {email: item.email})}}" method="get">View user</a></td>
+                            <td><a href="{{ path_for('getProfile', {email: item.email, remail: uemail})}}" method="get">View user</a></td>
                             <td>{{ item.rater }}</td>
                             <td>{{ item.rating}}</td>
                             <td>{{ item.comment }}</td>
