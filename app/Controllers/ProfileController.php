@@ -32,6 +32,7 @@ class ProfileController{
         $activities = $tripModel->getActivitiesByTripId($tripId);
         $tripNames = $tripModel->getTripNameById($tripId);
         $users = $tripModel->searchUsersOnTrip($tripId);
+        
 
 
         return $view->render($response, 'trip/trip_no_edits.twig', [
@@ -41,7 +42,9 @@ class ProfileController{
             'activities'=>$activities,
             'tripNames'=>$tripNames,
             'users'=>$users,
-            'userEmail' => $email
+            'userEmail' => $email,
+            
+            'tripId' => $tripId
         ]);
     }
 
@@ -56,6 +59,8 @@ class ProfileController{
         $activities = $tripModel->getActivitiesByTripId($tripId);
         $tripNames = $tripModel->getTripNameById($tripId);
         $users = $tripModel->searchUsersOnTrip($tripId);
+      
+
 
         
         return $view->render($response, 'trip/trip.twig', [
@@ -65,7 +70,9 @@ class ProfileController{
             'activities'=>$activities,
             'tripNames'=>$tripNames,
             'users'=>$users,
-            'userEmail' => $email
+            'userEmail' => $email,
+            
+            'tripId' => $tripId
         ]);
     }
     

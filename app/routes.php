@@ -63,6 +63,8 @@ $app->post('/delete_profile/{email}', ['Trippi\Controllers\ProfileController', '
 
 $app->post('/update_profile/{email}', ['Trippi\Controllers\ProfileController', 'update_profile'])->setName('updateProfile');
 
+$app->get('/modify/{email}/{tripName}/{tripId}', ['Trippi\Controllers\CreateTripController', 'addLocationDetails'])->setName('modifyLocationDetails');
+
 
 
 
