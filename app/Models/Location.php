@@ -16,7 +16,9 @@ class Location {
 
     public function getAlLocations() {
         $db = new Db();
-        $query = "SELECT * FROM `location` ORDER BY `country` ASC";
+        $query = "SELECT * 
+                  FROM `location` 
+                  ORDER BY `country` ASC";
 
             return $this->returnResult( $this->submitQuery($query));
     }
