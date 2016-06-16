@@ -180,10 +180,15 @@ FOR EACH ROW UPDATE user
              SET karma = karma + 1
              WHERE NEW.emailRater = user.email;
 
+CREATE DEFINER = `root`@`localhost` TRIGGER `no_karma_rating` BEFORE DELETE ON `userRating`
+FOR EACH ROW UPDATE user
+						 SET karma = karma - 1
+						 WHERE OLD.emailRater = user.email;
+
 CREATE DEFINER = `root`@`localhost` TRIGGER `karma_plan` AFTER INSERT ON `plan`
 FOR EACH ROW UPDATE user
-SET karma = karma + 1
-WHERE NEW.email = user.email;
+						 SET karma = karma + 1
+						 WHERE NEW.email = user.email;
 
 CREATE DEFINER = `root`@`localhost` TRIGGER `karma_join` AFTER INSERT ON `joins`
 FOR EACH ROW UPDATE user
@@ -196,6 +201,13 @@ FOR EACH ROW UPDATE user
 						 							 FROM userRating
 													 WHERE emailRated = NEW.emailRated)
 						 WHERE NEW.emailRated = user.email;
+
+CREATE DEFINER = `root`@`localhost` TRIGGER `no_avg_rating` AFTER DELETE ON `userRating`
+FOR EACH ROW UPDATE user
+						 SET rating = (SELECT AVG(rating)
+													 FROM userRating
+													 WHERE emailRated = OLD.emailRated)
+						 WHERE OLD.emailRated = user.email;
 
 insert into admin
 	values('bob@gmail.com');

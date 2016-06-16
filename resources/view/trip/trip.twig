@@ -9,8 +9,6 @@
                 <h2> {{ name.tripName }} </h2>
             {% endfor %}
             <h3 style="display: inline-block;">Locations</h3>
-            <img id="add-location-btn" style="width: 25px;
-    vertical-align: sub;" src="http://localhost/trippi-ubc-cs304-project/assets/add.png" >
             {% if locations %}
                 <div class="well">
                     <table class ="table">
@@ -26,11 +24,6 @@
                             <tr>
                                 <td id="location-city-{{index}}">{{ location.city }}</td>
                                 <td id="location-country-{{index}}" > {{ location.country }}</td>
-                                <td>
-                                    <button style="float: right;" type="button" class="btn btn-info" data-toggle="modal" data-target="#locationModal" data-title="Edit Location" onclick="showLocationModal( {{ index }} )">
-                                        <span class="glyphicon glyphicon-option-horizontal" aria-hidden="true"></span>
-                                    </button> 
-                                </td>
                             </tr>
                         {% endfor %}
                         </tbody>
@@ -43,8 +36,6 @@
                 <p> This trip has no locations information </p>
             {% endif %}
             <h3 style="display: inline-block;">Traveling Information</h3>
-            <img  id="add-travel-info-btn" style="width: 25px;
-        vertical-align: sub;" src="http://localhost/trippi-ubc-cs304-project/assets/add.png" >
             {% if travelInfo %}
                 <div class="well">
                     <table class ="table">
@@ -65,12 +56,6 @@
                                 <td id="travel-typeTravel-{{ index }}">{{ travel.typeTravel }}</td>
                                 <td id="travel-startDate-{{ index }}">{{ travel.fromDate }}</td>
                                 <td id="travel-finishDate-{{ index }}">{{ travel.toDate }}</td>
-                                <td>
-                                    <button style="float: right;" type="button" class="btn btn-info"  data-toggle="modal" data-target="#travelModal" onclick="showTravelModal( {{ index }} )">
-                                        <span class="glyphicon glyphicon-option-horizontal" aria-hidden="true"></span>
-                                    </button> 
-                                </td>
-
 
                             </tr>
                         {% endfor %}
@@ -84,8 +69,6 @@
                 <p> This trip has no Traveling Information </p>
             {% endif %}
             <h3 style="display: inline-block;">Accommodations</h3>
-            <img id="add-accommodations-btn"  style="width: 25px;
-    vertical-align: sub;" src="http://localhost/trippi-ubc-cs304-project/assets/add.png" >
             {% if accommodations %}
                 <div class="well">
                     <table class ="table">
@@ -110,11 +93,6 @@
                                 <td>{{ accom.rating }}</td>
                                 <td>{{ accom.from }}</td>
                                 <td>{{ accom.to }}</td>
-                                <td>
-                                    <button style="float: right;" type="button" class="btn btn-info" onclick="checkWhichQuery()">
-                                        <span class="glyphicon glyphicon-option-horizontal" aria-hidden="true"></span>
-                                    </button> 
-                                </td>
                             </tr>
                         {% endfor %}
                         </tbody>
@@ -127,8 +105,6 @@
                 <p> This trip has no accommodations </p>
             {% endif %}
             <h3 style="display: inline-block;">Activities</h3>
-            <img id="add-activities-btn"  style="width: 25px;
-    vertical-align: sub;" src="http://localhost/trippi-ubc-cs304-project/assets/add.png" >
             {% if activities %}
                 <div class="well">
                     <table class ="table">
@@ -177,8 +153,6 @@
 
 
         <h3 style="display: inline-block;">Users on trip </h3>
-        <img  id="add-users-btn" style="width: 25px;
-    vertical-align: sub;" src="http://localhost/trippi-ubc-cs304-project/assets/add.png" >
         {% if users %}
             <div class="well">
                 <table class ="table">
@@ -193,11 +167,6 @@
                         <tr>
                             <td>{{ user.userName }} </td>
                             <td>{{ user.name }}</td>
-                            <td>
-                                <button style="float: right;" type="button" class="btn btn-info" onclick="checkWhichQuery()">
-                                    <span class="glyphicon glyphicon-option-horizontal" aria-hidden="true"></span>
-                                </button> 
-                            </td>
                         </tr>
                     {% endfor %}
                     </tbody>
