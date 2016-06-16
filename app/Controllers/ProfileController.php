@@ -20,7 +20,31 @@ use Trippi\Models\Authentication;
 
 class ProfileController{
 
-    public function getTrip($tripId, Request $request, Response $response, Twig $view){
+
+    public function getUneditedTrip($tripId, $email, Request $request, Response $response, Twig $view) {
+        $tripModel = new Trip();
+        $locations = $tripModel->getLocationsByTripId($tripId);
+        $travelInfo = $tripModel->getTravelingInformationByTripId($tripId);
+        $accommodations = $tripModel->getAccomodationsByTripId($tripId);
+        $activities = $tripModel->getActivitiesByTripId($tripId);
+        $tripNames = $tripModel->getTripNameById($tripId);
+        $users = $tripModel->searchUsersOnTrip($tripId);
+
+
+        return $view->render($response, 'trip/trip_no_edits.twig', [
+            'locations'=> $locations,
+            'travelInfo'=> $travelInfo,
+            'accommodations'=> $accommodations,
+            'activities'=>$activities,
+            'tripNames'=>$tripNames,
+            'users'=>$users,
+            'userEmail' => $email
+        ]);
+    }
+
+
+
+    public function getTrip($tripId, $email, Request $request, Response $response, Twig $view){
 
         $tripModel = new Trip();
         $locations = $tripModel->getLocationsByTripId($tripId);
@@ -37,7 +61,8 @@ class ProfileController{
             'accommodations'=> $accommodations,
             'activities'=>$activities,
             'tripNames'=>$tripNames,
-            'users'=>$users
+            'users'=>$users,
+            'userEmail' => $email
         ]);
         
 
@@ -88,14 +113,15 @@ class ProfileController{
         }
     }
 
-    public function getAllTrips(Request $request, Response $response, Twig $view) {
+    public function getAllTrips($email, Request $request, Response $response, Twig $view) {
         $trip = new Trip();
         $allTrips = $trip->allTrips();
         
 
         
             return $view->render($response, 'trip/trips.twig', [
-                'trips'=> $allTrips]);
+                'trips'=> $allTrips,
+                'userEmail' => $email]);
     }
 
     

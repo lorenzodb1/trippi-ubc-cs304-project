@@ -171,6 +171,11 @@
         </div>
 
     <div class="col-md-4">
+
+        <h4><a href = "{{ path_for('trip.getProfile', {email: userEmail}) }}" method="get"> Return to profile </a></h4>
+        <h4><a href = "{{ path_for('trip.getAllTrips', {email: userEmail}) }}" method="get"> View all Trippi Trips </a></h4>
+
+
         <h3 style="display: inline-block;">Users on trip </h3>
         <img  id="add-users-btn" style="width: 25px;
     vertical-align: sub;" src="http://localhost/trippi-ubc-cs304-project/assets/add.png" >

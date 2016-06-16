@@ -20,7 +20,7 @@
                         <tbody>
                         {% for index, trip in trips %}
                             <tr>
-                                <td>{{ trip.tripId }}</td>
+                                <td><a href="{{ path_for('trip.getUneditedTrip', {tripId: trip.tripId, email: userEmail})}}" method="get">{{ trip.tripId }}</a></td>
                                 <td>{{ trip.tripName }}</td>
                                 <td>{{ trip.from }}</td>
                                 <td>{{ trip.to }}</td>
@@ -42,6 +42,11 @@
 
 
         <div class="col-md-4">
+
+
+            <h4><a href = "{{ path_for('trip.getProfile', {email: userEmail}) }}" method="get"> Return to profile </a></h4>
+
+
             <form action="{{ path_for('trip.joinTrip')}}" method="post">
 
                 <h3>Join a Trip</h3>
