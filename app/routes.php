@@ -46,7 +46,7 @@ $app->post('/otherProfile/', ['Trippi\Controllers\ProfileController', 'getOtherU
 
 $app->post('/addedRating/{email}/{remail}', ['Trippi\Controllers\RatingsController', 'add_rating'])->setName('addRating');
 
-$app->post('/joinProfile', ['Trippi\Controllers\JoinTripController', 'joinTrip'])->setName('trip.joinTrip');
+$app->post('/joinProfile/{email}/', ['Trippi\Controllers\JoinTripController', 'joinTrip'])->setName('trip.joinTrip');
 
 $app->get('/profileTrip/{tripId}/{email}', ['Trippi\Controllers\ProfileController', 'getUneditedTrip'])->setName('trip.getUneditedTrip');
 

@@ -17,19 +17,13 @@ use Trippi\Models\JoinTrip;
 class JoinTripController {
     
     
-    public function joinTrip(Request $request, Response $response, Twig $view, Router $router) {
+    public function joinTrip($email, Request $request, Response $response, Twig $view, Router $router) {
         $data = $request->getParsedBody();
-        $email = filter_var($data['email'], FILTER_SANITIZE_EMAIL);
-        $tripId = filter_var($data['tripId'],FILTER_SANITIZE_STRING);
-
-        $join = new JoinTrip();
-        $joinedTrip = $join->joinTrip($tripId, $email);
-
+        $tripId = $data['select'];
+        $joinedTrip = JoinTrip::joinTrip($tripId, $email);
         if($joinedTrip) {
-
             $auth = new Authentication();
             $login = $auth->getUserInfo($email);
-            
             return $view->render($response, 'profile/profile.twig', [
                 'userEmail' =>$email,
                 'users'=> $login,
