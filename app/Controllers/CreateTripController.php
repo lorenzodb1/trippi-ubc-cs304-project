@@ -26,8 +26,6 @@ class CreateTripController  {
         $tripName =  filter_var($data['tripName'],FILTER_SANITIZE_STRING);
         $startDate = filter_var($data['startDate'],FILTER_SANITIZE_STRING);
         $endDate = filter_var($data['endDate'],FILTER_SANITIZE_STRING);
-        //$email = filter_var($data['email'], FILTER_SANITIZE_EMAIL);
-        
 
         $generator = new IdGenerator();
         $tripID = $generator->newTripID();
@@ -36,9 +34,6 @@ class CreateTripController  {
         $createdTrip = $create->createNewTrip($tripID, $startDate, $endDate, $tripName);
         $linkTripToUser = $create->linkTripPlanner($email, $tripID);
 
-        $tripModel = new Trip();
-        //$tripName = $tripModel->getTripNameById($tripID);
-        
         if($createdTrip and $linkTripToUser) {
             return $view->render($response, 'trip/trip_segment.twig', [
                 'tripName' => $tripName,
@@ -48,7 +43,6 @@ class CreateTripController  {
         }
 
         else {
-            //return $response->withRedirect($router->pathFor('Trips.signIn'));
             return $view->render($response, 'trip/create_trip.twig', [
                 'tripName' => $tripName,
                 'tripId' => $tripID,
@@ -60,9 +54,7 @@ class CreateTripController  {
 
     }
     public function addLocationDetails($email, $tripName, $tripId, Request $request, Response $response, Twig $view){
-
         $data = $request->getParsedBody();
-        //$tripId =  filter_var($data['tripId'],FILTER_SANITIZE_STRING);
         $fromCity =filter_var($data['fromCity'], FILTER_SANITIZE_STRING);
         $fromCountry =filter_var($data['fromCountry'], FILTER_SANITIZE_STRING);
         $toCity = filter_var($data['toCity'],FILTER_SANITIZE_STRING);
@@ -79,8 +71,8 @@ class CreateTripController  {
                 'tripDetails' => $addTripDetails,
                 'startLocationId'=> $startingLocationId,
                 'endLocationId'=> $endingLocationId,
-                'startLocation'=> $fromCity . "," . $fromCountry,
-                'endLocation'=> $toCity . "," . $toCountry,
+                'startLocation'=> $fromCity . ", " . $fromCountry,
+                'endLocation'=> $toCity . ", " . $toCountry,
                 'email'=> $email
 
             ]);
@@ -145,8 +137,8 @@ class CreateTripController  {
                 'tripId' => $tripId,
                 'startLocationId'=> $startLocationId,
                 'endLocationId'=> $endLocationId,
-                'startLocation'=> $fromCity . "," . $fromCountry,
-                'endLocation'=> $toCity . "," . $toCountry,
+                'startLocation'=> $fromCity . ", " . $fromCountry,
+                'endLocation'=> $toCity . ", " . $toCountry,
                 'email'=> $email
             ]);
 
@@ -158,8 +150,8 @@ class CreateTripController  {
                 'tripId' => $tripId,
                 'startLocationId'=> $startLocationId,
                 'endLocationId'=> $endLocationId,
-                'startLocation'=> $fromCity . "," . $fromCountry,
-                'endLocation'=> $toCity . "," . $toCountry,
+                'startLocation'=> $fromCity . ", " . $fromCountry,
+                'endLocation'=> $toCity . ", " . $toCountry,
                 'email'=> $email
             ]);
         }
@@ -205,8 +197,8 @@ class CreateTripController  {
                 'tripId' => $tripId,
                 'startLocationId'=> $locationId1,
                 'endLocationId'=> $locationId2,
-                'startLocation'=> $fromCity . "," . $fromCountry,
-                'endLocation'=> $toCity . "," . $toCountry,
+                'startLocation'=> $fromCity . ", " . $fromCountry,
+                'endLocation'=> $toCity . ", " . $toCountry,
                 'email'=> $email,
                 'tripName' => $tripName
 
