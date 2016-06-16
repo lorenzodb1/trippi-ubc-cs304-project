@@ -15,26 +15,4 @@ require __DIR__ . '/../vendor/autoload.php';
 
 $app = new App;
 
-//$capsule = new Capsule;
-//
-//$capsule->addConnection([
-//    'driver' => 'mysql',
-//
-//    'host' => 'localhost',
-//
-//    'database' => 'DB_trippi',
-//
-//    'username' => 'root',
-//
-//    'password' => '',
-//
-//    'charset' => 'utf8',
-//
-//    'collation' => 'utf8_unicode_ci',
-//]);
-//
-//$capsule->setAsGlobal();
-//
-//$capsule->bootEloquent();
-
 require __DIR__ . '/../app/routes.php';

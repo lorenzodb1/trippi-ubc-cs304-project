@@ -21,7 +21,6 @@ class CreateTrip {
         }
     }
 
-
     public function createNewTripDuration($startDate, $endDate) {
         $db = new Db();
         $duration = $startDate - $endDate;
@@ -41,8 +40,6 @@ class CreateTrip {
         return $result;
     }
 
-
-
     private function dealWithAdminIssues($email) {
         $db = new Db();
         $query = "SELECT *
@@ -55,9 +52,6 @@ class CreateTrip {
             $db->query($queryInsert);;
         }
     }
-
-
-
 
     private function insertNewTravelDuration($startDate, $endDate) {
         $db = new Db();
@@ -127,52 +121,6 @@ class CreateTrip {
         return $locationId;
     }
 
-
-
-    public function addTripDetails($fromCity, $fromCountry, $toCity, $toCountry,
-                                    $transpStartDate, $transpEndDate, $tripId,
-                                    $activityTo, $activityFrom, $hotelNameFrom, $hotelNameTo,
-                                    $checkInFrom, $checkOutFrom, $checkInTo,
-                                    $checkOutTo){
-        $generateID = new IdGenerator();
-        $locationIdFrom = $generateID->newLocationId($fromCity, $fromCountry);
-        $locationIdTo = $generateID->newLocationId($toCity, $toCountry);
-        
-        if($locationIdFrom AND $locationIdTo){
-            if($this->insertNewTravelDuration($transpStartDate, $transpEndDate)){
-                $transportationID = $generateID->newTransportationId();
-                if($this->insertNewTravelTransportation($transportationID, $locationIdFrom, $locationIdTo, $tripId,
-                                                        $transpStartDate, $transpEndDate)){
-                    if($this->insertNewActivity($activityFrom, $locationIdFrom) and
-                        $this->insertNewActivity($activityTo, $locationIdTo)){
-                        
-                        if($this->insertNewAccommodation($hotelNameFrom, $checkInFrom, $checkOutFrom, $locationIdFrom) and
-                           $this->insertNewAccommodation($hotelNameTo, $checkInTo, $checkOutTo, $locationIdTo)){
-                            
-                            return true;
-                        }
-                        else{
-                            return true; //throw new \ErrorException("accommodation insertion not successful");
-                        }
-
-                    }
-                    else{
-                        return true; //throw new \ErrorException("activity insertion not successful");
-                    }
-
-                }
-                else{
-                    return true; //throw new \ErrorException(" travelTransportation insertion not successful");
-                }
-            }
-            else{
-                return true; //throw new \ErrorException("travel duration insertion not successful");
-            }
-        }
-        else{
-            return true; //throw new \ErrorException("LocationID's did not get inserted or obtain");
-        }
-    }
     /**@deprecated use the ModelUtils instead
      * @param $string
      * @return string
