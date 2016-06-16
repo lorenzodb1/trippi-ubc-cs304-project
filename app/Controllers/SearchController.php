@@ -134,6 +134,19 @@ class SearchController {
               return null;
           }
           
+        } else if ( $queryFunction == 'searchForUsersBuddy') {
+
+          $email = filter_var($data['email'], FILTER_SANITIZE_STRING);
+          if( $email ) {
+            $trips = new Trip();
+            $userList = $trips->findMostLoyalCompanion($email);
+            if($userList) {
+              return $this->returnResults($userList);
+            }
+          } else {
+              return null;
+          }
+          
         }
     }
 

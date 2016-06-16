@@ -52,7 +52,8 @@ function checkWhichQuery() {
     'search-for-all-trips-starting-from',
     'search-for-all-trips-by-equal-duration',
     'search-for-all-trips-by-greater-duration',
-    'search-for-all-trips-by-lesser-duration'
+    'search-for-all-trips-by-lesser-duration',
+    'search-for-users-buddy'
   ];
 
   if( document.getElementById(RADIOBUTTONS[0]).checked ) {
@@ -93,7 +94,9 @@ function checkWhichQuery() {
     searchTripsByGreaterDuration();
   } else if (document.getElementById(RADIOBUTTONS[18]).checked ) {
     searchTripsByLesserDuration();
-  } else {
+  } else if (document.getElementById(RADIOBUTTONS[19]).checked ) {
+    searchUsersBuddy();
+  }  else {
 
   }
 }
@@ -298,6 +301,20 @@ function searchTripsByLesserDuration() {
   });
 }
 
+function searchUsersBuddy() {
+  var INPUTIDS = [
+    'search-users-buddy-input-1'
+  ]
+
+  var email = document.getElementById(INPUTIDS[0]).value;
+
+  var URL = "http://localhost/trippi-ubc-cs304-project/public/search/users";
+
+  createSearchForm(GET, URL, { queryFunction: "searchForUsersBuddy",
+    email: email
+  });
+}
+
 
 /*** HELPERS ***/
 function createSearchForm(requestType, requestURL, JSONObj) {
@@ -334,7 +351,7 @@ function searchResponseHandler(returnedResponse) {
       var aboutMe = ((item.aboutMe) ? item.aboutMe : "" );
 
       var row = $("<tr id='result-" + (numResultROws+1) + "'>" +
-        "<td><a href='http://localhost/trippi-ubc-cs304-project/public/profileTrip/" + tripId + "/null'>" + tripId + "</td>" +
+        "<td><a href='http://localhost/trippi-ubc-cs304-project/public/profile/" + tripId + "'>" + tripId + "</td>" +
         "<td colspan='2'>" + tripName  + "</td>" +
         "<td>" + rating + "</td>" +
         "<td colspan='4'>" + comment + "</td>" +
