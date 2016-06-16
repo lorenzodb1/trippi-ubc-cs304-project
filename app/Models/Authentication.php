@@ -19,7 +19,7 @@ class Authentication{
     
     public function getUserInfo($email) {
         $db = new Db();
-        $query = "SELECT `email`,`username`,`name`,`hometown`,`country`,`dateOfBirth`, `aboutMe` 
+        $query = "SELECT `email`,`username`,`name`,`hometown`,`country`,`dateOfBirth`, `aboutMe`, `karma`, `rating` 
                   FROM `user` 
                   WHERE `email` = " . ModelsUtils::mysqlstring($email);
         $result = $db->query($query);

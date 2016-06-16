@@ -8,16 +8,54 @@
                 {% include 'profile/partials/profile_item.twig' with {user: user} %}
             {% endfor %}
 
-            <form action="{{ path_for('deleteProfile', {email: userEmail})}}" method="post">
+            <ul class='nav secondary-nav'>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Profile Settings <b class="caret"></b></a>
+                <div class="dropdown-menu" style="width: 100%">
+                <div align="center">
+            <form action="{{ path_for('deleteProfile', {email: userEmail})}}" method="post" style="width: 90%">
                 <div class="form-group">
-
+                    <div align="left">
                     <label for="email">Enter your password to delete your profile</label>
-
+                    </div>
                     <input type="password" name="password" id="password" class="form-control">
 
                 </div>
-            <button type="submit" class="btn btn-default">Delete profile</button>
+                <div align="left">
+                <button type="submit" class="btn btn-default">Delete profile</button>
+                </div>
             </form>
+
+            <form action="{{ path_for('updateProfile', {email: userEmail})}}" method="post" style="width: 90%">
+                <div class="form-group">
+                    <div align="left">
+                        <br>
+                    <label for="email">Enter your password to update your profile</label>
+                    </div>
+                    <input type="password" name="password" id="password" class="form-control">
+                    <br>
+                    <select class="form-control" id="select" name="select">
+                        <option value="email">Email</option>
+                        <option value="password">Password</option>
+                        <option value="hometown">Hometown</option>
+                        <option value="country">Country</option>
+                        <option value="bio">About me</option>
+                    </select>
+                    <br>
+                    <div align="left">
+                    <label for="email">Enter your new information</label>
+                    </div>
+                    <input type="newdata" name="newdata" id="newdata" class="form-control">
+                </div>
+                <div align="left">
+                <button type="submit" class="btn btn-default">Update profile</button>
+                </div>
+            </form>
+                </div>
+
+                        </div>
+                    </li>
+                </ul>
 
             <form action="{{ path_for('trip.createTrip')}}" method="post">
 
@@ -60,7 +98,6 @@
 
 
             </form>
-
         </div>
 
         <div class="col-md-8">
