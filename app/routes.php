@@ -22,6 +22,9 @@ $app->post('/locations', ['Trippi\Controllers\LocationsController', 'addLocation
 // Activities
 $app->post('/activities', ['Trippi\Controllers\ActivitiesController', 'updateActivity'])->setName('updateActivity');
 
+// Accommodations
+$app->post('/accommodations', ['Trippi\Controllers\AccommodationsController', 'updateAccommodation'])->setName('updateAccommodation');
+
 // Search Routes
 $app->get('/search', ['Trippi\Controllers\SearchController', 'index'])->setName('goToSearch');
 $app->get('/search/users', ['Trippi\Controllers\SearchController', 'searchByUser'])->setName('searchByUser');

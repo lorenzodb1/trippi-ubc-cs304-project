@@ -40,7 +40,9 @@ function showActivitiesModal( index ) {
   $( DATE_INPUT_ID ).val( getDateValue );
 
 }
-
+/*
+ * Activity Modal 
+ */
 function updateActivity( ) {
   var GET_INDEX_ID = "#activity-modal-index";
   var index = $( GET_INDEX_ID ).val( );
@@ -63,6 +65,50 @@ function updateActivity( ) {
     date: getDateValue
   });
 }
+
+/*
+ * Accommodation Modal
+ */
+var ACC_NAME_INPUT = "#accommodations-name-input";
+var ACC_CITY_INPUT = "#accommodations-city-input";
+var ACC_COUNTRY_INPUT = "#accommodations-country-input";
+var ACC_TYPE_INPUT = "#accommodations-type-input";
+var ACC_COST_INPUT = "#accommodations-cost-input";
+var ACC_RATING_INPUT = "#accommodations-rating-input";
+var ACC_STARTDATE_INPUT = "#accommodations-startDate-input";
+var ACC_TODATE_INPUT = "#accommodations-fromDate-input";
+
+function updateAccommodations( ) {
+  var GET_INDEX_ID = "#activity-modal-index";
+  var index = $( GET_INDEX_ID ).val( );
+
+  var url = "http://localhost/trippi-ubc-cs304-project/public/accommodations";
+
+  var getNameValue = $( ACC_NAME_INPUT ).val( );
+  var getCityValue = $( ACC_CITY_INPUT ).val( );
+  var getCountryValue = $( ACC_COUNTRY_INPUT ).val( );
+  var getTypeValue = $( ACC_TYPE_INPUT ).val( );
+  var getCostValue = $( ACC_COST_INPUT ).val( );
+  var getRatingValue = $( ACC_RATING_INPUT ).val( );
+  var getStartDatValue = $( ACC_STARTDATE_INPUT ).val( );
+  var getToDatValue = $( ACC_TODATE_INPUT ).val( );
+
+  createTripForm( POST, url, {
+    name: getNameValue,
+    city: getCityValue,
+    country: getCountryValue,
+    type: getTypeValue,
+    cost: getCostValue,
+    rating: getRatingValue,
+    startDate: getStartDatValue,
+    toDate: getToDatValue
+  });
+}
+
+
+/*
+ * Location Modal
+ */
 
 // Location IDs
 var LOC_CITY1_INPUT_ID = "#location-city1-input";

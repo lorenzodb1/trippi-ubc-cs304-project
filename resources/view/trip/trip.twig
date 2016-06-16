@@ -74,6 +74,7 @@
                 <p> This trip has no Traveling Information </p>
             {% endif %}
             <h3 style="display: inline-block;">Accommodations</h3>
+            <img id="add-location-btn" style="width: 25px; vertical-align: sub;" src="http://localhost/trippi-ubc-cs304-project/assets/add.png" data-toggle="modal" data-target="#accommodationsModal">
             {% if accommodations %}
                 <div class="well">
                     <table class ="table">
@@ -232,6 +233,54 @@
   </div>
 </div>
 </div>
+
+<!-- Accommodations Modal -->
+<div class="modal modal2 fade" id="accommodationsModal" tabindex="-5" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title" id="myModalLabel">Edit Accommodations</h4>
+        <span id="activity-modal-index" style="visibility: hidden;"></span>
+      </div>
+      <div class="modal-body">        
+        <div class="input-group input-group-sm" style="display: inline-block;">
+          <input id="accommodations-name-input" type="text" class="form-control" placeholder="Accommodations Name" aria-describedby="basic-addon1" >
+        </div>
+        <div class="input-group input-group-sm" style="display: inline-block;">
+          <input id="accommodations-city-input" type="text" class="form-control" placeholder="City" aria-describedby="basic-addon1" >
+        </div>
+        <div class="input-group input-group-sm" style="display: inline-block;">
+          <input id="accommodations-country-input" type="text" class="form-control" placeholder="Country" aria-describedby="basic-addon1">
+        </div>
+        <div class="input-group input-group-sm" style="display: inline-block;">
+          <input id="accommodations-type-input" type="text" class="form-control" placeholder="Type e.g., Hotel, Hostel, AirBNB" aria-describedby="basic-addon1" >
+        </div>
+        <div class="input-group input-group-sm" style="display: inline-block;">
+          <input id="accommodations-cost-input" type="text" class="form-control" placeholder="Cost e.g., 100" aria-describedby="basic-addon1" >
+        </div>
+        <div class="input-group input-group-sm" style="display: inline-block;">
+          <input id="accommodations-rating-input" type="text" class="form-control" placeholder="Rating out of 5 e.g., 4" aria-describedby="basic-addon1">
+        </div>
+        <div class="input-group input-group-sm" style="display: inline-block;">
+          <input id="accommodations-startDate-input" type="text" class="form-control" placeholder="Start Date" aria-describedby="basic-addon1">
+        </div>
+        <div class="input-group input-group-sm" style="display: inline-block;">
+          <input id="accommodations-fromDate-input" type="text" class="form-control" placeholder="End Date" aria-describedby="basic-addon1">
+        </div>
+      </div>
+
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" onclick="updateAccommodations( )">Update</button>
+    </div>
+    </div>
+  </div>
+</div>
+
+
 
 <!-- Travel Modal -->
 <div class="modal modal2 fade" id="activitiesModal" tabindex="-5" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

@@ -56,6 +56,36 @@ class Accommodation {
             $rows[] = $row;
         }
         return $rows;
-    }    
+    } 
+
+    public function addNewAccommodation( $name, $type, $cost, $rating, $startDate, $endDate, $locationID ) {
+        
+
+        $query = "INSERT INTO `accomodation`(`name`, `type`, `cost`, `rating`, `startDate`, `endDate`, `locationID`) VALUES (" . ModelsUtils::mysqlstring( $name ) . "," . ModelsUtils::mysqlstring( $type ) . "," . ModelsUtils::mysqlstring( $cost ) . "," . ModelsUtils::mysqlstring( $rating ) . "," . ModelsUtils::mysqlstring( $startDate ) . "," . ModelsUtils::mysqlstring( $endDate ) . "," . ModelsUtils::mysqlstring( $locationID ) . ")";
+        
+        var_dump($query);
+        
+        return $this->submitQuery( $query );
+    }  
+
+    private function submitQuery($query){
+        $db = new Db();
+
+        return $db->query($query);
+    }
+
+      private function returnResult( $result ) {
+        if( $result ) {
+          // Successful Match
+          $rows = array();
+          while($row = mysqli_fetch_array($result)) {
+            $rows[] = $row;
+          }
+          return $rows;
+        } else {
+          // No match found
+          return false;
+        }  
+      }
 
 }

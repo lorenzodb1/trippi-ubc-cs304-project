@@ -49,7 +49,7 @@ class Location {
       $cost = 100;
 
       $query = "INSERT INTO `travelling_transportation`(`transportationID`, `from_locationID`, `to_locationID`, `tripID`, `startDate`, `endDate`, `cost`, `type`) VALUES (" . ModelsUtils::mysqlstring( $id ) . "," . ModelsUtils::mysqlstring( $fromLocationId ) . "," . ModelsUtils::mysqlstring( $toLocationId ).  "," . ModelsUtils::mysqlstring( $tripId ) . "," . ModelsUtils::mysqlstring( $fromDate ) . "," . ModelsUtils::mysqlstring( $toDate ) . "," . ModelsUtils::mysqlstring( $cost ) . "," . ModelsUtils::mysqlstring( $type ) . ")";
-      var_dump($query);
+
       return $this->submitQuery( $query );
     }
     
