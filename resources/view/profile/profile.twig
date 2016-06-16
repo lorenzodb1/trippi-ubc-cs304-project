@@ -8,6 +8,17 @@
                 {% include 'profile/partials/profile_item.twig' with {user: user} %}
             {% endfor %}
 
+            <form action="{{ path_for('deleteProfile', {email: userEmail})}}" method="post">
+                <div class="form-group">
+
+                    <label for="email">Enter your password to delete your profile</label>
+
+                    <input type="password" name="password" id="password" class="form-control">
+
+                </div>
+            <button type="submit" class="btn btn-default">Delete profile</button>
+            </form>
+
             <form action="{{ path_for('trip.createTrip')}}" method="post">
 
                 <h3>Create a Trip</h3>

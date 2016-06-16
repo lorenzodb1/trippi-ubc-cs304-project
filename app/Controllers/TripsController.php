@@ -5,11 +5,12 @@
  * Date: 2016-06-10
  * Time: 10:50 PM
  */
+
 namespace Trippi\Controllers;
 
 use Slim\Views\Twig;
 use Trippi\Models\Trip;
-use Trippi\Models\
+use Trippi\Models;
 use Trippi\Models\Db;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
