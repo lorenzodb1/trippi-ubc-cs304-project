@@ -15,17 +15,23 @@ class CreateTrip {
 
 
         if($this->createNewTripDuration($startDate, $endDate)) {
-            $query = "INSERT INTO trip VALUES (" . $this->mysqlString($tripID) . " , " . $this->mysqlString($startDate) . ", " . $this->mysqlString($endDate) . ", 'incomplete', " . $this->mysqlString($tripName) . ", null )";
+            $query = "INSERT INTO trip 
+                      VALUES (" . ModelsUtils::mysqlString($tripID) . ", "
+                                . ModelsUtils::mysqlString($startDate) . ", "
+                                . ModelsUtils::mysqlString($endDate) . ", 'incomplete', "
+                                . ModelsUtils::mysqlString($tripName) . ", null )";
             $result = $db->query($query);
             return $result;
         }
     }
 
-
     public function createNewTripDuration($startDate, $endDate) {
         $db = new Db();
         $duration = $startDate - $endDate;
-        $query = "INSERT INTO trip_duration VALUES (" . $this->mysqlString($startDate) ." , " . $this->mysqlString($endDate) .",  " . $this->mysqlString($duration) ." )";
+        $query = "INSERT INTO trip_duration 
+                  VALUES (" . ModelsUtils::mysqlString($startDate) . ", "
+                            . ModelsUtils::mysqlString($endDate) . ",  "
+                            . ModelsUtils::mysqlString($duration) .")";
         $result = $db->query($query);
         return $result;
     }
@@ -36,12 +42,12 @@ class CreateTrip {
 
         $db = new Db();
 
-        $query = "INSERT INTO plan VALUES (" . $this->mysqlString($tripID) ." , " . $this->mysqlString($email) .")";
+        $query = "INSERT INTO plan 
+                  VALUES (" . ModelsUtils::mysqlString($tripID) .", "
+                            . ModelsUtils::mysqlString($email) .")";
         $result = $db->query($query);
         return $result;
     }
-
-
 
     private function dealWithAdminIssues($email) {
         $db = new Db();
@@ -51,13 +57,11 @@ class CreateTrip {
         $result = $db->query($query);
 
         if(mysqli_num_rows($result) == 0) {
-            $queryInsert = "INSERT INTO admin VALUES (" . ModelsUtils::mysqlString($email) . ")";
+            $queryInsert = "INSERT INTO admin 
+                            VALUES (" . ModelsUtils::mysqlString($email) . ")";
             $db->query($queryInsert);;
         }
     }
-
-
-
 
     private function insertNewTravelDuration($startDate, $endDate) {
         $db = new Db();
@@ -78,13 +82,13 @@ class CreateTrip {
 
         if($duration){
             $query = "INSERT INTO travelling_transportation 
-                  VALUES (" . ModelsUtils::mysqlString($transportationID) ." , 
-                          " . ModelsUtils::mysqlString($fromLocationID) .",  
-                          " . ModelsUtils::mysqlString($toLocationID) .",  
-                          " . ModelsUtils::mysqlString($tripId) .",  
-                          " . ModelsUtils::mysqlString($startDate) .",  
-                          " . ModelsUtils::mysqlString($endDate) .",
-                            NULL, " . ModelsUtils::mysqlString($type) . ")";
+                      VALUES (" . ModelsUtils::mysqlString($transportationID) ." , 
+                              " . ModelsUtils::mysqlString($fromLocationID) .",  
+                              " . ModelsUtils::mysqlString($toLocationID) .",  
+                              " . ModelsUtils::mysqlString($tripId) .",  
+                              " . ModelsUtils::mysqlString($startDate) .",  
+                              " . ModelsUtils::mysqlString($endDate) .",
+                                NULL, " . ModelsUtils::mysqlString($type) . ")";
             $result = $db->query($query);
             return $result;
         }
@@ -128,56 +132,4 @@ class CreateTrip {
     }
 
 
-
-    public function addTripDetails($fromCity, $fromCountry, $toCity, $toCountry,
-                                    $transpStartDate, $transpEndDate, $tripId,
-                                    $activityTo, $activityFrom, $hotelNameFrom, $hotelNameTo,
-                                    $checkInFrom, $checkOutFrom, $checkInTo,
-                                    $checkOutTo){
-        $generateID = new IdGenerator();
-        $locationIdFrom = $generateID->newLocationId($fromCity, $fromCountry);
-        $locationIdTo = $generateID->newLocationId($toCity, $toCountry);
-        
-        if($locationIdFrom AND $locationIdTo){
-            if($this->insertNewTravelDuration($transpStartDate, $transpEndDate)){
-                $transportationID = $generateID->newTransportationId();
-                if($this->insertNewTravelTransportation($transportationID, $locationIdFrom, $locationIdTo, $tripId,
-                                                        $transpStartDate, $transpEndDate)){
-                    if($this->insertNewActivity($activityFrom, $locationIdFrom) and
-                        $this->insertNewActivity($activityTo, $locationIdTo)){
-                        
-                        if($this->insertNewAccommodation($hotelNameFrom, $checkInFrom, $checkOutFrom, $locationIdFrom) and
-                           $this->insertNewAccommodation($hotelNameTo, $checkInTo, $checkOutTo, $locationIdTo)){
-                            
-                            return true;
-                        }
-                        else{
-                            return true; //throw new \ErrorException("accommodation insertion not successful");
-                        }
-
-                    }
-                    else{
-                        return true; //throw new \ErrorException("activity insertion not successful");
-                    }
-
-                }
-                else{
-                    return true; //throw new \ErrorException(" travelTransportation insertion not successful");
-                }
-            }
-            else{
-                return true; //throw new \ErrorException("travel duration insertion not successful");
-            }
-        }
-        else{
-            return true; //throw new \ErrorException("LocationID's did not get inserted or obtain");
-        }
-    }
-    /**@deprecated use the ModelUtils instead
-     * @param $string
-     * @return string
-     */
-    private function mysqlString($string){
-        return '\'' . $string . '\'';
-    }
 }

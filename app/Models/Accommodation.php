@@ -10,13 +10,12 @@ namespace Trippi\Models;
 
 class Accommodation {
 
-    private function mysqlString($string){
-        return '\'' . $string . '\'';
-    }
-
     public function searchAccommodationByCostRange($minCost, $maxCost) {
         $db = new Db();
-        $query = "select name, type, cost, rating from accomodation where cost >= " . $this->mysqlString($minCost) ." AND cost <= " . $this->mysqlString($maxCost) ."";
+        $query = "SELECT `name`, `type`, `cost`, `rating` 
+                  FROM `accomodation` 
+                  WHERE `cost` >= " . ModelsUtils::mysqlString($minCost) ." AND 
+                        `cost` <= " . ModelsUtils::mysqlString($maxCost);
         $result = $db->query($query);
         $rows = array();
         while ($row = mysqli_fetch_array($result)) {
@@ -27,7 +26,9 @@ class Accommodation {
 
     public function searchAccommodationByType($type) {
         $db = new Db();
-        $query = "select name from accomodation where type " . $this->mysqlString($type) ."";
+        $query = "SELECT `name` 
+                  FROM accomodation 
+                  WHERE `type` = " . ModelsUtils::mysqlString($type);
         $result = $db->query($query);
         $rows = array();
         while ($row = mysqli_fetch_array($result)) {
@@ -38,7 +39,9 @@ class Accommodation {
 
     public function searchAccommodationByRatingOver($rating) {
         $db = new Db();
-        $query = "select name, type, cost from accomodation where rating > " . $this->mysqlString($rating) ." ";
+        $query = "SELECT `name`, `type`, `cost` 
+                  FROM accomodation 
+                  WHERE rating > " . ModelsUtils::mysqlString($rating);
         $result = $db->query($query);
         $rows = array();
         while ($row = mysqli_fetch_array($result)) {
@@ -49,7 +52,9 @@ class Accommodation {
 
     public function searchAccommodationByRatingEqual($rating) {
         $db = new Db();
-        $query = "select name, type, cost from accomodation where rating = " . $this->mysqlString($rating) ." ";
+        $query = "SELECT `name`, `type`, `cost` 
+                  FROM accomodation 
+                  WHERE rating = " . ModelsUtils::mysqlString($rating);
         $result = $db->query($query);
         $rows = array();
         while ($row = mysqli_fetch_array($result)) {
