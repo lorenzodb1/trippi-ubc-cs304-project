@@ -41,7 +41,7 @@ class Trip{
     {
         $db = new Db();
         $query = "DELETE FROM trip_duration WHERE startDate = (SELECT startDate FROM trip WHERE tripId = " . ModelsUtils::mysqlstring($tripId) . ") and
-         startDate = (SELECT startDate FROM trip WHERE tripId = " . ModelsUtils::mysqlstring($tripId) . ")";
+         endDate = (SELECT endDate FROM trip WHERE tripId = " . ModelsUtils::mysqlstring($tripId) . ")";
         $result = $db->query($query);
         return $result;
     }

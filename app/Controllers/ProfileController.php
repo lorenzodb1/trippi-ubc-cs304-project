@@ -75,6 +75,7 @@ class ProfileController{
         $deletedTrip = $trip->deleteTrip($tripId);
         
         if($deletedTrip) {
+            
             $auth = new Authentication();
             $login = $auth->getUserInfo($email);
 
