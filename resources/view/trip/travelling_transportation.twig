@@ -7,38 +7,12 @@
             <h1>Add traveling segment for the locations you just added to your trip?</h1>
             <h2>TripName: {{ tripName }}</h2>
             <h3>TripId: {{ tripId }}</h3>
-            <h4>StartingLocation: {{ startLocation }}</h4>
-            <h5>StartingLocationId: {{ startLocationId }}</h5>
-            <h4>EndingLocation: {{ endLocation }}</h4>
-            <h5>EndingLocationId: {{ endLocationId }}</h5>
 
-            <form action="{{ path_for('addTransportationDetails', {email: userEmail}) }}" method="post">
+            <form action="{{ path_for('addTransportationDetails', {email: email, tripId: tripId, tripName: tripName, startLocationId: startLocationId , endLocationId: endLocationId }) }}" method="post">
 
-                <div class="form-group">
 
-                    <label for="tripId">TripId</label>
-
-                    <input type="text" name="tripId" id="tripId" class="form-control">
-
-                </div>
 
                 <h4>From</h4>
-
-                <div class="form-group">
-
-                    <label for="startingLocationId">Starting LocationId</label>
-
-                    <input type="text" name="startingLocationId" id="startingLocationId" class="form-control">
-
-                </div>
-
-                <div class="form-group">
-
-                    <label for="endingLocationId">endingLocationId</label>
-
-                    <input type="text" name="endingLocationId" id="endingLocationId" class="form-control">
-
-                </div>
 
                 <div class="form-group">
 
@@ -75,7 +49,7 @@
         </div>
         <div class="col-md-4">
 
-            <h4><a href = "{{ path_for('trip.getProfile', {email: userEmail}) }}" method="get"> Return to profile </a></h4>
+            <h4><a href = "{{ path_for('trip.getProfile', {email: email}) }}" method="get"> Return to profile </a></h4>
 
 
 

@@ -7,12 +7,9 @@
             <h1>Add accommodations for the locations you just added to your trip?</h1>
             <h2>TripName: {{ tripName }}</h2>
             <h3>TripId: {{ tripId }}</h3>
-            {#<h4>StartingLocation: {{ startLocation }}</h4>#}
-            {#<h5>StartingLocationId: {{ startLocationId }}</h5>#}
-            {#<h4>EndingLocation: {{ endLocation }}</h4>#}
-            {#<h5>EndingLocationId: {{ endLocationId }}</h5>#}
 
-            <form action="{{ path_for('addLocationAccommodations', {locationId1: startLocationId, locationId2: endLocationId, tripId: tripId, email: userEmail}) }}" method="post">
+            <form action="{{ path_for('addLocationAccommodations', {email: email, locationId1: startLocationId, locationId2: endLocationId, tripId: tripId, tripName: tripName}) }}" method="post">
+
 
                 <div class="form-group">
 
@@ -93,7 +90,7 @@
         </div>
         <div class="col-md-4">
 
-            <h4><a href = "{{ path_for('trip.getProfile', {email: userEmail}) }}" method="get"> Return to profile </a></h4>
+            <h4><a href = "{{ path_for('trip.getProfile', {email: email}) }}" method="get"> Return to profile </a></h4>
 
 
         </div>

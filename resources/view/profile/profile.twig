@@ -57,17 +57,9 @@
                     </li>
                 </ul>
 
-            <form action="{{ path_for('trip.createTrip')}}" method="post">
+            <form action="{{ path_for('trip.createTrip', {email: userEmail})}}" method="post">
 
                 <h3>Create a Trip</h3>
-
-                <div class="form-group">
-
-                    <label for="email">Your Email</label>
-
-                    <input type="email" name="email" id="email" class="form-control">
-
-                </div>
 
                 <div class="form-group">
 
