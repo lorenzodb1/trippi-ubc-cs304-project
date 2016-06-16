@@ -17,6 +17,7 @@ $app->post('/new_profile/{email}', ['Trippi\Controllers\NewProfileController', '
 
 // Locations
 $app->get('/locations', ['Trippi\Controllers\LocationsController', 'searchByLocation'])->setName('searchByLocation');
+$app->post('/locations', ['Trippi\Controllers\LocationsController', 'addLocationToTrip'])->setName('addLocationToTrip');
 
 // Activities
 $app->post('/activities', ['Trippi\Controllers\ActivitiesController', 'updateActivity'])->setName('updateActivity');
@@ -62,6 +63,8 @@ $app->get('/removeTrip/{tripId}/{email}', ['Trippi\Controllers\ProfileController
 $app->post('/delete_profile/{email}', ['Trippi\Controllers\ProfileController', 'delete_profile'])->setName('deleteProfile');
 
 $app->post('/update_profile/{email}', ['Trippi\Controllers\ProfileController', 'update_profile'])->setName('updateProfile');
+
+$app->get('/modify/{email}/{tripName}/{tripId}', ['Trippi\Controllers\CreateTripController', 'addLocationDetails'])->setName('modifyLocationDetails');
 
 
 

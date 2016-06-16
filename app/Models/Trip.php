@@ -348,8 +348,8 @@ class Trip{
         $db = new Db();
 
         $query = "SELECT l.city AS city
-                   FROM location l 
-                   WHERE l.locationID =" . ModelsUtils::mysqlString($locationId);
+                  FROM location l 
+                  WHERE l.locationID =" . ModelsUtils::mysqlString($locationId);
 
         $result = $db->query($query);
         $city = $result->fetch_object()->city;
@@ -358,5 +358,6 @@ class Trip{
 
 
     }
+    
 
 }

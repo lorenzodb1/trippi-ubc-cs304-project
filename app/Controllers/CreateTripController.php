@@ -127,7 +127,7 @@ class CreateTripController  {
 
         $toCountry = $tripModel->getLocationCountryById($endLocationId);
 
-        var_dump($addTransportationDetailsQuery);
+
 
 
 

@@ -13,7 +13,9 @@ class JoinTrip {
 
     public static function joinTrip($tripId, $email) {
         $db = new Db();
-        $query = "INSERT INTO joins VALUES (" . ModelsUtils::mysqlString($tripId) . ", " . ModelsUtils::mysqlString($email) .")";
+        $query = "INSERT INTO joins 
+                  VALUES (" . ModelsUtils::mysqlString($tripId) . ", 
+                          " . ModelsUtils::mysqlString($email) .")";
         $result = $db->query($query);
         return $result;
     }

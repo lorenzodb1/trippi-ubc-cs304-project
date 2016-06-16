@@ -4,8 +4,10 @@
 
     <div class ="row">
         <div class="col-md-8">
-            <h2>Add traveling segment for the locations you just added to your trip?</h2>
+
+            <h2>Add transportation for this segment</h2>
             <h3>TripName: {{ tripName }}</h3>
+
 
             <form action="{{ path_for('addTransportationDetails', {email: email, tripId: tripId, tripName: tripName, startLocationId: startLocationId , endLocationId: endLocationId }) }}" method="post">
 

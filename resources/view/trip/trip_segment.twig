@@ -4,12 +4,11 @@
 
     <div class ="row">
         <div class="col-md-8">
-            <h2>Would you like to add a trip segment?</h2>
-            <h3>TripName: {{ tripName }}</h3>
-            <h4>TripId: {{ tripId }}</h4>
-            <form action="{{ path_for('addLocationDetails', {email: email, tripName: tripName, tripId: tripId}) }}" method="post">
 
-                <h5>Locations: here you can add Starting Location and Ending locations for a segment of you trip!!!</h5>
+            <h2>Add locations for this segment</h2>
+            <h3>TripName: {{ tripName }}</h3>
+
+            <form action="{{ path_for('addLocationDetails', {email: email, tripName: tripName, tripId: tripId}) }}" method="post">
 
                 <div class="form-group">
 
