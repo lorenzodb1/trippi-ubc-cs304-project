@@ -4,12 +4,13 @@
 
     <div class ="row">
 
-        <form action="{{ path_for('getInfo')}}" method="post">
+    {% for index, user in users %}
+        <form action="{{ path_for('getInfo', { email: user.email }) }}" method="post">
 
-        <div class="col-md-8">
+            <div class="col-md-8">
 
                 <div class="col-md-6">
-                    <h5>Welcome {{ user | raw }}, create your profile and log in again!</h5>
+                    <h5>Welcome {{ user.username | raw }}, create your profile and log in again!</h5>
 
                     <div class="form-group">
 
@@ -50,21 +51,21 @@
                         <input type="text" name="bio" id="bio" class="form-control">
                     </div>
 
-                    <div class="form-group">
+                    {#<div class="form-group">#}
 
-                        <label for="name">Email</label>
+                    {#<label for="name">Email</label>#}
 
-                        <input type="email" name="email" id="email" class="form-control">
+                    {#<input type="email" name="email" id="email" class="form-control">#}
 
-                    </div>
+                    {#</div>#}
 
-                    <div class="form-group">
+                    {#<div class="form-group">#}
 
-                        <label for="name">Password</label>
+                    {#<label for="name">Password</label>#}
 
-                        <input type="password" name="password" id="password" class="form-control">
+                    {#<input type="password" name="password" id="password" class="form-control">#}
 
-                    </div>
+                    {#</div>#}
 
                     <button type="submit" class="btn btn-default">Create Profile</button>
 
@@ -73,6 +74,7 @@
             </div>
 
         </form>
+    {% endfor %}
 
     </div>
 

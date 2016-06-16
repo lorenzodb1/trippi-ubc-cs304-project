@@ -8,8 +8,6 @@
                 {% include 'profile/partials/profile_item.twig' with {user: user} %}
             {% endfor %}
 
-            {#<p><a href = "{{ path_for('trip.getCreateTrip') }}" method="post"> Create Trip </a></p>#}
-
             <form action="{{ path_for('trip.createTrip')}}" method="post">
 
                 <h3>Create a Trip</h3>
@@ -106,7 +104,6 @@
                             <th>Trip Name</th>
                             <th>From</th>
                             <th>To</th>
-
                             <th></th>
 
 
@@ -139,6 +136,7 @@
                     <table class ="table">
                         <thead>
                         <tr>
+                            <th></th>
                             <th>Rater</th>
                             <th>Rating</th>
                             <th>Comment</th>
@@ -147,6 +145,7 @@
                         <tbody>
                         {% for index, item in ratings %}
                             <tr>
+                                <td><a href="{{ path_for('getProfile', {email: item.email, remail: userEmail})}}" method="get">View user</a></td>
                                 <td>{{ item.rater }}</td>
                                 <td>{{ item.rating}}</td>
                                 <td>{{ item.comment }}</td>

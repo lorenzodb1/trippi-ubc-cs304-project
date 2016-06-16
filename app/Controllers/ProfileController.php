@@ -8,15 +8,18 @@
 
 namespace Trippi\Controllers;
 
+use Illuminate\Database\Eloquent\Model;
 use Slim\Router;
+use Trippi\Models\Authentication;
+use Trippi\Models\Profile;
 use Trippi\Models\Trip;
+use Trippi\Models\UserRating;
 
 
 use Slim\Views\Twig;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Router as router3;
-use Trippi\Models\Authentication;
 
 class ProfileController{
 
@@ -64,8 +67,6 @@ class ProfileController{
             'users'=>$users,
             'userEmail' => $email
         ]);
-        
-
     }
     
     public function deleteTrip($tripId, $email, Request $request, Response $response, Twig $view, router3 $router) {
@@ -124,6 +125,23 @@ class ProfileController{
                 'userEmail' => $email]);
     }
 
-    
-
+    public function getOtherUser($email, $remail, Request $request, Response $response, Twig $view) {
+        if($email == $remail) {
+            return $view->render($response, 'profile/profile.twig', [
+                'userEmail' => $email,
+                'users'=> Profile::get_profile($email),
+                'plannedTrips' => Authentication::userPlanTrip($email),
+                'joinedTrips' => Authentication::userJoinTrip($email),
+                'ratings' => UserRating::view_ratings($email)
+            ]);
+        } else {
+            return $view->render($response, 'profile/other_profile.twig', [
+                'uemail' => $remail,
+                'users'=> Profile::get_profile($email),
+                'plannedTrips'=> Authentication::userPlanTrip($email),
+                'joinedTrips' => Authentication::userJoinTrip($email),
+                'ratings' => UserRating::view_ratings($email)
+            ]);
+        }
+    }
 }

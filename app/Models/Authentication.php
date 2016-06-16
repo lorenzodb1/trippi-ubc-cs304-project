@@ -20,8 +20,8 @@ class Authentication{
     public function getUserInfo($email) {
         $db = new Db();
         $query = "SELECT `email`,`username`,`name`,`hometown`,`country`,`dateOfBirth`, `aboutMe` 
-              FROM `user` 
-              WHERE `email` = " . ModelsUtils::mysqlstring($email);
+                  FROM `user` 
+                  WHERE `email` = " . ModelsUtils::mysqlstring($email);
         $result = $db->query($query);
         if($result) {
             $rows = array();
@@ -35,10 +35,6 @@ class Authentication{
         }
     }
     
-    
-    
-    
-  
 
   // Login
   // Called after verifyEmail, then if verified,
@@ -48,8 +44,7 @@ class Authentication{
   // Return info associated with user (as an array) if email and password match, otherwise return false
   public static function login($email, $password) {
     $db = new Db();
-    $query = "SELECT `email`,`username`,`name`,`hometown`,`country`,`dateOfBirth`, `aboutMe`, `karma`
-
+    $query = "SELECT `email`,`username`,`name`,`hometown`,`country`,`dateOfBirth`, `aboutMe`, `rating`, `karma`
               FROM `user` 
               WHERE `email` = " . ModelsUtils::mysqlstring($email) . " AND 
                     `password`  = " . ModelsUtils::mysqlstring(crypt($password, '$6$rounds=5000$' . $email . '$'));
@@ -67,7 +62,7 @@ class Authentication{
         }
     }
 
-    public  function userPlanTrip($email) {
+    public static function userPlanTrip($email) {
         $db = new Db();
         $query = "SELECT t.tripId AS id, tripName, startDate AS 'from', endDate AS 'to' 
                   FROM trip t, plan p where t.tripId = p.tripId AND 
@@ -75,7 +70,7 @@ class Authentication{
         $result = $db->query($query);
         return $result;
     }
-    public  function userJoinTrip($email) {
+    public static function userJoinTrip($email) {
         $db = new Db();
         $query = "SELECT t.tripId AS id, tripName, startDate AS 'from', endDate AS 'to' 
                   FROM trip t, `joins` j 
@@ -84,10 +79,7 @@ class Authentication{
         $result = $db->query($query);
         return $result;
     }
-
-
-
-
+    
     public function getPassword($email) {
         $db = new Db();
         $query = "SELECT password FROM user WHERE 'email' = " . ModelsUtils::mysqlString($email);
