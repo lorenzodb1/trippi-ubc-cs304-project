@@ -28,6 +28,22 @@ class HomeController{
         return $view->render($response, 'login.twig', [
         ]);
     }
+    
+    
+    public function getProfile($email, Response $response, Request $request, Twig $view, Router $router) {
+
+        $auth = new Authentication();
+        $login = $auth->getUserInfo($email);
+        
+        return $view->render($response, 'profile/profile.twig', [
+            'userEmail' => $email,
+            'users'=> $login,
+            'plannedTrips'=> Authentication::userPlanTrip($email),
+            'joinedTrips' => Authentication::userJoinTrip($email),
+            'ratings' => UserRating::view_ratings($email)
+        ]);
+    }
+    
 
 
     public function signIn(Response $response, Request $request, Twig $view, Router $router){
