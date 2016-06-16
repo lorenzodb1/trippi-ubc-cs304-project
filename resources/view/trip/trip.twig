@@ -111,6 +111,7 @@
                 <p> This trip has no accommodations </p>
             {% endif %}
             <h3 style="display: inline-block;">Activities</h3>
+            <img id="add-location-btn" style="width: 25px; vertical-align: sub;" src="http://localhost/trippi-ubc-cs304-project/assets/add.png" data-toggle="modal" data-target="#activitiesModal" onclick="showActivitiesModal('add', null)">
             {% if activities %}
                 <div class="well">
                     <table class ="table">
@@ -134,7 +135,7 @@
                                 <td id="activity-cost-{{ index }}">{{ activity.cost}}</td>
                                 <td id="activity-date-{{ index }}">{{ activity.date }}</td>
                                 <td>
-                                    <button style="float: right;" type="button" class="btn btn-info" data-toggle="modal" data-target="#activitiesModal" onclick="showActivitiesModal( {{ index }} )">
+                                    <button style="float: right;" type="button" class="btn btn-info" data-toggle="modal" data-target="#activitiesModal" onclick="showActivitiesModal( 'update', {{ index }} )">
                                         <span class="glyphicon glyphicon-option-horizontal" aria-hidden="true"></span>
                                     </button> 
                                 </td>
@@ -282,7 +283,7 @@
 
 
 
-<!-- Travel Modal -->
+<!-- Activty Modal -->
 <div class="modal modal2 fade" id="activitiesModal" tabindex="-5" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -296,11 +297,11 @@
       <div class="modal-body">        
         <div class="input-group input-group-sm" style="display: inline-block;">
           <span>City:</span> 
-          <input id="activity-city-input" type="text" class="form-control" placeholder="" aria-describedby="basic-addon1" disabled>
+          <input id="activity-city-input" type="text" class="form-control" placeholder="" aria-describedby="basic-addon1">
         </div>
         <div class="input-group input-group-sm" style="display: inline-block;">
           <span>Country:</span> 
-          <input id="activity-country-input" type="text" class="form-control" placeholder="" aria-describedby="basic-addon1" disabled>
+          <input id="activity-country-input" type="text" class="form-control" placeholder="" aria-describedby="basic-addon1">
         </div>
         <div class="input-group input-group-sm" style="display: inline-block;">
           <span>Activity Name:</span> 
@@ -308,7 +309,7 @@
         </div>
         <div class="input-group input-group-sm" style="display: inline-block;">
           <span>Activity Place:</span> 
-          <input id="activity-activity-place-input" type="text" class="form-control" placeholder="" aria-describedby="basic-addon1" disabled>
+          <input id="activity-activity-place-input" type="text" class="form-control" placeholder="" aria-describedby="basic-addon1">
         </div>
         <div class="input-group input-group-sm" style="display: inline-block;">
           <span>Cost:</span> 

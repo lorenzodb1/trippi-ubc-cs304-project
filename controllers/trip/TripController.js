@@ -13,31 +13,55 @@ var PLACE_INPUT_ID = "#activity-activity-place-input";
 var COST_INPUT_ID = "#activity-cost-input";
 var DATE_INPUT_ID = "#activity-date-input";
 
-function showActivitiesModal( index ) {
-  var GET_INDEX_ID = "#activity-modal-index";
-  $( GET_INDEX_ID ).val( index );
+function showActivitiesModal( action, index ) {
 
-  // DB Values
-  var GET_CITY_ID = "activity-city-" + index;
-  var GET_COUNTRY_ID = "activity-country-" + index;
-  var GET_NAME_ID = "activity-activity-name-" + index;
-  var GET_PLACE_ID = "activity-activity-place-" + index;
-  var GET_COST_ID = "activity-cost-" + index;
-  var GET_DATE_ID = "activity-date-" + index;
+  if( action == 'add') {
+    
+    // Clear all inputs 
+    $( CITY_INPUT_ID ).val( '' );
+    $( COUNTRY_INPUT_ID ).val( '' );
+    $( NAME_INPUT_ID ).val( '' );
+    $( PLACE_INPUT_ID ).val( '' );
+    $( COST_INPUT_ID ).val( '' );
+    $( DATE_INPUT_ID ).val( '' );
 
-  var getCItyValue = document.getElementById( GET_CITY_ID ).innerHTML;
-  var getCountryValue = document.getElementById( GET_COUNTRY_ID ).innerHTML;
-  var getNameValue = document.getElementById( GET_NAME_ID ).innerHTML;
-  var getPlaceValue = document.getElementById( GET_PLACE_ID ).innerHTML;
-  var getCostValue = document.getElementById( GET_COST_ID ).innerHTML;
-  var getDateValue = document.getElementById( GET_DATE_ID ).innerHTML;
+    $( CITY_INPUT_ID ).prop( 'disabled', false );
+    $( COUNTRY_INPUT_ID ).prop( 'disabled', false );
+    $( PLACE_INPUT_ID ).prop( 'disabled', false );
 
-  $( CITY_INPUT_ID ).val( getCItyValue );
-  $( COUNTRY_INPUT_ID ).val( getCountryValue );
-  $( NAME_INPUT_ID ).val( getNameValue );
-  $( PLACE_INPUT_ID ).val( getPlaceValue );
-  $( COST_INPUT_ID ).val( getCostValue );
-  $( DATE_INPUT_ID ).val( getDateValue );
+
+  } else {
+
+    $( CITY_INPUT_ID ).prop( 'disabled', true );
+    $( COUNTRY_INPUT_ID ).prop( 'disabled', true );
+    $( PLACE_INPUT_ID ).prop( 'disabled', true );
+
+    var GET_INDEX_ID = "#activity-modal-index";
+    $( GET_INDEX_ID ).val( index );
+
+    // DB Values
+    var GET_CITY_ID = "activity-city-" + index;
+    var GET_COUNTRY_ID = "activity-country-" + index;
+    var GET_NAME_ID = "activity-activity-name-" + index;
+    var GET_PLACE_ID = "activity-activity-place-" + index;
+    var GET_COST_ID = "activity-cost-" + index;
+    var GET_DATE_ID = "activity-date-" + index;
+
+    var getCItyValue = document.getElementById( GET_CITY_ID ).innerHTML;
+    var getCountryValue = document.getElementById( GET_COUNTRY_ID ).innerHTML;
+    var getNameValue = document.getElementById( GET_NAME_ID ).innerHTML;
+    var getPlaceValue = document.getElementById( GET_PLACE_ID ).innerHTML;
+    var getCostValue = document.getElementById( GET_COST_ID ).innerHTML;
+    var getDateValue = document.getElementById( GET_DATE_ID ).innerHTML;
+
+    $( CITY_INPUT_ID ).val( getCItyValue );
+    $( COUNTRY_INPUT_ID ).val( getCountryValue );
+    $( NAME_INPUT_ID ).val( getNameValue );
+    $( PLACE_INPUT_ID ).val( getPlaceValue );
+    $( COST_INPUT_ID ).val( getCostValue );
+    $( DATE_INPUT_ID ).val( getDateValue );
+
+  }
 
 }
 /*

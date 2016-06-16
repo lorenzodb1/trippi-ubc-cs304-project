@@ -21,7 +21,23 @@ class Activities {
                                                `place`=" . ModelsUtils::mysqlString($place) .  " AND 
                                                `adate`=" . ModelsUtils::mysqlString($date);
 
-        return $this->returnResult( $this->submitQuery($query) );
+        return $this->returnBoolResult( $this->submitQuery($query) );
+    }
+
+    public function addNewActivity( $locationID, $activityName, $place, $cost, $date ) {
+      $query = "INSERT INTO `activity`(`name`, `place`, `adate`, `cost`, `locationID`) VALUES (" . ModelsUtils::mysqlString($activityName) .  "," . ModelsUtils::mysqlString($place) .  "," . ModelsUtils::mysqlString($date) .  "," . ModelsUtils::mysqlString($cost) .  "," . ModelsUtils::mysqlString($locationID) .  ")";
+    
+      return $this->returnBoolResult( $this->submitQuery($query) );
+    }
+
+    public function getActivityByKeys( $locationID, $name, $place ) {
+      $query = "SELECT * 
+                FROM `activity` 
+                WHERE `name`=" . ModelsUtils::mysqlString($name) .  " AND 
+                `place`=" . ModelsUtils::mysqlString($place) .  " AND 
+                `locationID`=" . ModelsUtils::mysqlString($locationID) .  "";
+    
+      return $this->returnArrayResult( $this->submitQuery($query) );
     }
 
     private function submitQuery($query){
@@ -31,7 +47,21 @@ class Activities {
 
   // Helper function for returning results into an
   // array
-  private function returnResult( $result ) {
+  private function returnBoolResult( $result ) {
     return ($result) ? true : false;
+  }
+
+  private function returnArrayResult( $result ) {
+    if( $result ) {
+      // Successful Match
+      $rows = array();
+      while($row = mysqli_fetch_array($result)) {
+        $rows[] = $row;
+      }
+      return $rows;
+    } else {
+      // No match found
+      return false;
+    }  
   }
 }
