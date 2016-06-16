@@ -25,7 +25,9 @@ class Activities {
     }
 
     public function addNewActivity( $locationID, $activityName, $place, $cost, $date ) {
-      $query = "INSERT INTO `activity`(`name`, `place`, `adate`, `cost`, `locationID`) VALUES (" . ModelsUtils::mysqlString($activityName) .  "," . ModelsUtils::mysqlString($place) .  "," . ModelsUtils::mysqlString($date) .  "," . ModelsUtils::mysqlString($cost) .  "," . ModelsUtils::mysqlString($locationID) .  ")";
+      $query = "INSERT INTO `activity`(`name`, `place`, `adate`, `cost`, `locationID`) 
+                VALUES (" . ModelsUtils::mysqlString($activityName) .  ", " . ModelsUtils::mysqlString($place) .  ", 
+                        " . ModelsUtils::mysqlString($date) .  "," . ModelsUtils::mysqlString($cost) .  "," . ModelsUtils::mysqlString($locationID) .  ")";
     
       return $this->returnBoolResult( $this->submitQuery($query) );
     }
@@ -34,8 +36,8 @@ class Activities {
       $query = "SELECT * 
                 FROM `activity` 
                 WHERE `name`=" . ModelsUtils::mysqlString($name) .  " AND 
-                `place`=" . ModelsUtils::mysqlString($place) .  " AND 
-                `locationID`=" . ModelsUtils::mysqlString($locationID) .  "";
+                      `place`=" . ModelsUtils::mysqlString($place) .  " AND 
+                      `locationID`=" . ModelsUtils::mysqlString($locationID);
     
       return $this->returnArrayResult( $this->submitQuery($query) );
     }

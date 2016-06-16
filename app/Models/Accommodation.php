@@ -64,7 +64,11 @@ class Accommodation {
     } 
 
     public function addNewAccommodation( $name, $type, $cost, $rating, $startDate, $endDate, $locationID ) {
-        $query = "INSERT INTO `accomodation`(`name`, `type`, `cost`, `rating`, `startDate`, `endDate`, `locationID`) VALUES (" . ModelsUtils::mysqlstring( $name ) . "," . ModelsUtils::mysqlstring( $type ) . "," . ModelsUtils::mysqlstring( $cost ) . "," . ModelsUtils::mysqlstring( $rating ) . "," . ModelsUtils::mysqlstring( $startDate ) . "," . ModelsUtils::mysqlstring( $endDate ) . "," . ModelsUtils::mysqlstring( $locationID ) . ")";
+        $query = "INSERT INTO `accomodation`(`name`, `type`, `cost`, `rating`, `startDate`, `endDate`, `locationID`) 
+                  VALUES (" . ModelsUtils::mysqlstring($name) . ", " . ModelsUtils::mysqlstring($type) . ", 
+                          " . ModelsUtils::mysqlstring($cost) . ", " . ModelsUtils::mysqlstring($rating) . ", 
+                          " . ModelsUtils::mysqlstring( $startDate ) . ", " . ModelsUtils::mysqlstring( $endDate ) . ", 
+                          " . ModelsUtils::mysqlstring( $locationID ) . ")";
                 
         return $this->submitQuery( $query );
     }  
@@ -77,7 +81,7 @@ class Accommodation {
                       `endDate`=" . ModelsUtils::mysqlString($endDate) ." 
                   WHERE `locationID`=" . ModelsUtils::mysqlString($locationID) ." AND 
                         `name`=" . ModelsUtils::mysqlString($name) ." AND 
-                        `type`=" . ModelsUtils::mysqlString($type) ."";
+                        `type`=" . ModelsUtils::mysqlString($type);
                         
         return $this->submitQuery( $query );
     }
@@ -87,7 +91,7 @@ class Accommodation {
                   FROM `accomodation` 
                   WHERE `name`=" . ModelsUtils::mysqlString($name) ."  AND 
                         `type`=" . ModelsUtils::mysqlString($type) ."  AND 
-                        `locationID`=" . ModelsUtils::mysqlString($locationID) ." ";
+                        `locationID`=" . ModelsUtils::mysqlString($locationID);
 
         return $this->returnResult( $this->submitQuery( $query ) );
     }
