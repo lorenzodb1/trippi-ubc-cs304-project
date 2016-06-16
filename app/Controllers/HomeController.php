@@ -63,11 +63,15 @@ class HomeController{
                 ]);
             }
             else{
-                return $response->withRedirect($router->pathFor('home'));
+                return $view->render($response, '/login.twig', [
+                    'error' => $email
+                ]);
             }
         }
         else{
-            return $response->withRedirect($router->pathFor('home'));
+                return $view->render($response, '/login.twig', [
+                    'error' => $email
+                ]);
         }
     }
 
