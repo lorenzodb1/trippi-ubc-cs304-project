@@ -31,7 +31,8 @@ class IdGenerator {
     //todo we should refactor to have one get max method if we have time
     private function findMaxLocationID() {
         $db = new Db();
-        $query = "select max(locationID) AS locationID from location";
+        $query = "SELECT MAX(locationID) AS locationID 
+                  FROM location";
         $result = $db->query($query);
 
         return $result->fetch_object()->locationID;
@@ -40,7 +41,8 @@ class IdGenerator {
     
     private function findMaxTransportionionID(){
         $db = new Db();
-        $query = "select max(transportationID) AS transportationID from travelling_transportation";
+        $query = "SELECT MAX(transportationID) AS transportationID 
+                  FROM travelling_transportation";
         $result = $db->query($query);
 
         return $result->fetch_object()->transportationID;
@@ -56,7 +58,8 @@ class IdGenerator {
         if(mysqli_num_rows($check) == 0){
             $db = new Db();
             $locationID = $this->findMaxLocationID() + 1;
-            $queryInsert = "INSERT INTO location VALUES (" . ModelsUtils::mysqlString($locationID) . ","
+            $queryInsert = "INSERT INTO location 
+                            VALUES (" . ModelsUtils::mysqlString($locationID) . ","
                 . ModelsUtils::mysqlString($city) . ","
                 . ModelsUtils::mysqlString($country) . ")";
 

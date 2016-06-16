@@ -82,7 +82,9 @@ class Authentication{
     
     public function getPassword($email) {
         $db = new Db();
-        $query = "SELECT password FROM user WHERE 'email' = " . ModelsUtils::mysqlString($email);
+        $query = "SELECT password 
+                  FROM user 
+                  WHERE 'email' = " . ModelsUtils::mysqlString($email);
         $result = $db->query($query);
         //return $result->fetch_object()->password;
         return $result;         // need to fix this
