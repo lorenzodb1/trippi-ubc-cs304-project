@@ -73,7 +73,7 @@
                 {% for index, user in users %}
                         {% for index, trip in plannedTrips %}
                             <tr>
-                                <td><a href="{{ path_for('trip.getTrip', {tripId: trip.id})}}" method="get">{{ trip.id }}</a></td>
+                                <td><a href="{{ path_for('trip.getTrip', {tripId: trip.id, email: uemail})}}" method="get">{{ trip.id }}</a></td>
                                 <td>{{ trip.tripName }}</td>
                                 <td>{{ trip.from }}</td>
                                 <td>{{ trip.to }}</td>

@@ -11,6 +11,7 @@
             <form action="{{ path_for('addTransportationDetails', {email: email, tripId: tripId, tripName: tripName, startLocationId: startLocationId , endLocationId: endLocationId }) }}" method="post">
 
 
+
                 <h4>From</h4>
 
                 <div class="form-group">
@@ -48,7 +49,8 @@
         </div>
         <div class="col-md-4">
 
-            <td><a href="#"><h3>Go Back To Profile?</h3></a></td>
+            <h4><a href = "{{ path_for('trip.getProfile', {email: userEmail}) }}" method="get"> Return to profile </a></h4>
+
 
 
         </div>

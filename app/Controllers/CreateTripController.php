@@ -53,12 +53,14 @@ class CreateTripController  {
                 'tripName' => $tripName,
                 'tripId' => $tripID,
                 'email'=> $email
+
             ]);
         }
 
 
     }
     public function addLocationDetails($email, $tripName, $tripId, Request $request, Response $response, Twig $view){
+
         $data = $request->getParsedBody();
         //$tripId =  filter_var($data['tripId'],FILTER_SANITIZE_STRING);
         $fromCity =filter_var($data['fromCity'], FILTER_SANITIZE_STRING);
@@ -80,6 +82,7 @@ class CreateTripController  {
                 'startLocation'=> $fromCity . "," . $fromCountry,
                 'endLocation'=> $toCity . "," . $toCountry,
                 'email'=> $email
+
             ]);
         }
         else{
@@ -90,6 +93,7 @@ class CreateTripController  {
                 'startLocationId'=> $startingLocationId,
                 'endLocationId'=> $endingLocationId,
                 'email'=>$email
+
             ]); 
         }
     }
@@ -103,6 +107,7 @@ class CreateTripController  {
         Request $request,
         Response $response,
         Twig $view){
+
 
         $data = $request->getParsedBody();
         $startDate =  filter_var($data['startDate'],FILTER_SANITIZE_STRING);
@@ -160,6 +165,7 @@ class CreateTripController  {
         }
     }
     public function addLocationActivityDetails($email, $tripName, $locationId1, $locationId2, $tripId, Request $request, Response $response, Twig $view){
+
         $data = $request->getParsedBody();
         $nameActivityStart =  filter_var($data['nameActivityStart'],FILTER_SANITIZE_STRING);
         $placeActivityStart =  filter_var($data['placeActivityStart'],FILTER_SANITIZE_STRING);
@@ -203,22 +209,19 @@ class CreateTripController  {
                 'endLocation'=> $toCity . "," . $toCountry,
                 'email'=> $email,
                 'tripName' => $tripName
+
             ]);
             
         }
         else{
             return $view->render($response, 'trip/create_trip.twig', [
-                'tripName' => $tripName,
-                'tripId' => $tripId,
-                'startLocationId'=> $locationId1,
-                'endLocationId'=> $locationId2,
-                'startLocation'=> $fromCity . "," . $fromCountry,
-                'endLocation'=> $toCity . "," . $toCountry
+                'userEmail' => $email
             ]);
         }
 
     }
-    public function addAccommodationDetails($locationId1, $locationId2, $tripId, $tripName, Request $request, Response $response, Twig $view){
+    public function addAccommodationDetails($email, $locationId1, $locationId2, $tripId, $tripName, Request $request, Response $response, Twig $view){
+
 
         $data = $request->getParsedBody();
         $nameHotelStart =  filter_var($data['nameHotelStart'],FILTER_SANITIZE_STRING);
@@ -249,24 +252,14 @@ class CreateTripController  {
         if($accommodation1 and $accommodation2){
 
             return $view->render($response, 'trip/tripDetailsAddedSuccess.twig', [
-//                'tripName' => $tripName,
-//                'tripId' => $tripId,
-//                'startLocationId'=> $locationId1,
-//                'endLocationId'=> $locationId2,
-//                'startLocation'=> $fromCity . "," . $fromCountry,
-//                'endLocation'=> $toCity . "," . $toCountry
+                'userEmail' => $email
             ]);
             
         }
         
         else{
             return $view->render($response, 'trip/create_trip.twig', [
-//                'tripName' => $tripName,
-//                'tripId' => $tripId,
-//                'startLocationId'=> $locationId1,
-//                'endLocationId'=> $locationId2,
-//                'startLocation'=> $fromCity . "," . $fromCountry,
-//                'endLocation'=> $toCity . "," . $toCountry
+                'userEmail' => $email
             ]);
         }
 

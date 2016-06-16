@@ -97,14 +97,14 @@ create table travelling_transportation
 		primary key(transportationID),
 		foreign key(from_locationID) references location(locationID),
 		foreign key(to_locationID) references location(locationID),
-		foreign key(tripID) references trip(tripId),
+		foreign key(tripID) references trip(tripId) on delete CASCADE,
 		foreign key(startDate, endDate) references travelling_duration(startDate, endDate));
 
 create table joins
 	(tripId char(8) not null,
 		email varchar(40) not null,
 		primary key(tripId, email),
-		foreign key(tripId) references trip(tripId),
+		foreign key(tripId) references trip(tripId) on delete CASCADE,
 		foreign key(email) references user(email));
 
 create table activity

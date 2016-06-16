@@ -50,9 +50,7 @@
         </div>
         <div class="col-md-4">
 
-            <h2>Return To Profile?</h2>
-
-            <td><a href="http://localhost/trippi-ubc-cs304-project/public/profile"><h3>Go Back To Profile</h3></a></td>
+            <h4><a href = "{{ path_for('trip.getProfile', {email: userEmail}) }}" method="get"> Return to profile </a></h4>
 
 
         </div>

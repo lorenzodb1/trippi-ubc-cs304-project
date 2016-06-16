@@ -75,6 +75,7 @@ class ProfileController{
         $deletedTrip = $trip->deleteTrip($tripId);
         
         if($deletedTrip) {
+            
             $auth = new Authentication();
             $login = $auth->getUserInfo($email);
 
@@ -130,6 +131,22 @@ class ProfileController{
         $password =  filter_var($data['password'],FILTER_SANITIZE_STRING);
         Profile::delete_profile($email, $password);
         return $view->render($response, 'login.twig', [
+        ]);
+    }
+
+    public function update_profile($email, Request $request, Response $response, Twig $view) {
+        $data = $request->getParsedBody();
+        $password =  filter_var($data['password'],FILTER_SANITIZE_STRING);
+        $newdata = filter_var($data['newdata'],FILTER_SANITIZE_STRING);
+        $value = $data['select'];
+        var_dump($value);
+        Profile::update_profile($email, $password, $value, @$newdata);
+        return $view->render($response, 'profile/profile.twig', [
+            'userEmail' => $email,
+            'users'=> Profile::get_profile($email),
+            'plannedTrips' => Authentication::userPlanTrip($email),
+            'joinedTrips' => Authentication::userJoinTrip($email),
+            'ratings' => UserRating::view_ratings($email)
         ]);
     }
 
