@@ -22,7 +22,10 @@ class Trip{
 
     public function removeTrip($tripId, $email) {
         $db = new Db();
-        $query = "DELETE FROM joins WHERE tripId = " . ModelsUtils::mysqlString($tripId) ." AND email = " . ModelsUtils::mysqlString($email);
+        $query = "DELETE 
+                  FROM joins 
+                  WHERE tripId = " . ModelsUtils::mysqlString($tripId) ." AND 
+                        email = " . ModelsUtils::mysqlString($email);
         $result = $db->query($query);
         return $result;
     }
@@ -30,7 +33,8 @@ class Trip{
     
     public function allTrips() {
         $db = new Db();
-        $query = "SELECT tripId, tripName, startDate as 'from', endDate as 'to' FROM trip";
+        $query = "SELECT tripId, tripName, startDate AS 'from', endDate AS 'to' 
+                  FROM trip";
         $result = $db->query($query);
         return $result;
     }
@@ -40,8 +44,13 @@ class Trip{
     public function deleteTrip($tripId)
     {
         $db = new Db();
-        $query = "DELETE FROM trip_duration WHERE startDate = (SELECT startDate FROM trip WHERE tripId = " . ModelsUtils::mysqlstring($tripId) . ") and
-         endDate = (SELECT endDate FROM trip WHERE tripId = " . ModelsUtils::mysqlstring($tripId) . ")";
+        $query = "DELETE FROM trip_duration 
+                  WHERE startDate = (SELECT startDate 
+                                     FROM trip 
+                                     WHERE tripId = " . ModelsUtils::mysqlstring($tripId) . ") AND
+                        endDate = (SELECT endDate 
+                                   FROM trip 
+                                   WHERE tripId = " . ModelsUtils::mysqlstring($tripId) . ")";
         $result = $db->query($query);
         return $result;
     }
@@ -49,7 +58,9 @@ class Trip{
 
     public function getStartDate($tripId) {
         $db = new Db();
-        $query = "SELECT startDate FROM trip WHERE tripId = " . ModelsUtils::mysqlstring($tripId);
+        $query = "SELECT startDate 
+                  FROM trip 
+                  WHERE tripId = " . ModelsUtils::mysqlstring($tripId);
         $result = $db->query($query);
         return $result;
 
@@ -57,7 +68,9 @@ class Trip{
 
     public function getEndDate($tripId) {
         $db = new Db();
-        $query = "SELECT endDate FROM trip WHERE tripId = " . ModelsUtils::mysqlstring($tripId);
+        $query = "SELECT endDate 
+                  FROM trip 
+                  WHERE tripId = " . ModelsUtils::mysqlstring($tripId);
         $result = $db->query($query);
         return $result;
     }
@@ -97,7 +110,7 @@ class Trip{
         $db = new Db();
         $query = "SELECT *
                   FROM `trip` 
-                  WHERE status = " . ModelsUtils::mysqlstring('incomplete');
+                  WHERE `status` = " . ModelsUtils::mysqlstring('incomplete');
     
         return $this->returnResult( $this->submitQuery($query));
     }
@@ -107,7 +120,7 @@ class Trip{
         $db = new Db();
         $query = "SELECT *
                   FROM `trip` 
-                  WHERE status = " . ModelsUtils::mysqlstring('complete');
+                  WHERE `status` = " . ModelsUtils::mysqlstring('complete');
     
         return $this->returnResult( $this->submitQuery($query));
     }
@@ -118,14 +131,14 @@ class Trip{
         $db = new Db();
         $query = "SELECT DISTINCT u.name AS `name`, u.username AS userName 
                   FROM joins j, `user` u 
-                  WHERE (j.email = u.email AND 
-                        j.tripId =" . ModelsUtils::mysqlString($tripID) .")
+                  WHERE j.email = u.email AND 
+                        j.tripId =" . ModelsUtils::mysqlString($tripID) ."
                   UNION
                   SELECT DISTINCT u.name AS `name`, u.username AS userName 
                   FROM admin a, plan p, `user` u 
-                  WHERE (p.email = a.email AND
-                         a.email = u.email AND
-                        p.tripId =" . ModelsUtils::mysqlString($tripID) .")";
+                  WHERE p.email = a.email AND
+                        a.email = u.email AND
+                        p.tripId =" . ModelsUtils::mysqlString($tripID);
         $result = $db->query($query);
         $rows = array();
         while ($row = mysqli_fetch_array($result)) {
@@ -152,10 +165,9 @@ class Trip{
         $query = "SELECT l.city AS city,
                          l.country AS country
                   FROM `location` l, `travelling_transportation` t
-                  WHERE (l.locationID = t.from_locationID or 
-                        l.locationID = t.to_locationID) AND" .
-                         $this->mysqlString($tripId) . " = 
-                        t.tripID";
+                  WHERE (l.locationID = t.from_locationID OR 
+                        l.locationID = t.to_locationID) AND 
+                        t.tripID = " . ModelsUtils::mysqlString($tripId);
 
         return $this->returnResult( $this->submitQuery($query));
     }
@@ -172,7 +184,7 @@ class Trip{
                          t.endDate AS toDate
                   FROM location l1, location l2, travelling_transportation t
                   WHERE l1.locationID = t.from_locationID AND 
-                        l2.locationID = t.to_locationID AND" .
+                        l2.locationID = t.to_locationID AND " .
                         $this->mysqlString($tripId) . "= t.tripID";
 
         return $this->returnResult( $this->submitQuery($query));
@@ -188,12 +200,11 @@ class Trip{
                          a.adate AS `date`,
                          a.cost AS cost
                   FROM location l, travelling_transportation t, activity a
-                  WHERE ((l.locationID = t.from_locationID) AND" .
-                        $this->mysqlString($tripId) . " = 
-                        t.tripID AND
-                        (a.locationID = t.from_locationID)) or
-                        ((l.locationID = t.to_locationID) AND" .
-            $this->mysqlString($tripId) . " = 
+                  WHERE ((l.locationID = t.from_locationID) AND " .
+                        ModelsUtils::mysqlString($tripId) . " = t.tripID AND
+                        (a.locationID = t.from_locationID)) OR
+                        ((l.locationID = t.to_locationID) AND " .
+                        ModelsUtils::mysqlString($tripId) . " = 
                         t.tripID AND
                         (a.locationID = t.to_locationID))";
 
@@ -211,14 +222,12 @@ class Trip{
                          a.startDate AS `from`,
                          a.endDate AS `to`
                   FROM location l, travelling_transportation t, accomodation a
-                  WHERE ((l.locationID = t.from_locationID) AND" .
-                        $this->mysqlString($tripId) . " = 
-                        t.tripID AND
-                        (a.locationID = t.from_locationID)) or
-                        ((l.locationID = t.to_locationID) AND" .
-            $this->mysqlString($tripId) . " = 
-                        t.tripID AND
-                        (a.locationID = t.to_locationID))";
+                  WHERE ((l.locationID = t.from_locationID) AND " .
+                        ModelsUtils::mysqlString($tripId) . " = t.tripID AND
+                        (a.locationID = t.from_locationID)) OR
+                        ((l.locationID = t.to_locationID) AND 
+                        (a.locationID = t.to_locationID)) AND 
+                        t.tripID = " . ModelsUtils::mysqlString($tripId);
 
         return $this->returnResult( $this->submitQuery($query));
     }
@@ -228,9 +237,9 @@ class Trip{
 
         $query = "SELECT t.tripName AS tripName
                   FROM `trip` t
-                  WHERE t.tripId =" . $this->mysqlString($tripId) . "";
+                  WHERE t.tripId =" . ModelsUtils::mysqlString($tripId) . "";
 
-        return $this->returnResult( $this->submitQuery($query));
+        return $this->returnResult($this->submitQuery($query));
     }
 
     /*public function getTripNameById($tripId){
@@ -248,9 +257,9 @@ class Trip{
                   FROM trip t, trip_duration d 
                   WHERE t.startDate = d.startDate AND 
                         t.endDate = d.endDate AND 
-                        duration = '$duration'";
+                        duration = " . ModelsUtils::mysqlString($duration);
 
-        return $this->returnResult( $this->submitQuery($query));
+        return $this->returnResult($this->submitQuery($query));
     }
 
     // return tripIDs of trip with duration greater than specified duration
@@ -262,7 +271,7 @@ class Trip{
                   FROM trip t, trip_duration d 
                   WHERE t.startDate = d.startDate AND 
                         t.endDate = d.endDate AND 
-                        duration > '$duration'";
+                        duration > " . ModelsUtils::mysqlString($duration);
 
         return $this->returnResult( $this->submitQuery($query));
     }
@@ -276,15 +285,9 @@ class Trip{
                   FROM trip t, trip_duration d 
                   WHERE t.startDate = d.startDate AND 
                         t.endDate = d.endDate AND 
-                        duration < '$duration'";
+                        duration < " . ModelsUtils::mysqlString($duration);
 
         return $this->returnResult( $this->submitQuery($query));
-    }
-
-
-    /*** Helper Functions ***/
-    private function mysqlString($string){
-        return '\'' . $string . '\'';
     }
 
     private function submitQuery($query){
@@ -336,8 +339,8 @@ class Trip{
         $db = new Db();
         
         $query = "SELECT l.country AS country
-                   FROM location l 
-                   WHERE l.locationID =" . ModelsUtils::mysqlString($locationId);
+                  FROM location l 
+                  WHERE l.locationID =" . ModelsUtils::mysqlString($locationId);
         
         $result = $db->query($query);
         $country = $result->fetch_object()->country;
