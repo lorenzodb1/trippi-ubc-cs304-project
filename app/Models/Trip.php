@@ -41,7 +41,7 @@ class Trip{
     {
         $db = new Db();
         $query = "DELETE FROM trip_duration WHERE startDate = (SELECT startDate FROM trip WHERE tripId = " . ModelsUtils::mysqlstring($tripId) . ") and
-         startDate = (SELECT startDate FROM trip WHERE tripId = " . ModelsUtils::mysqlstring($tripId) . ")";
+         endDate = (SELECT endDate FROM trip WHERE tripId = " . ModelsUtils::mysqlstring($tripId) . ")";
         $result = $db->query($query);
         return $result;
     }
@@ -237,6 +237,8 @@ class Trip{
         return $this->getTripNamesById($tripId)->fetch_object()->tripName;
     }*/
 
+
+
     // return tripIDs of trip with duration equal to specified duration
     public function searchTripsByEqualDuration($duration) {
 
@@ -329,4 +331,32 @@ class Trip{
         }
         return $rows;
     }
+
+    public function getLocationCountryById($locationId){
+        $db = new Db();
+        
+        $query = "SELECT l.country AS country
+                   FROM location l 
+                   WHERE l.locationID =" . ModelsUtils::mysqlString($locationId);
+        
+        $result = $db->query($query);
+        $country = $result->fetch_object()->country;
+        return $country;
+
+    }
+    public function getLocationCityById($locationId){
+        $db = new Db();
+
+        $query = "SELECT l.city AS city
+                   FROM location l 
+                   WHERE l.locationID =" . ModelsUtils::mysqlString($locationId);
+
+        $result = $db->query($query);
+        $city = $result->fetch_object()->city;
+        
+        return $city;
+
+
+    }
+
 }

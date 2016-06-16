@@ -40,10 +40,10 @@ class IdGenerator {
     
     private function findMaxTransportionionID(){
         $db = new Db();
-        $query = "select max(trasportationID) AS transportationID from travelling_transportation";
+        $query = "select max(transportationID) AS transportationID from travelling_transportation";
         $result = $db->query($query);
 
-        return $result->fetch_object()->locationID;
+        return $result->fetch_object()->transportationID;
     }
 
     /**

@@ -26,7 +26,7 @@ $app->get('/search', ['Trippi\Controllers\SearchController', 'index'])->setName(
 $app->get('/search/users', ['Trippi\Controllers\SearchController', 'searchByUser'])->setName('searchByUser');
 $app->get('/search/trips', ['Trippi\Controllers\SearchController', 'searchByTrip'])->setName('searchByTrip');
 
-//TODO: SM: this rout naming a a bit confusing it goes to the home buts its route with trips time permiting we can refactor the name.
+//TODO: SM: this routing naming a a bit confusing it goes to the home buts its route with trips time permiting we can refactor the name.
 $app->get('/profile', ['Trippi\Controllers\HomeController', 'signIn'])->setName('Trips.signIn');
 
 $app->get('/profile/{tripId}/{email}', ['Trippi\Controllers\ProfileController', 'getTrip'])->setName('trip.getTrip');
@@ -51,6 +51,11 @@ $app->post('/joinProfile', ['Trippi\Controllers\JoinTripController', 'joinTrip']
 $app->get('/profileTrip/{tripId}/{email}', ['Trippi\Controllers\ProfileController', 'getUneditedTrip'])->setName('trip.getUneditedTrip');
 
 $app->get('/getProfile/{email}', ['Trippi\Controllers\HomeController', 'getProfile'])->setName('trip.getProfile');
+
+$app->post('/createProfile/addTransportation', ['Trippi\Controllers\CreateTripController', 'addTransportationDetails'])->setName('addTransportationDetails');
+$app->post('/createProfile/addActivities/{locationId1}/{locationId2}/{tripId}', ['Trippi\Controllers\CreateTripController', 'addLocationActivityDetails'])->setName('addLocationActivities');
+$app->post('/createProfile/addAccommodations/{locationId1}/{locationId2}/{tripId}', ['Trippi\Controllers\CreateTripController', 'addAccommodationDetails'])->setName('addLocationAccommodations');
+
 
 $app->get('/removeTrip/{tripId}/{email}', ['Trippi\Controllers\ProfileController', 'removeTrip'])->setName('trip.removeTrip');
 
