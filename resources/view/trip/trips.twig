@@ -47,23 +47,20 @@
             <h4><a href = "{{ path_for('trip.getProfile', {email: userEmail}) }}" method="get"> Return to profile </a></h4>
 
 
-            <form action="{{ path_for('trip.joinTrip')}}" method="post">
+            <form action="{{ path_for('trip.joinTrip', {email: userEmail})}}" method="post">
 
                 <h3>Join a Trip</h3>
 
                 <div class="form-group">
 
-                    <label for="email">Your Email</label>
-
-                    <input type="email" name="email" id="email" class="form-control">
-
                 </div>
 
                 <div class="form-group">
-
-                    <label for="tripId">Trip ID</label>
-
-                    <input type="text" name="tripId" id="tripId" class="form-control">
+                    <select class="form-control" id="select" name="select">
+                        {% for index, trip in trips %}
+                            {% include 'trip/partials/trips_dropdown_item.twig' with {trip: trip} %}
+                        {% endfor %}
+                    </select>
 
                 </div>
 
