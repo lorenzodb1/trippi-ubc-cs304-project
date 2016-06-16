@@ -56,8 +56,6 @@ class Accommodation {
             $rows[] = $row;
         }
         return $rows;
-    }
-
-    
+    }    
 
 }

@@ -8,10 +8,6 @@
   <li id="users-tab" role="presentation" class="active" onclick="makeActive('users-tab')"><a href="#">Users</a></li>
   
   <li id="trips-tab" role="presentation" class onclick="makeActive('trips-tab')"><a href="#">Trips</a></li>
-  
-  <li id="accommodations-tab" role="presentation" class onclick="makeActive('accommodations-tab')"><a href="#">Accommodations</a></li>
-
-  <li id="activities-tab" role="presentation" class onclick="makeActive('activities-tab')"><a href="#">Activities</a></li>
 
 </ul>
 
@@ -110,6 +106,78 @@
 
 <!-- Trip Content -->
 <div id="trips-content" class style="display: none;">
+  
+  <!-- Search Max Trip Rating -->
+  <div class="radio">
+    <label><input id="search-for-max-trip-rating" type="radio" name="optradio">Search for Maximum Rated Trips</label>
+  </div>
+
+    <!-- Search Main Trip Rating -->
+  <div class="radio">
+    <label><input id="search-for-min-trip-rating" type="radio" name="optradio">Search for Minimum Rated Trips</label>
+  </div>
+
+  <!-- View All Trips which Are Rated the Average -->
+  <div class="radio">
+    <label><input id="search-for-avg-trip-rating" type="radio" name="optradio">View All Trips which Are Rated the Average </label>
+  </div>
+
+  <!-- View All Incomplete Trips -->
+  <div class="radio">
+    <label><input id="search-for-incomplete-trips" type="radio" name="optradio">View All Trips which are not Complete</label>
+  </div>
+
+  <!-- View All Complete Trips -->
+  <div class="radio">
+    <label><input id="search-for-complete-trips" type="radio" name="optradio">View All Trips which are Complete</label>
+  </div>
+
+  <!-- View All Users on a Trip-->
+  <div class="radio">
+    <label><input id="search-for-all-users-on-trip" type="radio" name="optradio">Search for all Users in Trip: </label>
+    <div class="input-group input-group-sm" style="display: inline-block;">
+      <input id="search-for-all-users-on-trip-input-1" type="text" class="form-control" placeholder="Trip ID e.g., 10000000" aria-describedby="basic-addon1">
+    </div>
+  </div>
+
+  <!-- View All Trips that Start in Location-->
+  <div class="radio">
+    <label><input id="search-for-all-trips-starting-from" type="radio" name="optradio">Search for all trips starting from: </label>
+    <div class="input-group input-group-sm" style="display: inline-block;">
+      <input id="search-for-all-trips-starting-from-input-1" type="text" class="form-control" placeholder="e.g., Vancouver" aria-describedby="basic-addon1">
+    </div>
+  </div>
+
+  <!-- View All Trips By Duration-->
+  <div class="radio">
+    <label><input id="search-for-all-trips-by-equal-duration" type="radio" name="optradio">Search for all of trips of duration equal to: </label>
+    <div class="input-group input-group-sm" style="display: inline-block;">
+      <input id="search-for-all-trips-by-equal-duration-input-1" type="text" class="form-control" placeholder="# of days e.g., 7 days" aria-describedby="basic-addon1">
+    </div>
+  </div>
+
+  <!-- View All Trips By Greater Duration-->
+  <div class="radio">
+    <label><input id="search-for-all-trips-by-greater-duration" type="radio" name="optradio">Search for all of trips of duration greater than: </label>
+    <div class="input-group input-group-sm" style="display: inline-block;">
+      <input id="search-for-all-trips-by-greater-duration-input-1" type="text" class="form-control" placeholder="# of days e.g., 7 days" aria-describedby="basic-addon1">
+    </div>
+  </div>
+
+  <!-- View All Trips By Lesser Duration-->
+  <div class="radio">
+    <label><input id="search-for-all-trips-by-lesser-duration" type="radio" name="optradio">Search for all of trips of duration less than: </label>
+    <div class="input-group input-group-sm" style="display: inline-block;">
+      <input id="search-for-all-trips-by-lesser-duration-input-1" type="text" class="form-control" placeholder="# of days e.g., 7 days" aria-describedby="basic-addon1">
+    </div>
+  </div>
+
+
+  <!-- Submit Query Button-->
+  <button type="button" class="btn btn-primary btn-lg" onclick="checkWhichQuery()">
+    <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span> Submit Query
+  </button>
+
 </div>
 
 
@@ -122,34 +190,37 @@
 <div id="activities-content" class style="display: none;">
 </div>
 
-<div class="panel panel-primary" style="margin: 10px 10px 10px 10px;">
+<!-- Results -->
+<div id="results-panel-outter" class="panel panel-primary" style="margin: 10px 10px 10px 10px;">
   <div class="panel-heading">
     <h3 class="panel-title">Results</h3>
   </div>
-  <div id="results-panel" class="panel-body">
-    {% if response %}
-      <div class="'row">
 
-        {% for index, result in response %}
-            <div class="col-md-4 col-sm-6">
-                {% include 'search/partials/UserSearchResultItem.twig' with {result: result} %}
-            </div>
-            {% if (index + 1) % 3 ==0 %}
-      </div>
+  <div class="table-responsive">
+    <table id="trip-results-panel-inner" class="table table-hover">
+      <thead>
+        <tr>
+          <th>Trip ID#</th>
+          <th colspan='2'>Trip Name</th>
+          <th>Rating</th>
+          <th colspan='4'>Comment</th>
+          <th>Start Date</th>
+          <th>End Date</th>
+          <th>Duration</th>
+          <th>Start Location</th>
+          <th>User Name</th>
+          <th>Username</th>
+          <th>Hometown</th>
+          <th>Birthday</th>
+          <th colspan='4'>About Me</th>
+        </tr>
+      </thead>
+      <tbody id="trip-results-panel-body">
 
-      <div class="row">
-            {% endif %}
-
-
-
-        {% endfor %}
-
-      </div>
-
-    {% else %}
-      No results.
-    {% endif %}
+      </tbody>
+    </table>
   </div>
+
 </div>
 
 

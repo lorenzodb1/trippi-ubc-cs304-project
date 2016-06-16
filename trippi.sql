@@ -12,7 +12,7 @@ DROP TABLE IF EXISTS travelling_duration CASCADE;
 DROP TABLE IF EXISTS joins CASCADE;
 DROP TABLE IF EXISTS location CASCADE;
 DROP TABLE IF EXISTS activity CASCADE;
-DROP TABLE IF EXISTS accommodation CASCADE;
+DROP TABLE IF EXISTS accomodation CASCADE;
 
 -- DROP TABLE IF EXISTS `user`;
 -- DROP TABLE IF EXISTS admin;
@@ -38,7 +38,7 @@ create table user
 		country varchar(40) null,
 		dateOfBirth date null,
 		aboutMe varchar(140) null,
-		rating int(1) null,
+		rating float(3) null,
 		karma int(10) null,
 		primary key (email));
 
@@ -130,7 +130,7 @@ create table accomodation
 CREATE TABLE userRating
   (emailRater varchar(40) not null,
     emailRated varchar(40) not null,
-    rating int null,
+    rating float(3) null,
     comment varchar(40),
     PRIMARY KEY (emailRater, emailRated),
     FOREIGN KEY (emailRater) REFERENCES user(email),
@@ -139,51 +139,75 @@ CREATE TABLE userRating
 CREATE TABLE tripRating
   (tripID char(8) not null,
     email varchar(40) not null,
-    rating int null,
+    rating float(3) null,
     comment varchar(40),
     PRIMARY KEY (tripID, email),
     FOREIGN KEY (tripID) REFERENCES trip(tripId),
     FOREIGN KEY (email) REFERENCES user(email));
 
 insert into user
-	values('bob@gmail.com', 'bobsmith', '$6$rounds=5000$bob@gmail.com$ajkpRTIRKd711I9aMbApgl8APZCnwgNRIWbVLj0aItHSjGv6NNY7FOl0aJP5c7hNAnFCFRyPBmdOSO5Wk1Ikj1', 'Bob Smith', 'Vancouver', 'Canada', '1995-09-12', 'I am cool', 4, 0);
+	values('bob@gmail.com', 'bobsmith', '$6$rounds=5000$bob@gmail.com$ajkpRTIRKd711I9aMbApgl8APZCnwgNRIWbVLj0aItHSjGv6NNY7FOl0aJP5c7hNAnFCFRyPBmdOSO5Wk1Ikj1', 'Bob Smith', 'Vancouver', 'Canada', '1995-09-12', 'I am cool',0.0, 0);
 
 insert into user
-	values('mary123@gmail.com', 'mary123', '$6$rounds=5000$mary123@gmail.co$iP07x/j8u1mxH1RvZGEgurFcR5OJ3NCaatWiDr/NH8ifVtFZ3LhvSLRaT219qaMLpjLjU4W04r75slzmqaUl41', 'Mary Jackson', 'Kelowna', 'Canada', '1990-04-09', 'I am cool', 3, 0);
+	values('mary123@gmail.com', 'mary123', '$6$rounds=5000$mary123@gmail.co$iP07x/j8u1mxH1RvZGEgurFcR5OJ3NCaatWiDr/NH8ifVtFZ3LhvSLRaT219qaMLpjLjU4W04r75slzmqaUl41', 'Mary Jackson', 'Kelowna', 'Canada', '1990-04-09', 'I am cool', 0.0, 0);
 
 insert into user
-	values('lalla@hotmail.com', 'lallala', '$6$rounds=5000$lalla@hotmail.co$6J6ryyboDg0QVrfgqWUNTBewnb9s5kcr8741nEG.GaSWwdAbYRDDvV7Rsn3EnyFIFHbRYa8SJhdjXYwzwvfVt/', 'Lalla Peterson', 'Rome', 'Italy', '1987-04-11', 'I am cool', 2, 0);
+	values('lalla@hotmail.com', 'lallala', '$6$rounds=5000$lalla@hotmail.co$6J6ryyboDg0QVrfgqWUNTBewnb9s5kcr8741nEG.GaSWwdAbYRDDvV7Rsn3EnyFIFHbRYa8SJhdjXYwzwvfVt/', 'Lalla Peterson', 'Rome', 'Italy', '1987-04-11', 'I am cool', 0.0, 0);
 
 insert into user
-	values('johndavies@gmail.com', 'johnnyd', '$6$rounds=5000$johndavies@gmail$.9GdUdBFZtm3JZtU1XD5ZC1ngz9nDS1F/OnsgP3rvkpB4.Sr8hFFhdy4tl08DjHJwFys5L1HSiGTKEGNrhBpx1', 'John Davies', 'Paris', 'France', '1956-02-20', 'I am cool', 1, 0);
+	values('johndavies@gmail.com', 'johnnyd', '$6$rounds=5000$johndavies@gmail$.9GdUdBFZtm3JZtU1XD5ZC1ngz9nDS1F/OnsgP3rvkpB4.Sr8hFFhdy4tl08DjHJwFys5L1HSiGTKEGNrhBpx1', 'John Davies', 'Paris', 'France', '1956-02-20', 'I am cool', 0.0, 0);
 
 insert into user
-	values('garylee@gmail.com', 'glee', '$6$rounds=5000$garylee@gmail.co$zhjDgXC3fFPjN.G.GRIVrbCZKMW1R0Z6LyUzCKK4ITIuHjUs2acBUIsSaWMd0QmNiXaSREiFMC1r2NDkOrHS/0', 'Gary Lee', 'Victoria', 'Canada', '1971-07-13', 'I am cool', 5, 0);
+	values('garylee@gmail.com', 'glee', '$6$rounds=5000$garylee@gmail.co$zhjDgXC3fFPjN.G.GRIVrbCZKMW1R0Z6LyUzCKK4ITIuHjUs2acBUIsSaWMd0QmNiXaSREiFMC1r2NDkOrHS/0', 'Gary Lee', 'Victoria', 'Canada', '1971-07-13', 'I am cool', 0.0, 0);
 
 insert into user
-	values('hsimpson@gmail.com', 'howardsimpson', '$6$rounds=5000$hsimpson@gmail.c$FjwMTVRxWnWkewYsP4YX7ftTH7qiZU5l0a/O836QKf7/S4BoodfOtU3TDUT6GnB7N8e9FtKR8/UljpOleYu2W0', 'Howard Simpson', 'Burnaby', 'Canada', '1978-06-21', 'I am cool', null, 0);
+	values('hsimpson@gmail.com', 'howardsimpson', '$6$rounds=5000$hsimpson@gmail.c$FjwMTVRxWnWkewYsP4YX7ftTH7qiZU5l0a/O836QKf7/S4BoodfOtU3TDUT6GnB7N8e9FtKR8/UljpOleYu2W0', 'Howard Simpson', 'Burnaby', 'Canada', '1978-06-21', 'I am cool', 0.0, 0);
 
 insert into user
-	values('cool.dude@gmail.com', 'cool786pson', '$6$rounds=5000$cool.dude@gmail.$sAexhZ.eAwYBfqxElvirL3ZypY96BnG6H2.uQilFagImfytYFukh9GNBZ271/.2HMf68S9w.P7EqSRj6KJN/l1', 'Cool dude', 'Winnipeg', 'Canada', '1980-06-22', 'I am cool', 4, 0);
+	values('cool.dude@gmail.com', 'cool786pson', '$6$rounds=5000$cool.dude@gmail.$sAexhZ.eAwYBfqxElvirL3ZypY96BnG6H2.uQilFagImfytYFukh9GNBZ271/.2HMf68S9w.P7EqSRj6KJN/l1', 'Cool dude', 'Winnipeg', 'Canada', '1980-06-22', 'I am cool', 0.0, 0);
 
 insert into user
-	values('jeco@gmail.com', 'jecoIo', '$6$rounds=5000$jeco@gmail.com$qWaUQTNLlwPq6T6NpG0TSFiuxgTa0VucqbsxtTYa3xdYLfFiwAtOEUY3XanPjGSzACl13gXNUCdhDQfOk8S.Z.', 'Jeco Simpson', 'Whistler', 'Canada', '1972-08-21', 'I am cool', null, 0);
+	values('jeco@gmail.com', 'jecoIo', '$6$rounds=5000$jeco@gmail.com$qWaUQTNLlwPq6T6NpG0TSFiuxgTa0VucqbsxtTYa3xdYLfFiwAtOEUY3XanPjGSzACl13gXNUCdhDQfOk8S.Z.', 'Jeco Simpson', 'Whistler', 'Canada', '1972-08-21', 'I am cool', 0.0, 0);
 
 insert into user
-	values('pilo@gmail.com', 'piloCY', '$6$rounds=5000$pilo@gmail.com$Bvzj.8p9JXwhcK8qTr5e7yP7BL/BDzWJ5TPrZ6NHEsQvfLwuMfZs8RfeV9K0PWf85xSJhNpTxw/v4kUU4jf3Y0', 'Pilo Zes', 'Calgary', 'Canada', '1985-06-21', 'I am cool', null, 0);
+	values('pilo@gmail.com', 'piloCY', '$6$rounds=5000$pilo@gmail.com$Bvzj.8p9JXwhcK8qTr5e7yP7BL/BDzWJ5TPrZ6NHEsQvfLwuMfZs8RfeV9K0PWf85xSJhNpTxw/v4kUU4jf3Y0', 'Pilo Zes', 'Calgary', 'Canada', '1985-06-21', 'I am cool', 0.0, 0);
 
 insert into user
 	values('tuso@gmail.com', 'tuso82', '$6$rounds=5000$tuso@gmail.com$vN.PUOVGZsPTqJRwSdzb/QnkD7Rl6w1MhgBGcc9RauU.XguTCaXDb6.dqkvSVKWXe11i3npxPbAavhBv5tE/I0', 'Tuso Jelo', 'Edmonton', 'Canada', '1982-06-21', 'I am not cool', 1, 0);
 
-CREATE DEFINER=`root`@`localhost` TRIGGER `karma_plan` AFTER INSERT ON `plan`
+CREATE DEFINER = `root`@`localhost` TRIGGER `karma_rating` BEFORE INSERT ON `userRating`
+FOR EACH ROW UPDATE user
+             SET karma = karma + 1
+             WHERE NEW.emailRater = user.email;
+
+CREATE DEFINER = `root`@`localhost` TRIGGER `no_karma_rating` BEFORE DELETE ON `userRating`
+FOR EACH ROW UPDATE user
+						 SET karma = karma - 1
+						 WHERE OLD.emailRater = user.email;
+
+CREATE DEFINER = `root`@`localhost` TRIGGER `karma_plan` AFTER INSERT ON `plan`
+FOR EACH ROW UPDATE user
+						 SET karma = karma + 1
+						 WHERE NEW.email = user.email;
+
+CREATE DEFINER = `root`@`localhost` TRIGGER `karma_join` AFTER INSERT ON `joins`
 FOR EACH ROW UPDATE user
              SET karma = karma + 1
              WHERE NEW.email = user.email;
 
-CREATE DEFINER=`root`@`localhost` TRIGGER `karma_join` AFTER INSERT ON `joins`
+CREATE DEFINER = `root`@`localhost` TRIGGER `avg_rating` AFTER INSERT ON `userRating`
 FOR EACH ROW UPDATE user
-             SET karma = karma + 1
-             WHERE NEW.email = user.email;
+						 SET rating = (SELECT AVG(rating)
+						 							 FROM userRating
+													 WHERE emailRated = NEW.emailRated)
+						 WHERE NEW.emailRated = user.email;
+
+CREATE DEFINER = `root`@`localhost` TRIGGER `no_avg_rating` AFTER DELETE ON `userRating`
+FOR EACH ROW UPDATE user
+						 SET rating = (SELECT AVG(rating)
+													 FROM userRating
+													 WHERE emailRated = OLD.emailRated)
+						 WHERE OLD.emailRated = user.email;
 
 insert into admin
 	values('bob@gmail.com');
@@ -392,6 +416,9 @@ insert into userRating
 
 insert into userRating
 	values('pilo@gmail.com', 'tuso@gmail.com', 10, 'awesome');
+
+insert into userrating(emailRater, emailRated, rating, comment)
+ values ('garylee@gmail.com', 'hsimpson@gmail.com', 1, 'mah')
 
 
 

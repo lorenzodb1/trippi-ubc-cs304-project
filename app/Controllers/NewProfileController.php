@@ -19,11 +19,9 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 
 class NewProfileController {
 
-    public function create_profile(Response $response, Request $request, Twig $view, Router $router)
+    public function create_profile($email, Response $response, Request $request, Twig $view, Router $router)
     {
         $data = $request->getParsedBody();
-        $email = filter_var($data['email'], FILTER_SANITIZE_EMAIL);
-        $password = $data['password'];
         $name = filter_var($data['name'], FILTER_SANITIZE_STRING);
         $dob = filter_var($data['dob'], FILTER_SANITIZE_STRING);
         $hometown = filter_var($data['hometown'], FILTER_SANITIZE_STRING);
@@ -31,16 +29,14 @@ class NewProfileController {
         $bio = filter_var($data['bio'], FILTER_SANITIZE_STRING);
         if(ModelsUtils::verifyEmail($email)) {
             //check if the password is correct
-            $create = Profile::create_profile($email, $password, $name, $hometown, $country, $dob, $bio);
+            $create = Profile::create_profile($email, $name, $hometown, $country, $dob, $bio);
             if ($create) {
-                $login = Authentication::login($email, $password);
-                if ($login) {
-                    return $view->render($response, 'profile/profile.twig', [
-                        'users'=> $login,
-                        'plannedTrips'=> Authentication::userPlanTrip($email),
-                        'joinedTrips' => Authentication::userJoinTrip($email)
-                    ]);
-                }
+                return $view->render($response, 'profile/profile.twig', [
+                    'userEmail' => $email,
+                    'users' => Profile::get_profile($email),
+                    'plannedTrips' => Authentication::userPlanTrip($email),
+                    'joinedTrips' => Authentication::userJoinTrip($email)
+                ]);
             } else {
                 return $response->withRedirect($router->pathFor('profile/new_profile'));
             }

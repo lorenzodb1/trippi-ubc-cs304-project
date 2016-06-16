@@ -14,10 +14,12 @@ use Slim\Views\Twig;
 use Slim\Router;
 use Trippi\Models\Authentication;
 use Trippi\Models\ModelsUtils;
+use Trippi\Models\Profile;
 use Trippi\Models\SignUp;
 use Trippi\Models\Trip;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
+use Trippi\Models\UserRating;
 
 //testing
 class HomeController{
@@ -26,6 +28,22 @@ class HomeController{
         return $view->render($response, 'login.twig', [
         ]);
     }
+    
+    
+    public function getProfile($email, Response $response, Request $request, Twig $view, Router $router) {
+
+        $auth = new Authentication();
+        $login = $auth->getUserInfo($email);
+        
+        return $view->render($response, 'profile/profile.twig', [
+            'userEmail' => $email,
+            'users'=> $login,
+            'plannedTrips'=> Authentication::userPlanTrip($email),
+            'joinedTrips' => Authentication::userJoinTrip($email),
+            'ratings' => UserRating::view_ratings($email)
+        ]);
+    }
+    
 
 
     public function signIn(Response $response, Request $request, Twig $view, Router $router){
@@ -35,21 +53,25 @@ class HomeController{
         if(ModelsUtils::verifyEmail($email)){
             //check if the password is correct
             $login = Authentication::login($email, $password);
-            
             if($login) {
-                
                 return $view->render($response, 'profile/profile.twig', [
+                    'userEmail' => $email,
                     'users'=> $login,
                     'plannedTrips'=> Authentication::userPlanTrip($email),
-                    'joinedTrips' => Authentication::userJoinTrip($email)
+                    'joinedTrips' => Authentication::userJoinTrip($email),
+                    'ratings' => UserRating::view_ratings($email)
                 ]);
             }
             else{
-                return $response->withRedirect($router->pathFor('home'));
+                return $view->render($response, '/login.twig', [
+                    'error' => $email
+                ]);
             }
         }
         else{
-            return $response->withRedirect($router->pathFor('home'));
+                return $view->render($response, '/login.twig', [
+                    'error' => $email
+                ]);
         }
     }
 
@@ -63,7 +85,7 @@ class HomeController{
             $signup = SignUp::sign_up($username, $email, $password);
             if ($signup) {
                 return $view->render($response, 'profile/new_profile.twig', [
-                    'user'=> $username
+                    'users'=> Profile::get_profile($email)
                 ]);
             } else {
                 return $response->withRedirect($router->pathFor('home'));

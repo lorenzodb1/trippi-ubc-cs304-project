@@ -8,10 +8,20 @@
                 {% include 'profile/partials/profile_item.twig' with {user: user} %}
             {% endfor %}
 
+            <form action="{{ path_for('deleteProfile', {email: userEmail})}}" method="post">
+                <div class="form-group">
+
+                    <label for="email">Enter your password to delete your profile</label>
+
+                    <input type="password" name="password" id="password" class="form-control">
+
+                </div>
+            <button type="submit" class="btn btn-default">Delete profile</button>
+            </form>
 
             <form action="{{ path_for('trip.createTrip')}}" method="post">
 
-                <h3>Create Trip</h3>
+                <h3>Create a Trip</h3>
 
                 <div class="form-group">
 
@@ -54,6 +64,13 @@
         </div>
 
         <div class="col-md-8">
+
+            <div class="col-md-4"></div>
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <h4><a href = "{{ path_for('trip.getAllTrips', {email: userEmail}) }}" method="get"> View all Trippi Trips </a></h4>
+            </div>
+
             <h3>Your Planned Trips</h3>
             {% if plannedTrips %}
                 <div class="well">
@@ -71,11 +88,11 @@
                         <tbody>
                         {% for index, trip in plannedTrips %}
                             <tr>
-                                <td><a href="{{ path_for('trip.getTrip', {tripId: trip.id})}}" method="get">{{ trip.id }}</a></td>
+                                <td><a href="{{ path_for('trip.getTrip', {tripId: trip.id, email: userEmail})}}" method="get">{{ trip.id }}</a></td>
                                 <td>{{ trip.tripName }}</td>
                                 <td>{{ trip.from }}</td>
                                 <td>{{ trip.to }}</td>
-                                <td><a href="{{ path_for('trip.deleteTrip', {tripId: trip.id})}}" method="get">Delete</a></td>
+                                <td><a href="{{ path_for('trip.deleteTrip', {tripId: trip.id, email: userEmail})}}" method="get">Delete</a></td>
                             </tr>
                         {% endfor %}
                         </tbody>
@@ -98,17 +115,23 @@
                             <th>Trip Name</th>
                             <th>From</th>
                             <th>To</th>
+                            <th></th>
+
+
                         </tr>
                         </thead>
                         <tbody>
+
                         {% for index, trip in joinedTrips %}
                             <tr>
-                                <td><a href="{{ path_for('trip.getTrip', {tripId: trip.id})}}" method="get">{{ trip.id }}</a></td>
+                                <td><a href="{{ path_for('trip.getUneditedTrip', {tripId: trip.id, email: userEmail})}}" method="get">{{ trip.id }}</a></td>
                                 <td>{{ trip.tripName }}</td>
                                 <td>{{ trip.from }}</td>
                                 <td>{{ trip.to }}</td>
+                                <td><a href="{{ path_for('trip.removeTrip', {tripId: trip.id, email: userEmail})}}" method="get">Remove</a></td>
                             </tr>
                         {% endfor %}
+
                         </tbody>
                     </table>
                 </div>
@@ -118,10 +141,30 @@
 
             {% endif %}
 
-            <h3>All Trippi Trips</h3>
-            <p><a href = "{{ path_for('trip.getAllTrips') }}" method="get"> View </a></p>
 
-
+            <h3>Your ratings from other users</h3>
+                <div class="well">
+                    <table class ="table">
+                        <thead>
+                        <tr>
+                            <th></th>
+                            <th>Rater</th>
+                            <th>Rating</th>
+                            <th>Comment</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for index, item in ratings %}
+                            <tr>
+                                <td><a href="{{ path_for('getProfile', {email: item.email, remail: userEmail})}}" method="get">View user</a></td>
+                                <td>{{ item.rater }}</td>
+                                <td>{{ item.rating}}</td>
+                                <td>{{ item.comment }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
         </div>
     </div>
 

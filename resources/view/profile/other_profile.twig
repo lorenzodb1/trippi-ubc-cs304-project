@@ -1,0 +1,154 @@
+{% extends 'templates/app.twig' %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-md-4">
+            {% for index, user in users %}
+                {% include 'profile/partials/profile_item.twig' with {user: user} %}
+            {% endfor %}
+
+            {% for index, user in users %}
+                <form action="{{ path_for('addRating', {email: uemail, remail: user.email})}}" method="post">
+
+                    <h3>Rate this user!</h3>
+
+                    {#<div class="form-group">#}
+
+                        {#<label for="rating">Enter your email again</label>#}
+
+                        {#<input type="email" name="email" id="email" class="form-control">#}
+
+                    {#</div>#}
+
+                    <div class="form-group">
+
+                        <label for="rating">Rating</label>
+
+                        <input type="number" name="rating" id="rating" class="form-control">
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label for="comment">Comment</label>
+
+                        <input type="text" name="comment" id="comment" class="form-control">
+
+                        <button type="submit" class="btn btn-default">Add</button>
+
+                    </div>
+                </form>
+            {% endfor %}
+
+
+        </div>
+
+        <div class="col-md-8">
+
+            <div class="col-md-4"></div>
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <h4><a href = "{{ path_for('trip.getProfile', {email: uemail}) }}" method="get"> Return to profile </a></h4>
+                <h4><a href = "{{ path_for('trip.getAllTrips', {email: uemail}) }}" method="get"> View all Trippi Trips </a></h4>
+            </div>
+
+
+            {% for index, user in users %}
+                <h3>{% include 'profile/partials/other_profile_item.twig' with {user: user}%} Planned Trips</h3>
+            {% endfor %}
+            {#<h3>{{ users2.name }} Planned Trips</h3>#}
+            {% if plannedTrips %}
+                <div class="well">
+                    <table class ="table">
+                        <thead>
+                        <tr>
+                            <th>Trip Id</th>
+                            <th>Trip Name</th>
+                            <th>From</th>
+                            <th>To</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                {% for index, user in users %}
+                        {% for index, trip in plannedTrips %}
+                            <tr>
+                                <td><a href="{{ path_for('trip.getTrip', {tripId: trip.id})}}" method="get">{{ trip.id }}</a></td>
+                                <td>{{ trip.tripName }}</td>
+                                <td>{{ trip.from }}</td>
+                                <td>{{ trip.to }}</td>
+                            </tr>
+                        {% endfor %}
+                {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+            {% else %}
+                <p> You currently have no planned trips </p>
+
+            {% endif %}
+
+
+            {% for index, user in users %}
+                <h3>{% include 'profile/partials/other_profile_item.twig' with {user: user}%} Joined Trips</h3>
+            {% endfor %}
+            {% if joinedTrips %}
+                <div class="well">
+                    <table class ="table">
+                        <thead>
+                        <tr>
+                            <th>Trip Id</th>
+                            <th>Trip Name</th>
+                            <th>From</th>
+                            <th>To</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for index, trip in joinedTrips %}
+                            <tr>
+                                <td><a href="{{ path_for('trip.getTrip', {tripId: trip.id, email: uemail})}}" method="get">{{ trip.id }}</a></td>
+                                <td>{{ trip.tripName }}</td>
+                                <td>{{ trip.from }}</td>
+                                <td>{{ trip.to }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+            {% else %}
+                <p> You currently have no joined trips </p>
+
+            {% endif %}
+
+
+            {% for index, user in users %}
+                <h3>{% include 'profile/partials/other_profile_item.twig' with {user: user}%} ratings from other users</h3>
+            {% endfor %}
+            <div class="well">
+                <table class ="table">
+                    <thead>
+                    <tr>
+                        <th></th>
+                        <th>Rater</th>
+                        <th>Rating</th>
+                        <th>Comment</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for index, item in ratings %}
+                        <tr>
+                            <td><a href="{{ path_for('getProfile', {email: item.email, remail: uemail})}}" method="get">View user</a></td>
+                            <td>{{ item.rater }}</td>
+                            <td>{{ item.rating}}</td>
+                            <td>{{ item.comment }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

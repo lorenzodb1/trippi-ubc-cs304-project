@@ -36,11 +36,8 @@ class CreateTripController  {
         $createdTrip = $create->createNewTrip($tripID, $startDate, $endDate, $tripName);
         $linkTripToUser = $create->linkTripPlanner($email, $tripID);
 
-        
-        
-
         $tripModel = new Trip();
-        $tripName = $tripModel->getTripNameById($tripID);
+        //$tripName = $tripModel->getTripNameById($tripID);
         
         if($createdTrip and $linkTripToUser) {
             return $view->render($response, 'trip/trip_segment.twig', [

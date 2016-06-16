@@ -5,15 +5,17 @@
  * Date: 2016-06-10
  * Time: 10:50 PM
  */
+
 namespace Trippi\Controllers;
 
 use Slim\Views\Twig;
 use Trippi\Models\Trip;
+use Trippi\Models;
 use Trippi\Models\Db;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 
-class TripsController{
+class TripsController {
 
     public function index(Response $response, Request $request, Twig $view, Trip $trip){
         $query = "SELECT a.locationID, l.city, l.country, a.rating 
@@ -33,6 +35,14 @@ class TripsController{
         return $view->render($response, 'login.twig', [
             'trips'=> $result
         ]);
+    }
+
+    public function returnResults($response) {
+      if($response) {
+        return json_encode($response);
+      } else {
+        return null;
+      }
     }
 
 }
