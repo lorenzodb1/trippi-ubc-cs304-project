@@ -4,9 +4,8 @@
 
     <div class ="row">
         <div class="col-md-8">
-            <h1>Add accommodations for the locations you just added to your trip?</h1>
-            <h2>TripName: {{ tripName }}</h2>
-            <h3>TripId: {{ tripId }}</h3>
+            <h2>Add accommodations for the locations you just added to your trip?</h2>
+            <h3>TripName: {{ tripName }}</h3>
 
             <form action="{{ path_for('addLocationAccommodations', {email: email, locationId1: startLocationId, locationId2: endLocationId, tripId: tripId, tripName: tripName}) }}" method="post">
 
@@ -19,7 +18,6 @@
 
                 </div>
 
-                <h4>From</h4>
 
                 <div class="form-group">
 
@@ -31,7 +29,7 @@
 
                 <div class="form-group">
 
-                    <label for="dateCheckInStart">Date of checkout {{ startLocation }}</label>
+                    <label for="dateCheckInStart">Date of check in for: {{ startLocation }}</label>
 
                     <input type="text" name="dateCheckInStart" id="dateCheckInStart" class="form-control">
 
@@ -39,7 +37,7 @@
 
                 <div class="form-group">
 
-                    <label for="dateCheckoutStart">Date of checkIn: {{ startLocation }}</label>
+                    <label for="dateCheckoutStart">Date of check out for: {{ startLocation }}</label>
 
                     <input type="text" name="dateCheckoutStart" id="dateCheckoutStart" class="form-control">
 
@@ -47,13 +45,11 @@
 
                 <div class="form-group">
 
-                    <label for="nameHotelEnd">Name of Hotel for: {{ endLocation }}</label>
+                    <label for="nameHotelEnd">name of hotel for: {{ endLocation }}</label>
 
                     <input type="text" name="nameHotelEnd" id="nameHotelEnd" class="form-control">
 
                 </div>
-
-                <h4>From</h4>
 
                 <div class="form-group">
 
@@ -65,7 +61,7 @@
 
                 <div class="form-group">
 
-                    <label for="dateCheckInEnd">Date of checkout {{ startLocation }}</label>
+                    <label for="dateCheckInEnd">Date of check in for: {{ startLocation }}</label>
 
                     <input type="text" name="dateCheckInEnd" id="dateCheckInEnd" class="form-control">
 
@@ -73,7 +69,7 @@
 
                 <div class="form-group">
 
-                    <label for="dateCheckoutEnd">Date of checkIn: {{ startLocation }}</label>
+                    <label for="dateCheckoutEnd">Date of check out for: {{ startLocation }}</label>
 
                     <input type="text" name="dateCheckoutEnd" id="dateCheckoutEnd" class="form-control">
 
