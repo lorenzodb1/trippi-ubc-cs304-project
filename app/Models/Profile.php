@@ -32,10 +32,18 @@ class Profile {
 
     public static function update_profile($email, $password, $data_type, $new_data) {
         $db = new Db();
-        $query = "UPDATE `user`
-                  SET " . $data_type . " = " . ModelsUtils::mysqlstring($new_data) . " 
-                  WHERE `email` = " . ModelsUtils::mysqlstring($email) . " AND 
-                        `password` = " . ModelsUtils::mysqlstring(crypt($password, '$6$rounds=5000$' . $email . '$'));
+        if($data_type == 'password') {
+            $query = "UPDATE `user`
+                      SET " . $data_type . " = " . ModelsUtils::mysqlstring(crypt($new_data, '$6$rounds=5000$' . $email . '$')) . " 
+                      WHERE `email` = " . ModelsUtils::mysqlstring($email) . " AND 
+                            `password` = " . ModelsUtils::mysqlstring(crypt($password, '$6$rounds=5000$' . $email . '$'));
+        } else {
+            $query = "UPDATE `user`
+                      SET " . $data_type . " = " . ModelsUtils::mysqlstring($new_data) . " 
+                      WHERE `email` = " . ModelsUtils::mysqlstring($email) . " AND 
+                            `password` = " . ModelsUtils::mysqlstring(crypt($password, '$6$rounds=5000$' . $email . '$'));
+        }
+
         $result = $db->query($query);
         return $result;
     }

@@ -146,8 +146,7 @@ class ProfileController{
         $password =  filter_var($data['password'],FILTER_SANITIZE_STRING);
         $newdata = filter_var($data['newdata'],FILTER_SANITIZE_STRING);
         $value = $data['select'];
-        var_dump($value);
-        Profile::update_profile($email, $password, $value, @$newdata);
+        Profile::update_profile($email, $password, $value, $newdata);
         return $view->render($response, 'profile/profile.twig', [
             'userEmail' => $email,
             'users'=> Profile::get_profile($email),
