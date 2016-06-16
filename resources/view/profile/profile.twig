@@ -54,6 +54,12 @@
 
         <div class="col-md-8">
 
+            <div class="col-md-4"></div>
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <h4><a href = "{{ path_for('trip.getAllTrips', {email: userEmail}) }}" method="get"> View all Trippi Trips </a></h4>
+            </div>
+
             <h3>Your Planned Trips</h3>
             {% if plannedTrips %}
                 <div class="well">
@@ -71,7 +77,7 @@
                         <tbody>
                         {% for index, trip in plannedTrips %}
                             <tr>
-                                <td><a href="{{ path_for('trip.getTrip', {tripId: trip.id})}}" method="get">{{ trip.id }}</a></td>
+                                <td><a href="{{ path_for('trip.getTrip', {tripId: trip.id, email: userEmail})}}" method="get">{{ trip.id }}</a></td>
                                 <td>{{ trip.tripName }}</td>
                                 <td>{{ trip.from }}</td>
                                 <td>{{ trip.to }}</td>
@@ -107,7 +113,7 @@
 
                         {% for index, trip in joinedTrips %}
                             <tr>
-                                <td><a href="{{ path_for('trip.getTrip', {tripId: trip.id})}}" method="get">{{ trip.id }}</a></td>
+                                <td><a href="{{ path_for('trip.getUneditedTrip', {tripId: trip.id, email: userEmail})}}" method="get">{{ trip.id }}</a></td>
                                 <td>{{ trip.tripName }}</td>
                                 <td>{{ trip.from }}</td>
                                 <td>{{ trip.to }}</td>
@@ -124,8 +130,6 @@
 
             {% endif %}
 
-            <h3>All Trippi Trips</h3>
-            <p><a href = "{{ path_for('trip.getAllTrips') }}" method="get"> View </a></p>
 
             <h3>Your ratings from other users</h3>
                 <div class="well">

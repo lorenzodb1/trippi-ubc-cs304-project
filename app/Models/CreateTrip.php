@@ -31,31 +31,33 @@ class CreateTrip {
     }
 
     public function linkTripPlanner($email, $tripID) {
+
+        $this->dealWithAdminIssues($email);
+
         $db = new Db();
+
         $query = "INSERT INTO plan VALUES (" . $this->mysqlString($tripID) ." , " . $this->mysqlString($email) .")";
         $result = $db->query($query);
-        if($result){
-            $this->insertAdminIfNotExist($email);
-        }
         return $result;
     }
 
-    private function insertAdminIfNotExist($email){
+
+
+    private function dealWithAdminIssues($email) {
         $db = new Db();
         $query = "SELECT *
                   FROM admin a
                   WHERE a.email =" . ModelsUtils::mysqlString($email);
         $result = $db->query($query);
 
-        if(mysqli_num_rows($result) == 0){
+        if(mysqli_num_rows($result) == 0) {
             $queryInsert = "INSERT INTO admin VALUES (" . ModelsUtils::mysqlString($email) . ")";
-            $resultInsert = $db->query($queryInsert);
-            return $resultInsert;
-        }
-        else{
-            return $result;
+            $db->query($queryInsert);;
         }
     }
+
+
+
 
     private function insertNewTravelDuration($startDate, $endDate) {
         $db = new Db();
