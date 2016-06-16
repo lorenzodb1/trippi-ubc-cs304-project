@@ -125,6 +125,14 @@ class ProfileController{
                 'userEmail' => $email]);
     }
 
+    public function delete_profile($email, Request $request, Response $response, Twig $view) {
+        $data = $request->getParsedBody();
+        $password =  filter_var($data['password'],FILTER_SANITIZE_STRING);
+        Profile::delete_profile($email, $password);
+        return $view->render($response, 'login.twig', [
+        ]);
+    }
+
     public function getOtherUser($email, $remail, Request $request, Response $response, Twig $view) {
         if($email == $remail) {
             return $view->render($response, 'profile/profile.twig', [

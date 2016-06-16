@@ -35,7 +35,6 @@ $app->get('/createProfile', ['Trippi\Controllers\CreateTripController', 'createT
 
 $app->post('/createProfile/addLocations', ['Trippi\Controllers\CreateTripController', 'addLocationDetails'])->setName('addLocationDetails');
 
-
 $app->get('/deleteProfile/{tripId}/{email}', ['Trippi\Controllers\ProfileController', 'deleteTrip'])->setName('trip.deleteTrip');
 
 
@@ -51,14 +50,11 @@ $app->post('/joinProfile', ['Trippi\Controllers\JoinTripController', 'joinTrip']
 
 $app->get('/profileTrip/{tripId}/{email}', ['Trippi\Controllers\ProfileController', 'getUneditedTrip'])->setName('trip.getUneditedTrip');
 
-
-
 $app->get('/getProfile/{email}', ['Trippi\Controllers\HomeController', 'getProfile'])->setName('trip.getProfile');
-
-
 
 $app->get('/removeTrip/{tripId}/{email}', ['Trippi\Controllers\ProfileController', 'removeTrip'])->setName('trip.removeTrip');
 
+$app->post('/delete_profile/{email}', ['Trippi\Controllers\ProfileController', 'delete_profile'])->setName('deleteProfile');
 
 
 
