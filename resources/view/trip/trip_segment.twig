@@ -7,7 +7,7 @@
             <h1>Would you like to add a trip segment?</h1>
             <h2>TripName: {{ tripName }}</h2>
             <h3>TripId: {{ tripId }}</h3>
-            <form action="{{ path_for('addLocationDetails') }}" method="post">
+            <form action="{{ path_for('addLocationDetails', {email: userEmail}) }}" method="post">
 
                 <div class="form-group">
 
@@ -58,9 +58,7 @@
         </div>
         <div class="col-md-4">
 
-            <h2>Return To Profile?</h2>
-
-            <td><a href="http://localhost/trippi-ubc-cs304-project/public/profile"><h3>Go Back To Profile</h3></a></td>
+            <h4><a href = "{{ path_for('trip.getProfile', {email: userEmail}) }}" method="get"> Return to profile </a></h4>
 
 
         </div>
