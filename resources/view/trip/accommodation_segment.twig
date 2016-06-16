@@ -1,0 +1,103 @@
+{% extends 'templates/app.twig' %}
+
+{% block content %}
+
+    <div class ="row">
+        <div class="col-md-8">
+            <h1>Add activities for the locations you just added to your trip?</h1>
+            <h2>TripName: {{ tripName }}</h2>
+            <h3>TripId: {{ tripId }}</h3>
+            {#<h4>StartingLocation: {{ startLocation }}</h4>#}
+            {#<h5>StartingLocationId: {{ startLocationId }}</h5>#}
+            {#<h4>EndingLocation: {{ endLocation }}</h4>#}
+            {#<h5>EndingLocationId: {{ endLocationId }}</h5>#}
+
+            <form action="{{ path_for('addLocationAccommodations', {locationId1: startLocationId, locationId2: endLocationId, tripId: tripId}) }}" method="post">
+
+                <div class="form-group">
+
+                    <label for="nameHotelStart">Name of Hotel for: {{ startLocation }}</label>
+
+                    <input type="text" name="nameHotelStart" id="nameHotelStart" class="form-control">
+
+                </div>
+
+                <h4>From</h4>
+
+                <div class="form-group">
+
+                    <label for="typeHotelStart">type of hotel for: {{ startLocation }}</label>
+
+                    <input type="text" name="typeHotelStart" id="typeHotelStart" class="form-control">
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="dateCheckInStart">Date of checkout {{ startLocation }}</label>
+
+                    <input type="text" name="dateCheckInStart" id="dateCheckInStart" class="form-control">
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="dateCheckoutStart">Date of checkIn: {{ startLocation }}</label>
+
+                    <input type="text" name="dateCheckoutStart" id="dateCheckoutStart" class="form-control">
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="nameHotelEnd">Name of Hotel for: {{ endLocation }}</label>
+
+                    <input type="text" name="nameHotelEnd" id="nameHotelEnd" class="form-control">
+
+                </div>
+
+                <h4>From</h4>
+
+                <div class="form-group">
+
+                    <label for="typeHotelEnd">type of hotel for: {{ endLocation }}</label>
+
+                    <input type="text" name="typeHotelEnd" id="typeHotelEnd" class="form-control">
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="dateCheckInEnd">Date of checkout {{ startLocation }}</label>
+
+                    <input type="text" name="dateCheckInEnd" id="dateCheckInEnd" class="form-control">
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="dateCheckoutEnd">Date of checkIn: {{ startLocation }}</label>
+
+                    <input type="text" name="dateCheckoutEnd" id="dateCheckoutEnd" class="form-control">
+
+                </div>
+
+
+                <button type="submit" class="btn btn-default">add details</button>
+
+
+
+
+            </form>
+
+        </div>
+        <div class="col-md-4">
+
+            <td><a href="#"><h3>Go Back To Profile?</h3></a></td>
+
+
+        </div>
+
+    </div>
+
+{% endblock %}
