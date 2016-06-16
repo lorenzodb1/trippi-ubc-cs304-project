@@ -190,10 +190,20 @@ FOR EACH ROW UPDATE user
 						 SET karma = karma + 1
 						 WHERE NEW.email = user.email;
 
+CREATE DEFINER = `root`@`localhost` TRIGGER `no_karma_plan` AFTER DELETE ON `plan`
+FOR EACH ROW UPDATE user
+						 SET karma = karma - 1
+						 WHERE OLD.email = user.email;
+
 CREATE DEFINER = `root`@`localhost` TRIGGER `karma_join` AFTER INSERT ON `joins`
 FOR EACH ROW UPDATE user
              SET karma = karma + 1
              WHERE NEW.email = user.email;
+
+CREATE DEFINER = `root`@`localhost` TRIGGER `no_karma_join` AFTER DELETE ON `joins`
+FOR EACH ROW UPDATE user
+						 SET karma = karma - 1
+						 WHERE OLD.email = user.email;
 
 CREATE DEFINER = `root`@`localhost` TRIGGER `avg_rating` AFTER INSERT ON `userRating`
 FOR EACH ROW UPDATE user
