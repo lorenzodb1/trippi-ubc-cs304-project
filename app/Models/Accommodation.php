@@ -64,14 +64,33 @@ class Accommodation {
     } 
 
     public function addNewAccommodation( $name, $type, $cost, $rating, $startDate, $endDate, $locationID ) {
-        
-
         $query = "INSERT INTO `accomodation`(`name`, `type`, `cost`, `rating`, `startDate`, `endDate`, `locationID`) VALUES (" . ModelsUtils::mysqlstring( $name ) . "," . ModelsUtils::mysqlstring( $type ) . "," . ModelsUtils::mysqlstring( $cost ) . "," . ModelsUtils::mysqlstring( $rating ) . "," . ModelsUtils::mysqlstring( $startDate ) . "," . ModelsUtils::mysqlstring( $endDate ) . "," . ModelsUtils::mysqlstring( $locationID ) . ")";
-        
-        var_dump($query);
-        
+                
         return $this->submitQuery( $query );
     }  
+
+    public function updateAccommodation( $name, $type, $cost, $rating, $startDate, $endDate, $locationID) {
+        $query = "UPDATE `accomodation` 
+                  SET `cost`=" . ModelsUtils::mysqlString($cost) .",
+                      `rating`=" . ModelsUtils::mysqlString($rating) .",
+                      `startDate`=" . ModelsUtils::mysqlString($startDate) .",
+                      `endDate`=" . ModelsUtils::mysqlString($endDate) ." 
+                  WHERE `locationID`=" . ModelsUtils::mysqlString($locationID) ." AND 
+                        `name`=" . ModelsUtils::mysqlString($name) ." AND 
+                        `type`=" . ModelsUtils::mysqlString($type) ."";
+                        
+        return $this->submitQuery( $query );
+    }
+
+    public function doesAccommodationExist( $name, $type, $locationID ) {
+        $query = "SELECT * 
+                  FROM `accomodation` 
+                  WHERE `name`=" . ModelsUtils::mysqlString($name) ."  AND 
+                        `type`=" . ModelsUtils::mysqlString($type) ."  AND 
+                        `locationID`=" . ModelsUtils::mysqlString($locationID) ." ";
+
+        return $this->returnResult( $this->submitQuery( $query ) );
+    }
 
     private function submitQuery($query){
         $db = new Db();

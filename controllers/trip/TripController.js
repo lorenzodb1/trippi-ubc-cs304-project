@@ -102,31 +102,93 @@ var ACC_RATING_INPUT = "#accommodations-rating-input";
 var ACC_STARTDATE_INPUT = "#accommodations-startDate-input";
 var ACC_TODATE_INPUT = "#accommodations-fromDate-input";
 
-function updateAccommodations( ) {
-  var GET_INDEX_ID = "#activity-modal-index";
-  var index = $( GET_INDEX_ID ).val( );
+function showAccommodationsModal( action, index ) {
+  if( action == 'update') {
 
-  var url = "http://localhost/trippi-ubc-cs304-project/public/accommodations";
+    // Disable Key Inputs
+    $( ACC_NAME_INPUT ).prop( 'disabled', true );
+    $( ACC_TYPE_INPUT ).prop( 'disabled', true );
+    $( ACC_CITY_INPUT ).prop( 'disabled', true );
+    $( ACC_COUNTRY_INPUT ).prop( 'disabled', true );
 
-  var getNameValue = $( ACC_NAME_INPUT ).val( );
-  var getCityValue = $( ACC_CITY_INPUT ).val( );
-  var getCountryValue = $( ACC_COUNTRY_INPUT ).val( );
-  var getTypeValue = $( ACC_TYPE_INPUT ).val( );
-  var getCostValue = $( ACC_COST_INPUT ).val( );
-  var getRatingValue = $( ACC_RATING_INPUT ).val( );
-  var getStartDatValue = $( ACC_STARTDATE_INPUT ).val( );
-  var getToDatValue = $( ACC_TODATE_INPUT ).val( );
+    // Selet Values from Row with Index
+    // DB Values
+    var ACC_NAME = "acc-name-" + index;
+    var ACC_CITY = "acc-city-" + index;
+    var ACC_COUNTRY = "acc-country-" + index;
+    var ACC_TYPE = "acc-type-" + index;
+    var ACC_RATING = "acc-rating-" + index;
+    var ACC_STARTDATE = "acc-fromDate-" + index;
+    var ACC_TODATE = "acc-toDate-" + index;
 
-  createTripForm( POST, url, {
-    name: getNameValue,
-    city: getCityValue,
-    country: getCountryValue,
-    type: getTypeValue,
-    cost: getCostValue,
-    rating: getRatingValue,
-    startDate: getStartDatValue,
-    toDate: getToDatValue
-  });
+
+    var getNameValue = document.getElementById( ACC_NAME ).innerHTML;
+    var getCityValue = document.getElementById( ACC_CITY ).innerHTML;
+    var getCountryValue = document.getElementById( ACC_COUNTRY ).innerHTML;
+    var getTypeValue = document.getElementById( ACC_TYPE ).innerHTML;
+    var getRatingValue = document.getElementById( ACC_RATING ).innerHTML;
+    var getStartDatValue = document.getElementById( ACC_STARTDATE ).innerHTML;
+    var getToDateValue = document.getElementById( ACC_TODATE ).innerHTML;
+
+    $( ACC_NAME_INPUT ).val( getNameValue );
+    $( ACC_CITY_INPUT ).val( getCityValue );
+    $( ACC_COUNTRY_INPUT ).val( getCountryValue );
+    $( ACC_TYPE_INPUT ).val( getTypeValue );
+    $( ACC_COST_INPUT ).val( '' );
+    $( ACC_RATING_INPUT ).val( getRatingValue );    
+    $( ACC_STARTDATE_INPUT ).val( getStartDatValue );
+    $( ACC_TODATE_INPUT ).val( getToDateValue );    
+
+  } else {
+      // Enable Key Inputs
+      $( ACC_NAME_INPUT ).prop( 'disabled', false );
+      $( ACC_TYPE_INPUT ).prop( 'disabled', false );
+      $( ACC_CITY_INPUT ).prop( 'disabled', false );
+      $( ACC_COUNTRY_INPUT ).prop( 'disabled', false );
+
+      // Clear all fields
+      $( ACC_NAME_INPUT ).val( '' );
+      $( ACC_CITY_INPUT ).val( '' );
+      $( ACC_COUNTRY_INPUT ).val( '' );
+      $( ACC_TYPE_INPUT ).val( '' );
+      $( ACC_COST_INPUT ).val( '' );
+      $( ACC_RATING_INPUT ).val( '' ); 
+      $( ACC_STARTDATE_INPUT ).val( '' );
+      $( ACC_TODATE_INPUT ).val( '' );          
+  }
+}
+
+function updateAccommodations( action, index ) {
+
+    var GET_INDEX_ID = "#activity-modal-index";
+    var index = $( GET_INDEX_ID ).val( );
+
+    var url = "http://localhost/trippi-ubc-cs304-project/public/accommodations";
+
+    var getNameValue = $( ACC_NAME_INPUT ).val( );
+    var getCityValue = $( ACC_CITY_INPUT ).val( );
+    var getCountryValue = $( ACC_COUNTRY_INPUT ).val( );
+    var getTypeValue = $( ACC_TYPE_INPUT ).val( );
+    var getCostValue = $( ACC_COST_INPUT ).val( );
+
+    if( getCostValue ) {
+      getCostValue = '0';
+    }
+
+    var getRatingValue = $( ACC_RATING_INPUT ).val( );
+    var getStartDatValue = $( ACC_STARTDATE_INPUT ).val( );
+    var getToDatValue = $( ACC_TODATE_INPUT ).val( );
+
+    createTripForm( POST, url, {
+      name: getNameValue,
+      city: getCityValue,
+      country: getCountryValue,
+      type: getTypeValue,
+      cost: getCostValue,
+      rating: getRatingValue,
+      startDate: getStartDatValue,
+      toDate: getToDatValue
+    });
 }
 
 

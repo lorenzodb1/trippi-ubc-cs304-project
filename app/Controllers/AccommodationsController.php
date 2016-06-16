@@ -48,7 +48,14 @@ class AccommodationsController {
             $locationID = $locationID['locationID'];
           }
 
-          $acc->addNewAccommodation( $name, $type, $cost, $rating, $startDate, $toDate, $locationID );
+          if( $acc->doesAccommodationExist( $name, $type, $locationID ) ) {
+              $acc->updateAccommodation( $name, $type, $cost, $rating, $startDate, $toDate, $locationID );
+
+          } else {
+              $acc->addNewAccommodation( $name, $type, $cost, $rating, $startDate, $toDate, $locationID );            
+          }
+
+
         }
 
 

@@ -92,13 +92,18 @@
                         <tbody>
                         {% for index, accom in accommodations %}
                             <tr>
-                                <td>{{ accom.city }} </td>
-                                <td>{{ accom.country }} </td>
-                                <td>{{ accom.name }}</td>
-                                <td>{{ accom.type }}</td>
-                                <td>{{ accom.rating }}</td>
-                                <td>{{ accom.from }}</td>
-                                <td>{{ accom.to }}</td>
+                                <td id="acc-city-{{ index }}">{{ accom.city }} </td>
+                                <td id="acc-country-{{ index }}">{{ accom.country }} </td>
+                                <td id="acc-name-{{ index }}">{{ accom.name }}</td>
+                                <td id="acc-type-{{ index }}">{{ accom.type }}</td>
+                                <td id="acc-rating-{{ index }}">{{ accom.rating }}</td>
+                                <td id="acc-fromDate-{{ index }}">{{ accom.from }}</td>
+                                <td id="acc-toDate-{{ index }}">{{ accom.to }}</td>
+                                <td>
+                                    <button style="float: right;" type="button" class="btn btn-info" data-toggle="modal" data-target="#accommodationsModal" onclick="showAccommodationsModal( 'update', {{ index }} )">
+                                        <span class="glyphicon glyphicon-option-horizontal" aria-hidden="true"></span>
+                                    </button> 
+                                </td>
                             </tr>
                         {% endfor %}
                         </tbody>
