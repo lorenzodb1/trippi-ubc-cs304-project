@@ -12,7 +12,14 @@ class Activities {
 
     public function updateActivity( $city, $country, $activityName, $place, $cost, $date ) {
         $db = new Db();
-        $query = "UPDATE `activity` SET `cost`=" . $this->mysqlString($cost) .",`name`=" . $this->mysqlString($activityName) . " WHERE `locationID` IN ( SELECT `locationID` FROM `location` WHERE `city`=" . $this->mysqlString($city) .  " AND `country`=" . $this->mysqlString($country) .  ") AND `place`=" . $this->mysqlString($place) .  " AND `adate`=" . $this->mysqlString($date) .  "";
+        $query = "UPDATE `activity` 
+                  SET `cost`=" . $this->mysqlString($cost) .",`name`=" . $this->mysqlString($activityName) . " 
+                  WHERE `locationID` IN (SELECT `locationID` 
+                                         FROM `location` 
+                                         WHERE `city`=" . $this->mysqlString($city) .  " AND 
+                                               `country`=" . $this->mysqlString($country) .  ") AND 
+                                               `place`=" . $this->mysqlString($place) .  " AND 
+                                               `adate`=" . $this->mysqlString($date);
 
         return $this->returnResult( $this->submitQuery($query) );
     }

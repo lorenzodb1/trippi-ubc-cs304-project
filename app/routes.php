@@ -56,6 +56,7 @@ $app->get('/removeTrip/{tripId}/{email}', ['Trippi\Controllers\ProfileController
 
 $app->post('/delete_profile/{email}', ['Trippi\Controllers\ProfileController', 'delete_profile'])->setName('deleteProfile');
 
+$app->post('/update_profile/{email}', ['Trippi\Controllers\ProfileController', 'update_profile'])->setName('updateProfile');
 
 
 
