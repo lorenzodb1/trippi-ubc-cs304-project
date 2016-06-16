@@ -32,6 +32,10 @@ class ProfileController{
         $activities = $tripModel->getActivitiesByTripId($tripId);
         $tripNames = $tripModel->getTripNameById($tripId);
         $users = $tripModel->searchUsersOnTrip($tripId);
+
+        if ( $email ) {
+            $email = "unknown";
+        }
         
 
 

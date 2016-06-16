@@ -334,7 +334,7 @@ function searchResponseHandler(returnedResponse) {
       var aboutMe = ((item.aboutMe) ? item.aboutMe : "" );
 
       var row = $("<tr id='result-" + (numResultROws+1) + "'>" +
-        "<td><a href='http://localhost/trippi-ubc-cs304-project/public/profile/" + tripId + "'>" + tripId + "</td>" +
+        "<td><a href='http://localhost/trippi-ubc-cs304-project/public/profileTrip/" + tripId + "/null'>" + tripId + "</td>" +
         "<td colspan='2'>" + tripName  + "</td>" +
         "<td>" + rating + "</td>" +
         "<td colspan='4'>" + comment + "</td>" +
