@@ -41,7 +41,8 @@ class ProfileController{
             'activities'=>$activities,
             'tripNames'=>$tripNames,
             'users'=>$users,
-            'userEmail' => $email
+            'userEmail' => $email,
+            'tripId' => $tripId
         ]);
     }
 
@@ -65,7 +66,8 @@ class ProfileController{
             'activities'=>$activities,
             'tripNames'=>$tripNames,
             'users'=>$users,
-            'userEmail' => $email
+            'userEmail' => $email,
+            'tripId' => $tripId
         ]);
     }
     

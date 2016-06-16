@@ -17,6 +17,7 @@ $app->post('/new_profile/{email}', ['Trippi\Controllers\NewProfileController', '
 
 // Locations
 $app->get('/locations', ['Trippi\Controllers\LocationsController', 'searchByLocation'])->setName('searchByLocation');
+$app->post('/locations', ['Trippi\Controllers\LocationsController', 'addLocationToTrip'])->setName('addLocationToTrip');
 
 // Activities
 $app->post('/activities', ['Trippi\Controllers\ActivitiesController', 'updateActivity'])->setName('updateActivity');

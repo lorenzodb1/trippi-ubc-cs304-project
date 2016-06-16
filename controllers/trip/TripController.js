@@ -3,7 +3,9 @@
  */
 var POST = 'POST';
 
-// Modal IDs
+var TRIPID_ID = "#tripId-id";
+
+// Activity IDs
 var CITY_INPUT_ID = "#activity-city-input";
 var COUNTRY_INPUT_ID = "#activity-country-input";
 var NAME_INPUT_ID = "#activity-activity-name-input";
@@ -60,6 +62,46 @@ function updateActivity( ) {
     cost: getCostValue,
     date: getDateValue
   });
+}
+
+// Location IDs
+var LOC_CITY1_INPUT_ID = "#location-city1-input";
+var LOC_COUNTRY1_INPUT_ID = "#location-country1-input";
+var LOC_CITY2_INPUT_ID = "#location-city2-input";
+var LOC_COUNTRY2_INPUT_ID = "#location-country2-input";
+var LOC_TYPE_INPUT_ID = "#location-type-input";
+var LOC_FROMDATE_INPUT_ID = "#location-fromdate-input";
+var LOC_TODATE_INPUT_ID = "#location-todate-input";
+
+function updateLocation( action ) { 
+  if( action == 'add' ) {
+    var url = "http://localhost/trippi-ubc-cs304-project/public/locations";
+
+    var getTripId1Value = $( TRIPID_ID ).text( );
+    var getCIty1Value = $( LOC_CITY1_INPUT_ID ).val( );
+    var getCountry1Value = $( LOC_COUNTRY1_INPUT_ID ).val( );
+    var getCIty2Value = $( LOC_CITY2_INPUT_ID ).val( );
+    var getCountry2Value = $( LOC_COUNTRY2_INPUT_ID ).val( );
+    var getTypeValue = $( LOC_TYPE_INPUT_ID ).val( );
+    var getFromDateValue = $( LOC_FROMDATE_INPUT_ID ).val( );
+    var getToDateValue = $( LOC_TODATE_INPUT_ID ).val( );
+
+    if( getTypeValue && getFromDateValue && getToDateValue ) {
+   
+      createTripForm( POST, url, {
+        tripID: getTripId1Value,
+        city1: getCIty1Value,
+        country1: getCountry1Value,
+        city2: getCIty2Value,
+        country2: getCountry2Value,
+        type: getTypeValue,
+        fromDate: getFromDateValue,
+        toDate: getToDateValue
+      });
+
+    }
+
+  } 
 }
 
 
