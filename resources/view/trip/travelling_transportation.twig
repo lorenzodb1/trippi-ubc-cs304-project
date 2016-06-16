@@ -4,41 +4,12 @@
 
     <div class ="row">
         <div class="col-md-8">
-            <h1>Add traveling segment for the locations you just added to your trip?</h1>
-            <h2>TripName: {{ tripName }}</h2>
-            <h3>TripId: {{ tripId }}</h3>
-            <h4>StartingLocation: {{ startLocation }}</h4>
-            <h5>StartingLocationId: {{ startLocationId }}</h5>
-            <h4>EndingLocation: {{ endLocation }}</h4>
-            <h5>EndingLocationId: {{ endLocationId }}</h5>
 
-            <form action="{{ path_for('addTransportationDetails') }}" method="post">
+            <h2>Add transportation for this segment</h2>
+            <h3>TripName: {{ tripName }}</h3>
 
-                <div class="form-group">
 
-                    <label for="tripId">TripId</label>
-
-                    <input type="text" name="tripId" id="tripId" class="form-control">
-
-                </div>
-
-                <h4>From</h4>
-
-                <div class="form-group">
-
-                    <label for="startingLocationId">Starting LocationId</label>
-
-                    <input type="text" name="startingLocationId" id="startingLocationId" class="form-control">
-
-                </div>
-
-                <div class="form-group">
-
-                    <label for="endingLocationId">endingLocationId</label>
-
-                    <input type="text" name="endingLocationId" id="endingLocationId" class="form-control">
-
-                </div>
+            <form action="{{ path_for('addTransportationDetails', {email: email, tripId: tripId, tripName: tripName, startLocationId: startLocationId , endLocationId: endLocationId }) }}" method="post">
 
                 <div class="form-group">
 
@@ -64,18 +35,15 @@
 
                 </div>
 
-
                 <button type="submit" class="btn btn-default">add details</button>
-
-
-
 
             </form>
 
         </div>
         <div class="col-md-4">
 
-            <td><a href="#"><h3>Go Back To Profile?</h3></a></td>
+            <h4><a href = "{{ path_for('trip.getProfile', {email: email}) }}" method="get"> Return to profile </a></h4>
+
 
 
         </div>

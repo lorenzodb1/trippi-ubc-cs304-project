@@ -4,29 +4,24 @@
 
     <div class ="row">
         <div class="col-md-8">
-            <h1>Add activities for the locations you just added to your trip?</h1>
-            <h2>TripName: {{ tripName }}</h2>
-            <h3>TripId: {{ tripId }}</h3>
-            {#<h4>StartingLocation: {{ startLocation }}</h4>#}
-            {#<h5>StartingLocationId: {{ startLocationId }}</h5>#}
-            {#<h4>EndingLocation: {{ endLocation }}</h4>#}
-            {#<h5>EndingLocationId: {{ endLocationId }}</h5>#}
+            <h2>Add activities for this segment</h2>
+            <h3>TripName: {{ tripName }}</h3>
 
-            <form action="{{ path_for('addLocationActivities', {locationId1: startLocationId, locationId2: endLocationId, tripId: tripId}) }}" method="post">
+
+            <form action="{{ path_for('addLocationActivities', {email: email, locationId1: startLocationId, locationId2: endLocationId, tripId: tripId, tripName: tripName}) }}" method="post">
 
                 <div class="form-group">
 
-                    <label for="nameActivityStart">Name of Activity for {{ startLocation }}</label>
+                    <label for="nameActivityStart">Name of Activity for: {{ startLocation }}</label>
 
                     <input type="text" name="nameActivityStart" id="nameActivityStart" class="form-control">
 
                 </div>
 
-                <h4>From</h4>
 
                 <div class="form-group">
 
-                    <label for="placeActivityStart">Place of Activity for {{ startLocation }}</label>
+                    <label for="placeActivityStart">Place of Activity for: {{ startLocation }}</label>
 
                     <input type="text" name="placeActivityStart" id="placeActivityStart" class="form-control">
 
@@ -34,7 +29,7 @@
 
                 <div class="form-group">
 
-                    <label for="dateActivityStart">Date of Activity for {{ startLocation }}</label>
+                    <label for="dateActivityStart">Date of Activity for: {{ startLocation }}</label>
 
                     <input type="text" name="dateActivityStart" id="dateActivityStart" class="form-control">
 
@@ -43,17 +38,16 @@
 
                 <div class="form-group">
 
-                    <label for="nameActivityEnd">Name of Activity for {{ endLocation }}</label>
+                    <label for="nameActivityEnd">Name of Activity for: {{ endLocation }}</label>
 
                     <input type="text" name="nameActivityEnd" id="nameActivityEnd" class="form-control">
 
                 </div>
 
-                <h4>From</h4>
 
                 <div class="form-group">
 
-                    <label for="placeActivityEnd">Place of Activity for {{ startLocation }}</label>
+                    <label for="placeActivityEnd">Place of Activity for: {{ startLocation }}</label>
 
                     <input type="text" name="placeActivityEnd" id="placeActivityEnd" class="form-control">
 
@@ -61,7 +55,7 @@
 
                 <div class="form-group">
 
-                    <label for="dateActivityEnd">Date of Activity for {{ startLocation }}</label>
+                    <label for="dateActivityEnd">Date of Activity for: {{ startLocation }}</label>
 
                     <input type="text" name="dateActivityEnd" id="dateActivityEnd" class="form-control">
 
@@ -78,7 +72,7 @@
         </div>
         <div class="col-md-4">
 
-            <td><a href="#"><h3>Go Back To Profile?</h3></a></td>
+            <h4><a href = "{{ path_for('trip.getProfile', {email: email}) }}" method="get"> Return to profile </a></h4>
 
 
         </div>

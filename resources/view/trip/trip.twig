@@ -7,12 +7,12 @@
             <h1> Trip Information </h1>           
             <span id="tripId-id" style="visibility: hidden;">{{ tripId }}</span>
             {% for index, name in tripNames %}
+
                 <h2> {{ name.tripName }} </h2>
+                <h3><a href = "{{ path_for('modifyLocationDetails', {email: userEmail, tripName: name.tripName, tripId: tripId}) }}" method="get"> Add a segment to this trip </a></h3>
+
             {% endfor %}
-
-
             <h3 style="display: inline-block;">Locations</h3>
-
             {% if locations %}
                 <div class="well">
                     <table class ="table">
