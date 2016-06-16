@@ -45,6 +45,15 @@
         </div>
 
         <div class="col-md-8">
+
+            <div class="col-md-4"></div>
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <h4><a href = "{{ path_for('trip.getProfile', {email: uemail}) }}" method="get"> Return to profile </a></h4>
+                <h4><a href = "{{ path_for('trip.getAllTrips', {email: uemail}) }}" method="get"> View all Trippi Trips </a></h4>
+            </div>
+
+
             {% for index, user in users %}
                 <h3>{% include 'profile/partials/other_profile_item.twig' with {user: user}%} Planned Trips</h3>
             {% endfor %}
@@ -98,7 +107,7 @@
                         <tbody>
                         {% for index, trip in joinedTrips %}
                             <tr>
-                                <td><a href="{{ path_for('trip.getTrip', {tripId: trip.id})}}" method="get">{{ trip.id }}</a></td>
+                                <td><a href="{{ path_for('trip.getTrip', {tripId: trip.id, email: uemail})}}" method="get">{{ trip.id }}</a></td>
                                 <td>{{ trip.tripName }}</td>
                                 <td>{{ trip.from }}</td>
                                 <td>{{ trip.to }}</td>
@@ -113,8 +122,6 @@
 
             {% endif %}
 
-            <h3>All Trippi Trips</h3>
-            <p><a href = "{{ path_for('trip.getAllTrips') }}" method="get"> View </a></p>
 
             {% for index, user in users %}
                 <h3>{% include 'profile/partials/other_profile_item.twig' with {user: user}%} ratings from other users</h3>
