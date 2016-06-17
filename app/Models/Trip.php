@@ -185,7 +185,7 @@ class Trip{
                   FROM location l1, location l2, travelling_transportation t
                   WHERE l1.locationID = t.from_locationID AND 
                         l2.locationID = t.to_locationID AND " .
-                        $this->mysqlString($tripId) . "= t.tripID";
+                        ModelsUtils::mysqlString($tripId) . "= t.tripID";
 
         return $this->returnResult( $this->submitQuery($query));
     }
